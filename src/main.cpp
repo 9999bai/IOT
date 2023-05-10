@@ -30,7 +30,6 @@ int main()
 
     EventLoop loop;
     GatewayManage manage(&loop, v_gateway, mqttconf);
-    // manage.setMQTTSendCallback(std::bind(&MQTTClient::publicTopic, &mqttclient, std::placeholders::_1));
     manage.start();
     loop.loop();
 
