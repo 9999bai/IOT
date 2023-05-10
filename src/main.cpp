@@ -28,7 +28,7 @@ int main()
     mqttconf.publishTopic = "/pub/test";
     mqttconf.subscribeTopic = "/sub/test";
 
-    // -- loop
+    // loop
     EventLoop loop;
     GatewayManage manage(&loop, v_gateway, mqttconf);
     manage.start();
