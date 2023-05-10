@@ -314,7 +314,7 @@ void MysqlDatabase::getTemplateConfigure(int template_id, std::vector<iot_templa
                 templat.priority = (enum_priority)priority;
 
                 LOG_INFO("MysqlDatabase::getTemplateConfigure() --%d--%s--%d--%d--%d--%s--%d--%d--%s--%d--%s--%d--%d--%d--\n",\
-                        (int)templat.template_id, templat.register_addr.c_str(), (int)templat.register_quantity,\ 
+                        (int)templat.template_id, templat.register_addr.c_str(), (int)templat.register_quantity,\
                         (int)templat.r_func, (int)templat.w_func, templat.param_name.c_str(),\
                         (int)templat.data_type, (int)templat.byte_order, templat.correct_mode.c_str(),\
                         templat.param_id, templat.data_unit.c_str(), templat.send_type,\
