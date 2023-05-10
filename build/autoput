@@ -1,0 +1,9 @@
+put libAnalyse.so 
+put libDatabase.so                                    
+put libFactory.so 
+put libFrame.so                                 
+put libMediator.so 
+put libmyHelper.so                            
+put libNetSerial.so 
+put libObserver.so 
+put -O /bai mai

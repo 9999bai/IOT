@@ -1,0 +1,279 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"jsonFile" : "directory-src-Debug-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "src/myHelper",
+					"jsonFile" : "directory-src.myHelper-Debug-d3e53916b902de921343.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/myHelper",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "src/Database",
+					"jsonFile" : "directory-src.Database-Debug-5129ef585fbda1694864.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Database",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "src/Analyse",
+					"jsonFile" : "directory-src.Analyse-Debug-06e11136fce3a81baf28.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Analyse",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src/Frame",
+					"jsonFile" : "directory-src.Frame-Debug-082b743d9f5f007895f6.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Frame",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "src/Mediator",
+					"jsonFile" : "directory-src.Mediator-Debug-d5071f7606f7ccf1cb0e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Mediator",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "src/NetSerial",
+					"jsonFile" : "directory-src.NetSerial-Debug-621e91e9cbca618c68e5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/NetSerial",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "src/Observer",
+					"jsonFile" : "directory-src.Observer-Debug-24abd671ed1e0cebb488.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Observer",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "src/Factory",
+					"jsonFile" : "directory-src.Factory-Debug-21a0ca836063e15730be.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Factory",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9
+					],
+					"name" : "iot_gateway",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 4,
+					"id" : "Analyse::@caeb3e34792b2e589e8c",
+					"jsonFile" : "target-Analyse-Debug-453232d7006cd510981b.json",
+					"name" : "Analyse",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "Database::@5eb6e4339f171c30ab95",
+					"jsonFile" : "target-Database-Debug-400f0e5985e00b37b7b4.json",
+					"name" : "Database",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "Factory::@4a68c72ba6922cc4b164",
+					"jsonFile" : "target-Factory-Debug-41654fd8fc429bbf39a4.json",
+					"name" : "Factory",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "Frame::@42d89143f2870ea67c12",
+					"jsonFile" : "target-Frame-Debug-0f9465445a7cf78fdd77.json",
+					"name" : "Frame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "Mediator::@9666e8d13ca5965c375d",
+					"jsonFile" : "target-Mediator-Debug-c7d54542f024c67ad7b1.json",
+					"name" : "Mediator",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "NetSerial::@7c1e9210808bd4244572",
+					"jsonFile" : "target-NetSerial-Debug-c0a27d819c2dd647a4f9.json",
+					"name" : "NetSerial",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "Observer::@fc011238b54f2d4d129a",
+					"jsonFile" : "target-Observer-Debug-0d6b98aa7dc1a41b398f.json",
+					"name" : "Observer",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "main::@145eef247bfb46b6828c",
+					"jsonFile" : "target-main-Debug-1536369cf7b95cb1080b.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "myHelper::@f337bba3e11ccd596114",
+					"jsonFile" : "target-myHelper-Debug-5d034e3e294f6bfceb62.json",
+					"name" : "myHelper",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/brian/iot4/build",
+		"source" : "/home/brian/iot4"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
