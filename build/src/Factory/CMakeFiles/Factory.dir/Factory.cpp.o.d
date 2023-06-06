@@ -226,7 +226,10 @@ src/Factory/CMakeFiles/Factory.dir/Factory.cpp.o: \
  /home/brian/iot4/src/Frame/Frame.h /usr/include/mymuduo/InetAddress.h \
  /home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h \
  /usr/include/mymuduo/SerialPort.h /usr/include/mymuduo/TcpConnection.h \
- /usr/include/mymuduo/Buffer.h /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/Buffer.h /usr/include/mymuduo/AbstractConnection.h \
+ /usr/include/mymuduo/Socket.h /usr/include/mymuduo/Channel.h \
  /home/brian/iot4/src/NetSerial/myTcpClient/myTcpClient.h \
- /usr/include/mymuduo/TcpClient.h /usr/include/mymuduo/Connector.h \
+ /usr/include/mymuduo/TcpClient.h \
+ /usr/include/mymuduo/TcpClientConnector.h \
+ /usr/include/mymuduo/AbstractConnector.h \
  /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h

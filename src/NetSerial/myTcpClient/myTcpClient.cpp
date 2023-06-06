@@ -1,8 +1,9 @@
 #include "myTcpClient.h"
+#include "/usr/include/mymuduo/AbstractConnection.h"
 
 myTcpClient::myTcpClient(EventLoop *loop, const iot_gateway& gateway) 
             : NetSerial(loop)
-            , tcpClient_(loop, InetAddress(gateway.net.port, gateway.net.ip), "tcpclient")
+            , tcpClient_(loop, "tcpclient", InetAddress(gateway.net.port, gateway.net.ip))
 {
     tcpClient_.setMessageCallback(std::bind(&myTcpClient::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     tcpClient_.setConnectionCallback(std::bind(&myTcpClient::onConnection, this, std::placeholders::_1));
@@ -52,7 +53,7 @@ void myTcpClient::getNextFrame()
     }
 }
 
-void myTcpClient::onConnection(const TcpConnectionPtr &conn)
+void myTcpClient::onConnection(const ConnectionPtr &conn)
 {
     if(conn->connected())
     {
@@ -72,7 +73,7 @@ void myTcpClient::onConnection(const TcpConnectionPtr &conn)
     }
 }
 
-void myTcpClient::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void myTcpClient::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     buff_.append(msg.c_str(), msg.size());

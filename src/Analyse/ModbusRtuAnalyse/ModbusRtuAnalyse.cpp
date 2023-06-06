@@ -16,18 +16,10 @@ ModbusRtuAnalyse::~ModbusRtuAnalyse()
 
 void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextframe)
 {
-    LOG_INFO("ModbusRtuAnalyse::AnalyseFunc v_data.capacity()=%d",v_data.capacity());
+    // LOG_INFO("ModbusRtuAnalyse::AnalyseFunc v_data.capacity()=%d",v_data.capacity());
     v_data.insert(v_data.end(), msg.begin(), msg.end());
     
-#ifdef SSSSS
-    
-#else
-    QueueData(1, setItem(1, 2, "3", 4, "5", "6"));
-#endif
-    v_data.clear();
-    return;
-
-    // LOG_INFO("ModbusRtuAnalyse::Analyse---start----   v_data.size = %d , curThread:id=%d", v_data.size(), CurrentThread::tid());
+    LOG_INFO("ModbusRtuAnalyse::Analyse---start----   v_data.size = %d , curThread:id=%d", v_data.size(), CurrentThread::tid());
 
     if (ModbusRtuAnalyseFrame_MinSize > v_data.size())
     {
@@ -235,7 +227,7 @@ bool ModbusRtuAnalyse::HandleData(const frame& v_data, const nextFrame& nextfram
         try{
             HandleByte_order(v_data, templat.byte_order);
             std::string res = HandleData_type(v_data, templat.data_type, templat.correct_mode);
-            // LOG_INFO("%s = %s", templat.param_name.c_str(), res.c_str());
+            LOG_INFO("%s = %s", templat.param_name.c_str(), res.c_str());
             QueueData(templat.send_type, setItem(device.gateway_id, device.device_id, device.device_addr, templat.param_id, templat.param_name, res));
         }
         catch(std::out_of_range)
@@ -274,7 +266,7 @@ bool ModbusRtuAnalyse::HandleData(const frame& v_data, const nextFrame& nextfram
                 {
                     res = HandleData_typeBit(v_data.at(it->s_addr), it->bit);
                 }
-                // LOG_INFO("%s = %s", it->param_name.c_str(), res.c_str());
+                LOG_INFO("%s = %s", it->param_name.c_str(), res.c_str());
                 QueueData(it->send_type, setItem(device.gateway_id, device.device_id, device.device_addr, it->param_id, it->param_name, res));
             }
         }

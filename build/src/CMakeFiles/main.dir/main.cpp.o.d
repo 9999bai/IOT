@@ -124,11 +124,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/ostream.tcc \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/istream \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/istream.tcc \
- /home/brian/iot4/src/GatewayManage.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/semaphore.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/semaphore.h \
- /usr/include/mymuduo/ThreadPool.h /usr/include/mymuduo/noncopyable.h \
- /usr/include/mymuduo/Thread.h \
+ /home/brian/iot4/src/GatewayManage.h /usr/include/mymuduo/ThreadPool.h \
+ /usr/include/mymuduo/noncopyable.h /usr/include/mymuduo/Thread.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/functional \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/typeinfo \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/tuple \
@@ -208,8 +205,9 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ttydefaults.h \
- /home/brian/iot4/src/myHelper/myHelper.h /usr/include/json-arm/json.h \
- /usr/include/json-arm/config.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h \
+ /usr/include/mymuduo/Channel.h /home/brian/iot4/src/myHelper/myHelper.h \
+ /usr/include/json-arm/json.h /usr/include/json-arm/config.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstddef \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/sstream \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/sstream.tcc \
@@ -238,7 +236,7 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
  /home/brian/iot4/src/Analyse/Analyse.h \
  /home/brian/iot4/src/Frame/Frame.h \
  /home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h \
- /usr/include/mymuduo/SerialPort.h /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/SerialPort.h \
  /home/brian/iot4/src/Frame/ModbusRtuFrame/ModbusRtuFrame.h \
  /home/brian/iot4/src/Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/strings.h \

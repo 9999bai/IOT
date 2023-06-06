@@ -222,6 +222,9 @@ src/NetSerial/CMakeFiles/NetSerial.dir/myTcpClient/myTcpClient.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/list \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_list.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc \
- /usr/include/mymuduo/TcpClient.h /usr/include/mymuduo/TcpConnection.h \
- /usr/include/mymuduo/InetAddress.h /usr/include/mymuduo/Buffer.h \
- /usr/include/mymuduo/Connector.h
+ /usr/include/mymuduo/TcpClient.h \
+ /usr/include/mymuduo/TcpClientConnector.h \
+ /usr/include/mymuduo/AbstractConnector.h \
+ /usr/include/mymuduo/InetAddress.h /usr/include/mymuduo/Channel.h \
+ /usr/include/mymuduo/TcpConnection.h /usr/include/mymuduo/Buffer.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h

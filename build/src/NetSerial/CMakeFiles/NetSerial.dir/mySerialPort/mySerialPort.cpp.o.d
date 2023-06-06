@@ -197,7 +197,8 @@ src/NetSerial/CMakeFiles/NetSerial.dir/mySerialPort/mySerialPort.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ttydefaults.h \
- /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h \
+ /usr/include/mymuduo/Channel.h \
  /home/brian/iot4/src/NetSerial/NetSerial.h \
  /home/brian/iot4/src/myHelper/myHelper.h /usr/include/json-arm/json.h \
  /usr/include/json-arm/config.h \

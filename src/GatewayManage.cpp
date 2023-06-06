@@ -3,6 +3,7 @@
 GatewayManage::GatewayManage(EventLoop* loop, const std::vector<iot_gateway>& v_gateway, const mqtt_info& mqttconf)
                 : loop_(loop)
                 , v_gateway_(v_gateway)
+                , sendFinish_(0)
                 , poolPtr_(std::make_shared<ThreadPool>("IOT_Gateway ThreadPool"))
 {
     endianMode();//大小端
@@ -14,18 +15,7 @@ GatewayManage::GatewayManage(EventLoop* loop, const std::vector<iot_gateway>& v_
     observerPtr_->setObserverRecvCallback(std::bind(&GatewayManage::onObserverRecv, this, std::placeholders::_1, std::placeholders::_2));
     observerPtr_->start();
     
-    // mqtt publish
-    sem_init(&sem_RD, false, 0);
-    sem_init(&sem_TD, false, 0);
-
-    poolPtr_->run(std::bind(&GatewayManage::sendDataTD, this));
-    poolPtr_->run(std::bind(&GatewayManage::sendDataRD, this));
-
-    loop_->runEvery(1, [&] () 
-    {
-        sem_post(&sem_RD);
-        sem_post(&sem_TD);
-    });
+    loop_->runEvery(1, std::bind(&GatewayManage::sendDataTimer, this));
 }
 
 GatewayManage::~GatewayManage()
@@ -314,12 +304,20 @@ void GatewayManage::start()
     }
 }
 
+void GatewayManage::sendDataTimer()
+{
+    poolPtr_->run(std::bind(&GatewayManage::sendDataTD, this));
+    if(sendFinish_ != 0)
+    {
+        LOG_INFO("sendFinish_ != 0  Sending is not complete....");
+        return;
+    }
+    sendFinish_ = 1;
+    poolPtr_->run(std::bind(&GatewayManage::sendDataRD, this));
+}
+
 void GatewayManage::sendDataRD()
 {
-    // LOG_INFO("sendDataRD currentID = %d", CurrentThread::tid());
-    sem_wait(&sem_RD);
-    // std::unique_lock<std::mutex> lock(cond_mutex_);
-    // cond_.wait(lock);
     while (!queue_iotdataRD_.empty())
     {
         iot_data_item item;
@@ -332,15 +330,11 @@ void GatewayManage::sendDataRD()
         observerPtr_->publicTopic(jsonStr);
         // LOG_INFO("MQTT publish RD size = %d", jsonStr.size());
     }
-    sendDataRD();
+    sendFinish_--;
 }
 
 void GatewayManage::sendDataTD()
 {
-    // LOG_INFO("sendDataTD currentID = %d", CurrentThread::tid());
-    sem_wait(&sem_TD);
-    // std::unique_lock<std::mutex> lock(cond_mutex_);
-    // cond_.wait(lock);
     static int staticcount = 0;
     if (++staticcount >= SendPeriodTimer)
     {
@@ -367,5 +361,4 @@ void GatewayManage::sendDataTD()
             // LOG_INFO("MQTT publish TD size = %d", jsonStr.size());
         }
     }
-    sendDataTD();
 }

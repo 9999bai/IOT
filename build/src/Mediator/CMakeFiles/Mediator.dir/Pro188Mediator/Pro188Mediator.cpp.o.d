@@ -206,8 +206,9 @@ src/Mediator/CMakeFiles/Mediator.dir/Pro188Mediator/Pro188Mediator.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ttydefaults.h \
- /home/brian/iot4/src/myHelper/myHelper.h /usr/include/json-arm/json.h \
- /usr/include/json-arm/config.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h \
+ /usr/include/mymuduo/Channel.h /home/brian/iot4/src/myHelper/myHelper.h \
+ /usr/include/json-arm/json.h /usr/include/json-arm/config.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstddef \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/sstream \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/sstream.tcc \
@@ -236,6 +237,6 @@ src/Mediator/CMakeFiles/Mediator.dir/Pro188Mediator/Pro188Mediator.cpp.o: \
  /home/brian/iot4/src/Analyse/Analyse.h \
  /home/brian/iot4/src/Frame/Frame.h \
  /home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h \
- /usr/include/mymuduo/SerialPort.h /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/SerialPort.h \
  /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \
  /home/brian/iot4/src/Analyse/Pro188Analyse/Pro188Analyse.h

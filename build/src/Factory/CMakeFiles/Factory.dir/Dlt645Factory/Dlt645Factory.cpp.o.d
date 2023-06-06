@@ -227,6 +227,7 @@ src/Factory/CMakeFiles/Factory.dir/Dlt645Factory/Dlt645Factory.cpp.o: \
  /home/brian/iot4/src/Frame/Frame.h /usr/include/mymuduo/InetAddress.h \
  /home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h \
  /usr/include/mymuduo/SerialPort.h /usr/include/mymuduo/TcpConnection.h \
- /usr/include/mymuduo/Buffer.h /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/Buffer.h /usr/include/mymuduo/AbstractConnection.h \
+ /usr/include/mymuduo/Socket.h /usr/include/mymuduo/Channel.h \
  /home/brian/iot4/src/Frame/Dlt645Frame/Dlt645Frame.h \
  /home/brian/iot4/src/Analyse/Dlt645Analyse/Dlt645Analyse.h

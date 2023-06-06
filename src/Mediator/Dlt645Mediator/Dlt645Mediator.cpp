@@ -45,7 +45,7 @@ void Dlt645Mediator::onNextFrame()
 }
 
 //解析完成后
-void Dlt645Mediator::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void Dlt645Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));

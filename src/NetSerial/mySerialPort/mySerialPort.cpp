@@ -45,13 +45,13 @@ void mySerialPort::getNextFrame()  // 定时发送数据请求帧
     }
 }
 
-void mySerialPort::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void mySerialPort::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     buff_.append(msg.c_str(), msg.size());
 }
 
-void mySerialPort::onConnection(const TcpConnectionPtr& conn)
+void mySerialPort::onConnection(const ConnectionPtr& conn)
 {
     if(conn->connected())
     {
@@ -75,7 +75,7 @@ void mySerialPort::onConnection(const TcpConnectionPtr& conn)
     }
 }
 
-void mySerialPort::onClose(const TcpConnectionPtr& conn)
+void mySerialPort::onClose(const ConnectionPtr& conn)
 {
     boolconn_ = false;
     RequestTimer_stop();

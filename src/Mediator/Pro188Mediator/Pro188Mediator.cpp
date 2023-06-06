@@ -28,7 +28,7 @@ void Pro188Mediator::addControlFrame(const nextFrame& controlFrame)
 }
 
 //serial 接收串口数据-->解析
-void Pro188Mediator::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void Pro188Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));

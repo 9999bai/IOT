@@ -2,34 +2,16 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /home/brian/iot4/src/GatewayManage.cpp \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/stdc-predef.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/predefs.h \
- /home/brian/iot4/src/GatewayManage.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/semaphore.h \
+ /home/brian/iot4/src/GatewayManage.h /usr/include/mymuduo/ThreadPool.h \
+ /usr/include/mymuduo/noncopyable.h /usr/include/mymuduo/Thread.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/functional \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/c++config.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/os_defines.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/features.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/cdefs.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/wordsize.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/gnu/stubs.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/gnu/stubs-soft.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/types.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/types.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/typesizes.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/time.h \
- /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stddef.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/endian.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/endian.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/byteswap.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/byteswap-16.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/select.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/select.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigset.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/time.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/sysmacros.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/pthreadtypes.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/semaphore.h \
- /usr/include/mymuduo/ThreadPool.h /usr/include/mymuduo/noncopyable.h \
- /usr/include/mymuduo/Thread.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/functional \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/c++config.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/os_defines.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/cpu_defines.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_function.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/backward/binders.h \
@@ -68,6 +50,7 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/stdio.h \
  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stdarg.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/wchar.h \
+ /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stddef.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/xlocale.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstdint \
  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stdint.h \
@@ -83,6 +66,12 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/iosfwd \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cctype \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/ctype.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/types.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/typesizes.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/endian.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/endian.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/byteswap.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/byteswap-16.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/ostream_insert.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/cxxabi_forced.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/range_access.h \
@@ -92,8 +81,11 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/gthr-default.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/pthread.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sched.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/time.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sched.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/time.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/timex.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/pthreadtypes.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/setjmp.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/atomic_word.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ext/string_conversions.h \
@@ -101,6 +93,11 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/stdlib.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/waitflags.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/waitstatus.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/types.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/select.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/select.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigset.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/sysmacros.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/alloca.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stdlib-float.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstdio \
@@ -209,8 +206,9 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/termios.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ttydefaults.h \
- /home/brian/iot4/src/myHelper/myHelper.h /usr/include/json-arm/json.h \
- /usr/include/json-arm/config.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h \
+ /usr/include/mymuduo/Channel.h /home/brian/iot4/src/myHelper/myHelper.h \
+ /usr/include/json-arm/json.h /usr/include/json-arm/config.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstddef \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/sstream \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/sstream.tcc \
@@ -239,7 +237,7 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /home/brian/iot4/src/Analyse/Analyse.h \
  /home/brian/iot4/src/Frame/Frame.h \
  /home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h \
- /usr/include/mymuduo/SerialPort.h /usr/include/mymuduo/SerialConnector.h \
+ /usr/include/mymuduo/SerialPort.h \
  /home/brian/iot4/src/Frame/ModbusRtuFrame/ModbusRtuFrame.h \
  /home/brian/iot4/src/Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/strings.h \

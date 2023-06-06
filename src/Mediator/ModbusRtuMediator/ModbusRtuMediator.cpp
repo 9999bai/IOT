@@ -40,7 +40,7 @@ void ModbusRtuMediator::addControlFrame(const nextFrame& controlFrame)
 }
 
 //serial 接收串口数据-->解析
-void ModbusRtuMediator::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void ModbusRtuMediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
@@ -83,7 +83,7 @@ void ModbusRtuMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw)
         if(ok)
         {
             // 读 成功
-            // LOG_INFO("ModbusRtuMediator 读成功...");
+            LOG_INFO("ModbusRtuMediator 读成功...");
         }
         else
         {

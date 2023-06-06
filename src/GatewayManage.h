@@ -1,6 +1,6 @@
 #pragma once
 
-#include <semaphore.h>
+// #include <semaphore.h>
 #include "/usr/include/mymuduo/ThreadPool.h"
 #include "/usr/include/mymuduo/EventLoop.h"
 #include "/usr/include/mymuduo/Logger.h"
@@ -25,6 +25,7 @@ public:
     // void setControlFrameCallback(ControlFrameCallback cb) { controlFrameCallback_ = cb; }
 
 private:
+    void sendDataTimer();
     void sendDataRD();
     void sendDataTD();
 
@@ -45,8 +46,7 @@ private:
     void ThreadPoolInit(int size);
 
     EventLoop *loop_;
-    sem_t sem_RD;
-    sem_t sem_TD;
+    std::atomic_int sendFinish_;
     std::shared_ptr<ThreadPool> poolPtr_;
     std::vector<iot_gateway> v_gateway_;
     std::vector<controlmediator> v_controlmediator_;

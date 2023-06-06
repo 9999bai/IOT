@@ -44,7 +44,7 @@ void ModbusTcpMediator::onNextFrame()
     }
 }
 
-void ModbusTcpMediator::onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time)
+void ModbusTcpMediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time)
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));

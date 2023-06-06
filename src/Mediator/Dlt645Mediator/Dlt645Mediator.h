@@ -17,7 +17,7 @@ private:
     void HandleAnalyseFinishCallback(bool ok, enum_RW rw);     //解析完成后
     
     void onNextFrame();
-    void onMessage(const TcpConnectionPtr &conn, Buffer *buf, Timestamp time); //有新消息
+    void onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time); //有新消息
 
     nextFrame sendedFrame_;     //当前发送的数据及解析参数
 

@@ -222,4 +222,6 @@ src/NetSerial/CMakeFiles/NetSerial.dir/NetSerial.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_list.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc \
  /usr/include/mymuduo/Buffer.h /usr/include/mymuduo/TcpConnection.h \
- /usr/include/mymuduo/InetAddress.h
+ /usr/include/mymuduo/InetAddress.h \
+ /usr/include/mymuduo/AbstractConnection.h /usr/include/mymuduo/Socket.h \
+ /usr/include/mymuduo/Channel.h
