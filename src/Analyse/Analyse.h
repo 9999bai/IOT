@@ -14,11 +14,12 @@ public:
     // virtual void setFrameConf(const nextFrame& frameConfig) = 0;
     virtual void AnalyseFunc(const std::string& msg, const nextFrame& nextframe) = 0;
     // void ObserverRecvAnalyse(const std::string& topic,const std::string& msg);
+    virtual bool HandleData(const frame& v_data, const nextFrame& nextframe);//modbus解析，其他协议重写此函数
 
 protected:
     void HandleByte_order(const frame &v_data, const enum_byte_order &type);
     std::string HandleData_type(const frame &v_data, const enum_data_type& data_type, const std::string& correct_mode);
-
+    std::string HandleData_typeBit(const char& data, const int& bit);
 
     u_int16_t handleData_16bitStr(const frame& v_data);
     u_int16_t handleData_16bitHex(const frame& v_data);
@@ -38,8 +39,6 @@ protected:
     frame char8_GH_EF_CD_AB(const frame& src);
     frame char8_BA_DC_FE_HG(const frame& src);
     frame char8_HG_FE_DC_BA(const frame &src);
-
-
 
     AnalyseFinishCallback analyseFinishCallback_;
     nextFrame frameConfig_;

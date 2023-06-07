@@ -1,5 +1,4 @@
 #include "ModbusTcpAnalyse.h"
-#include "Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h"
 
 ModbusTcpAnalyse::ModbusTcpAnalyse()
 {
@@ -24,7 +23,10 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     int index = 0;
 
     auto it = v_data.begin();
-    int length = v_data.at(5);
+    // int length = v_data.at(5);
+    int length = 0;
+    char2or4Hex_To_uint16or32(frame(it + 4, it + 4 + 2), length);
+
     if(length + 6 > v_data.size())
     {
         return;//数据未接收完全
@@ -53,7 +55,7 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             }
             index++;
 
-            if(rtuAnalyse_->HandleData(frame(it+index, it+index+length), nextframe))
+            if(HandleData(frame(it+index, it+index+length), nextframe))
             {
                 LOG_ERROR("ModbusTcpAnalyse::AnalyseData error");
                 resOK = false;

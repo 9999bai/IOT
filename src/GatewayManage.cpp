@@ -11,7 +11,7 @@ GatewayManage::GatewayManage(EventLoop* loop, const std::vector<iot_gateway>& v_
 
     //MQTT
     observerPtr_ = std::make_shared<MqttClient>(mqttconf);
-    // 解析MQTT控制json
+    // 解析控制帧
     observerPtr_->setObserverRecvCallback(std::bind(&GatewayManage::onObserverRecv, this, std::placeholders::_1, std::placeholders::_2));
     observerPtr_->start();
     

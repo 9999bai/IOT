@@ -1,11 +1,8 @@
 #pragma once
 
 #include "Analyse/Analyse.h"
-// #include <strings.h>
-// #include <vector>
-// #include <math.h>
+// #include "ModbusRtuAnalyse.h"
 
-class ModbusRtuAnalyse;
 class ModbusTcpAnalyse : public Analyse
 {
 public:
@@ -17,5 +14,4 @@ public:
 
 private:
     std::vector<char> v_data;
-    ModbusRtuAnalyse *rtuAnalyse_;
 };
