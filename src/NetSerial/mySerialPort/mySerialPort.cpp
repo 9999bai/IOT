@@ -58,8 +58,8 @@ void mySerialPort::onConnection(const ConnectionPtr& conn)
         LOG_INFO("SerialPort onConnection UP: %s\n",conn->name().c_str());
         conn_ = conn;
         boolconn_ = true;
-        getMsgTimer(GETMAG_TIMER_INTERVAL);//定时获取缓冲区数据
-        getNextFrameTimer(MODBUSRTUNEXT_FREQ);//定时发送
+        getMsgTimer(Serial_GETMAG_TIMER_INTERVAL);//定时获取缓冲区数据
+        getNextFrameTimer(timer_Interval_);//定时发送
         // if (newConnectionCallback_)
         // {
         //     newConnectionCallback_();

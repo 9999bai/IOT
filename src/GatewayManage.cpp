@@ -15,7 +15,7 @@ GatewayManage::GatewayManage(EventLoop* loop, const std::vector<iot_gateway>& v_
     observerPtr_->setObserverRecvCallback(std::bind(&GatewayManage::onObserverRecv, this, std::placeholders::_1, std::placeholders::_2));
     observerPtr_->start();
     
-    loop_->runEvery(1, std::bind(&GatewayManage::sendDataTimer, this));
+    loop_->runEvery(1, std::bind(&GatewayManage::secTimer, this));
 }
 
 GatewayManage::~GatewayManage()
@@ -249,7 +249,12 @@ void GatewayManage::CreateBUS188Factory(const iot_gateway& gateway)
 
 void GatewayManage::CreateIEC104Factory(const iot_gateway& gateway)
 {
+    FactoryPtr iec104Factory = std::make_shared<IEC104Factory>(loop_);
+    MediatorPtr mediatorPtr = std::make_shared<IEC104Mediator>(loop_, gateway, poolPtr_,iec104Factory);
 
+    controlmediator tmp(gateway.gateway_id, mediatorPtr);
+    v_controlmediator_.emplace_back(tmp);
+    mediatorPtr->start();
 }
 
 void GatewayManage::CreateBAcnetIPFactory(const iot_gateway& gateway)
@@ -304,20 +309,31 @@ void GatewayManage::start()
     }
 }
 
+void GatewayManage::secTimer()
+{
+    for(auto it : v_controlmediator_)
+    {
+        it.second->secTimer();
+    }
+    sendDataTimer();
+}
+
 void GatewayManage::sendDataTimer()
 {
-    poolPtr_->run(std::bind(&GatewayManage::sendDataTD, this));
     if(sendFinish_ != 0)
-    {
-        LOG_INFO("sendFinish_ != 0  Sending is not complete....");
         return;
-    }
-    sendFinish_ = 1;
+    
+    poolPtr_->run(std::bind(&GatewayManage::sendDataTD, this));
     poolPtr_->run(std::bind(&GatewayManage::sendDataRD, this));
 }
 
 void GatewayManage::sendDataRD()
 {
+    {
+        std::unique_lock<std::mutex> lock(lock_);
+        sendFinish_++;
+    }
+
     while (!queue_iotdataRD_.empty())
     {
         iot_data_item item;
@@ -330,11 +346,19 @@ void GatewayManage::sendDataRD()
         observerPtr_->publicTopic(jsonStr);
         // LOG_INFO("MQTT publish RD size = %d", jsonStr.size());
     }
-    sendFinish_--;
+    {
+        std::unique_lock<std::mutex> lock(lock_);
+        sendFinish_--;
+    }
 }
 
 void GatewayManage::sendDataTD()
 {
+    {
+        std::unique_lock<std::mutex> lock(lock_);
+        sendFinish_++;
+    }
+
     static int staticcount = 0;
     if (++staticcount >= SendPeriodTimer)
     {
@@ -360,5 +384,9 @@ void GatewayManage::sendDataTD()
             observerPtr_->publicTopic(jsonStr);
             // LOG_INFO("MQTT publish TD size = %d", jsonStr.size());
         }
+    }
+    {
+        std::unique_lock<std::mutex> lock(lock_);
+        sendFinish_--;
     }
 }

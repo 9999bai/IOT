@@ -11,13 +11,18 @@ public:
 
     void setNextFrameCallback(NextFrameCallback cb) { nextFrameCallback_ = cb; }
     void setMessageCallback(MessageCallback cb) { messageCallback_ = cb; }
+    void setNewConnectionCallback(NewConnectionCallback cb) { newConnectionCallback_ = cb; }
+    void setCloseCallback(CloseCallback cb) { closeCallback_ = cb; };
 
     virtual void SendData(const std::string &buf) = 0;
-    virtual void start() = 0;
+    virtual void start(double interval) = 0;
+    virtual void restart() {}
 
 protected:
     NextFrameCallback nextFrameCallback_;
     MessageCallback messageCallback_;
+    NewConnectionCallback newConnectionCallback_;
+    CloseCallback closeCallback_;
 
     EventLoop *loop_;
 };

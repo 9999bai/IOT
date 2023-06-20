@@ -7,7 +7,7 @@ Dlt645Mediator::Dlt645Mediator(EventLoop* loop, const iot_gateway& gateway, cons
                 , dlt645FramePtr_(dlt645Factory->createFrame(gateway))
                 , serialPortPtr_(dlt645Factory->createNetSerial(enum_netserial_serialport, gateway))
 {
-    dlt645AnalysePtr_->setAnalyseFinishCallback(std::bind(&Dlt645Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2));
+    dlt645AnalysePtr_->setAnalyseFinishCallback(std::bind(&Dlt645Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
     serialPortPtr_->setNextFrameCallback(std::bind(&Dlt645Mediator::onNextFrame, this));
     serialPortPtr_->setMessageCallback(std::bind(&Dlt645Mediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
@@ -17,10 +17,15 @@ Dlt645Mediator::~Dlt645Mediator()
     
 }
 
+void Dlt645Mediator::secTimer()
+{
+    
+}
+
 void Dlt645Mediator::start()
 {
     dlt645FramePtr_->start();
-    serialPortPtr_->start();
+    serialPortPtr_->start(DLT645NEXT_FREQ);
 }
 
 void Dlt645Mediator::addControlFrame(const nextFrame& controlFrame)
@@ -52,7 +57,7 @@ void Dlt645Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp
     poolPtr_->run(std::bind(&Analyse::AnalyseFunc, dlt645AnalysePtr_, msg, sendedFrame_));
 }
 
-void Dlt645Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw)
+void Dlt645Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType)
 {
     if(rw == enum_write)
     {

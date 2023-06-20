@@ -10,7 +10,11 @@ public:
     mySerialPort(EventLoop *loop, const iot_gateway& gateway);
     ~mySerialPort();
 
-    void start() { serialPort_.connect(); }
+    void start(double interval)
+    {
+        timer_Interval_ = interval;
+        serialPort_.connect();
+    }
     void SendData(const std::string &buf);
 
 private:
@@ -20,7 +24,7 @@ private:
     void getNextFrameTimer(double interval);
     void getNextFrame();  // 定时发送数据请求帧
 
-    void RequestTimer_stop() { loop_->cancel(sendNext_EveryT_); }//发送定时器 关闭
+    void RequestTimer_stop() { loop_->cancel(sendNext_EveryT_); } //发送定时器 关闭
     void GetDataTimer_stop() { loop_->cancel(getData_EveryT_); } //获取数据定时器 关闭 
 
     void onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time);//有新消息
@@ -34,5 +38,6 @@ private:
     ConnectionPtr conn_;     //保存当前连接
     Buffer buff_;            //存储接收到的数据buffPtr_
 
+    double timer_Interval_;
     SerialPort serialPort_;
 };

@@ -348,15 +348,16 @@ void QueueData(int send_type, const iot_data_item& item)
 
 void ReverseOrder(const frame& src, frame& dest)
 {
-    if(src.size() > 0)
+    if(src.size() <= 0)
     {
-        for (int i = src.size() - 1; i >= 0; i--)
-        {
-            dest.emplace_back(src.at(i));
-        }
-    }else{
-        LOG_ERROR("ReverseOrder src.size()<= 0");
-    }
+		LOG_ERROR("ReverseOrder src.size()<= 0");
+		return;
+	}
+
+	for (int i = src.size() - 1; i >= 0; i--)
+	{
+		dest.emplace_back(src.at(i));
+	}
 }
 
 char DLTCheck(const frame& src)

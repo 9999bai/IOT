@@ -346,9 +346,82 @@ typedef struct{
     std::vector<iot_device> v_device;
 } iot_gateway;
 
+
+// --------IEC104-------
+
+typedef enum{
+    ENUM_Normal_Frame = 0,
+    ENUM_U_Frame,
+    ENUM_I_Frame,
+    ENUM_S_Frame
+} IEC104FrameType;
+
+typedef enum{
+    // 遥信
+        ENUM_I_TypeIdentity_01 = 0x01, // 不带时标的单点遥信， 每个遥信占一个字节
+        ENUM_I_TypeIdentity_03 = 0x03, // 不带时标的双点遥信， 每个遥信占一个字节
+        ENUM_I_TypeIdentity_14 = 0x14, // 具有状态变位检出的成组单点遥信，每个字节8个遥信
+    //遥测
+        ENUM_I_TypeIdentity_09 = 0x09, // 带品质描述的测量值， 每个遥测值占3个字节  !!!!! 测量值，归一化值（遥测）
+        ENUM_I_TypeIdentity_0A = 0x0A, // 带3个字节时标的且具有品质描述的测量值，每个遥测值占6个字节  !!!!!测量值，标度化值（遥测）
+        ENUM_I_TypeIdentity_0B = 0x0B, // 不带时标的标准化值，每个遥测值占3个字节   !!!!!! 测量值，短浮点数（遥测）
+        ENUM_I_TypeIdentity_0C = 0x0C, // 带3个时标的标准化值，每个遥测值占6个字节
+        ENUM_I_TypeIdentity_0D = 0x0D, // 带品质描述的浮点值，每个遥测值占5个字节
+        ENUM_I_TypeIdentity_0E = 0x0E, // 带三个字节时标且具有品质描述的浮点值，每个遥测值占8个字节
+        ENUM_I_TypeIdentity_15 = 0x15, // 不带品质描述的遥测值，每个遥测值占一个字节
+    // 遥脉
+        ENUM_I_TypeIdentity_0F = 0x0F, // 不带时标的电能量，每个电能量占5个字节
+        ENUM_I_TypeIdentity_10 = 0x10, // 带三个字节短时标的电能量，每个电能量占8个字节
+        ENUM_I_TypeIdentity_25 = 0x25, // 带七个字节短时标的电能量，每个电能量占12个字节
+    // SOE
+        ENUM_I_TypeIdentity_02 = 0x02, // 带3个字节短时标的单点遥信
+        ENUM_I_TypeIdentity_04 = 0x04, // 带3个字节短时标的双点遥信
+        ENUM_I_TypeIdentity_1E = 0x1E, // 带7个字节短时标的单点遥信
+        ENUM_I_TypeIdentity_1F = 0x1F, // 带7个字节短时标的双点遥信
+    // 其他
+        ENUM_I_TypeIdentity_2E = 0x2E, // 双点遥控
+        ENUM_I_TypeIdentity_2F = 0x2F, // 双点遥调
+        ENUM_I_TypeIdentity_64 = 0x64, // 召唤全数据
+        ENUM_I_TypeIdentity_65 = 0x65, // 召唤全电度
+        ENUM_I_TypeIdentity_67 = 0x67  // 时钟同步
+} IEC104TypeIdentity;
+
+typedef enum{
+    ENUM_I_COT_0x01 = 0x01, // 周期、循环
+    ENUM_I_COT_0x02 = 0x02, // 双点遥控
+    ENUM_I_COT_0x03 = 0x03, // 突变
+    ENUM_I_COT_0x04 = 0x04, // 初始化
+    ENUM_I_COT_0x05 = 0x05, // 请求或被请求
+    ENUM_I_COT_0x06 = 0x06, // 激活
+    ENUM_I_COT_0x07 = 0x07, // 激活确认
+    ENUM_I_COT_0x08 = 0x08, // 停止激活
+    ENUM_I_COT_0x09 = 0x09, // 停止激活确认
+    ENUM_I_COT_0x0A = 0x0A, // 激活结束
+    ENUM_I_COT_0x14 = 0x14, // 响应总召唤
+    ENUM_I_COT_0x25 = 0x25  // 遥脉
+} IEC104COT;
+
+// 解析完成下一步操作
+typedef enum{
+    ENUM_Normal = 1,        // 不需要发送
+    ENUM_RebootSocket,      // 重启socket
+    ENUM_Send_S_Frame,      // 需发送S确认帧
+    ENUM_Send_U_testFrame,      // 需发送U链路测试帧
+    ENUM_Send_U_testRespFrame,  // 需发送U帧链路测试确认帧
+    ENUM_SendFirst_I_Frame, // 第一次/定时 发送总召唤
+    ENUM_SendNext_I_Frame   // YM 遥脉召唤帧（如果存在YM）
+} AnalyseResult;
+
+typedef enum{
+    ENUM_Nothing =0,
+    ENUM_YC,
+    ENUM_YM
+} IEC104Type;
+
 // using AnalyseFinishCallback = std::function<void(const std::vector<iot_data_item>&)>;
-using AnalyseFinishCallback = std::function<void(bool, enum_RW)>;
+using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, std::pair<int, IEC104FrameType>)>;
 using NextFrameCallback = std::function<void()>;
+using NewConnectionCallback = std::function<void()>;
 
 using pair_frame = std::pair<iot_device, iot_template>;
 using map_frame = std::unordered_map<int, pair_frame>;
@@ -357,6 +430,10 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 
 
 #define PROJECT_ID 2                        // 项目id
+#define TCP_GETMAG_TIMER_INTERVAL 0.05      // tcp缓存区buff 获取数据间隔
+#define UDP_GETMAG_TIMER_INTERVAL 0.1       // udp缓冲区buff 获取数据间隔
+#define Serial_GETMAG_TIMER_INTERVAL 0.2    // serial缓冲区buff 获取数据间隔
+
 
 //threadpool
 #define THREADPOOL_MAX_QUEUE_SIZE 200       // threadpool 装载函数最大数量
@@ -365,22 +442,35 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 
 // modbusrtu
 #define MODBUSRTUNEXT_FREQ 0.9              // modbusRtu 定时发送频率
-#define GETMAG_TIMER_INTERVAL 0.2f          // 缓存区buff 获取数据间隔
 #define ModbusRtuAnalyseFrame_MinSize 5     // modbusRtu 数据帧最小长度
 
 // modbustcp
+#define ModbusTcpNEXT_FREQ 2                // modbustcp 定时发送频率
 #define ModbusTcpIdentity 0x00              // modbustcp标识符
 #define ModbusTcpReadLength   0x06          // modbustcp 读数据帧长度
 #define ModbusTcpAnalyseFrame_Minsize 0x09  // modbustcp返回帧最小长度
 
 //dlt645
+#define DLT645NEXT_FREQ 0.9                 // dlt645 定时发送频率
 #define DLT645ControlCode   0x11            // dlt645-2007 控制码
 #define DLT645AnalyseFrame_Minsize 0x0C     // dlt645 数据帧最小长度
 
 // CJT188
+#define CJT188NEXT_FREQ 0.9                 // CJT188 定时发送频率
 #define CJT188AnalyseFrame_Minsize  0x16    // CJT188 数据帧最小长度
 
 #define SendPeriodTimer     40              //定时发送数据  周期 单位：秒
+
+
+// IEC104
+#define IEC104_T0  30  // tcp连接的超时
+#define IEC104_T1  15  // 发送方发送一个I格式报文或U格式报文后，必须在t1的时间内得到接收方的认可，否则发送方认为TCP连接出现问题并应重新建立连接。
+#define IEC104_T2  10  // 接收方接收到I帧后，t2时间内未收到I帧，发送S确认帧    (t2<t1)
+#define IEC104_T3  20  // 未收到 I/U/S帧，发送测试链路帧  (U帧)
+#define IEC104Next_Freq 60*15 // IEC104 定时总召唤 15分钟
+#define IEC104AnalyseFrame_Minsize 0x06    // IEC104 最小帧长度
+ 
+
 
 extern enun_endian ENDIAN;
 

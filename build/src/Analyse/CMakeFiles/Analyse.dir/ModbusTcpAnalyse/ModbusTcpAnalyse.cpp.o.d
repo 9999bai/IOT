@@ -206,14 +206,4 @@ src/Analyse/CMakeFiles/Analyse.dir/ModbusTcpAnalyse/ModbusTcpAnalyse.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/list \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_list.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc \
- /home/brian/iot4/src/Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/strings.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/math.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_val.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_valf.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_vall.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/inf.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/nan.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/mathdef.h \
- /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/mathcalls.h
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc

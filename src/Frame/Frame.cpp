@@ -4,6 +4,7 @@ Frame::Frame(const iot_gateway& gatewayConf, int index, const std::string& name)
         : gatewayConf_(gatewayConf) 
         , index_(index)
         , name_(name)
+        // , mark_(0)
 {
     
 }
@@ -11,6 +12,11 @@ Frame::Frame(const iot_gateway& gatewayConf, int index, const std::string& name)
 Frame::~Frame() 
 {
 
+}
+
+bool Frame::cycleFinish()
+{
+    return (index_+1) == R_Vector.size();
 }
 
 void Frame::addControlFrame(const nextFrame& controlFrame)

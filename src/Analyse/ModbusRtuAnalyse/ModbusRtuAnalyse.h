@@ -12,7 +12,7 @@ public:
     ModbusRtuAnalyse();
     ~ModbusRtuAnalyse();
 
-    friend class ModbusTcpAnalyse;
+    // friend class ModbusTcpAnalyse;
 
     void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
 
@@ -29,5 +29,5 @@ private:
 
     // void QueueData(int send_type, const iot_data_item& item);
 
-    std::vector<char> v_data;
+    // std::vector<char> v_data;
 };

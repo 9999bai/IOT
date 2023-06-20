@@ -12,7 +12,8 @@ public:
     myTcpClient(EventLoop *loop, const iot_gateway& gateway);
     ~myTcpClient();
 
-    void start() { tcpClient_.connect(); };
+    void start(double interval);
+    void restart() { tcpClient_.restart(); }
     void SendData(const std::string &buf);
 
 private:
@@ -27,7 +28,7 @@ private:
 
     void onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time);//有新消息
     void onConnection(const ConnectionPtr &conn);
-    // void onClose(const ConnectionPtr& conn);     //有关闭信号
+    void onClose(const ConnectionPtr& conn);     //有关闭信号
 
     TimerId getData_EveryT_;
     TimerId sendNext_EveryT_;
@@ -35,5 +36,6 @@ private:
     ConnectionPtr conn_;
     Buffer buff_;       //存储接收到的数据buffPtr_
 
+    double timer_Interval_;
     TcpClient tcpClient_;
 };

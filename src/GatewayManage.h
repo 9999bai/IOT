@@ -7,6 +7,9 @@
 #include "Mediator/ModbusRtuMediator/ModbusRtuMediator.h"
 #include "Mediator/ModbusTcpMediator/ModbusTcpMediator.h"
 #include "Mediator/Dlt645Mediator/Dlt645Mediator.h"
+#include "Mediator/IEC104Mediator/IEC104Mediator.h"
+#include "Mediator/BacnetipMediator/BacnetipMediator.h"
+#include "Mediator/Pro188Mediator/Pro188Mediator.h"
 #include "Observer/MqttClient/MqttClient.h"
 #include "myHelper/myHelper.h"
 // // #include "Observer/RabbitMQ/RabbitMQClient.h"
@@ -25,6 +28,7 @@ public:
     // void setControlFrameCallback(ControlFrameCallback cb) { controlFrameCallback_ = cb; }
 
 private:
+    void secTimer();
     void sendDataTimer();
     void sendDataRD();
     void sendDataTD();
@@ -46,7 +50,9 @@ private:
     void ThreadPoolInit(int size);
 
     EventLoop *loop_;
-    std::atomic_int sendFinish_;
+
+    std::mutex lock_;
+    int sendFinish_;
     std::shared_ptr<ThreadPool> poolPtr_;
     std::vector<iot_gateway> v_gateway_;
     std::vector<controlmediator> v_controlmediator_;

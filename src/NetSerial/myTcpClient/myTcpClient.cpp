@@ -1,13 +1,13 @@
 #include "myTcpClient.h"
 #include "/usr/include/mymuduo/AbstractConnection.h"
 
-myTcpClient::myTcpClient(EventLoop *loop, const iot_gateway& gateway) 
+myTcpClient::myTcpClient(EventLoop *loop, const iot_gateway& gateway)
             : NetSerial(loop)
             , tcpClient_(loop, "tcpclient", InetAddress(gateway.net.port, gateway.net.ip))
 {
     tcpClient_.setMessageCallback(std::bind(&myTcpClient::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     tcpClient_.setConnectionCallback(std::bind(&myTcpClient::onConnection, this, std::placeholders::_1));
-    // tcpClient_.setCloseCallback(std::bind(&myTcpClient::onClose,this, std::placeholders::_1));
+    tcpClient_.setCloseCallback(std::bind(&myTcpClient::onClose,this, std::placeholders::_1));
     tcpClient_.enableRetry();
 }
 
@@ -15,6 +15,12 @@ myTcpClient::~myTcpClient()
 {
 
 }
+
+void myTcpClient::start(double interval)
+{
+    timer_Interval_ = interval;
+    tcpClient_.connect();
+};
 
 void myTcpClient::SendData(const std::string &buf)
 {
@@ -60,8 +66,12 @@ void myTcpClient::onConnection(const ConnectionPtr &conn)
         LOG_INFO("TcpClient onConnection UP: %s\n",conn->name().c_str());
         conn_ = conn;
         boolconn_ = true;
-        getMsgTimer(GETMAG_TIMER_INTERVAL);//定时获取缓冲区数据
-        getNextFrameTimer(MODBUSRTUNEXT_FREQ);//定时发送
+        getMsgTimer(TCP_GETMAG_TIMER_INTERVAL); // 定时获取 接收缓冲区 数据
+        getNextFrameTimer(timer_Interval_);     // 定时发送
+        if(newConnectionCallback_)
+        {
+            newConnectionCallback_();
+        }
     }
     else
     {
@@ -79,3 +89,10 @@ void myTcpClient::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp ti
     buff_.append(msg.c_str(), msg.size());
 }
 
+void myTcpClient::onClose(const ConnectionPtr& conn)
+{
+    if(closeCallback_)
+    {
+        closeCallback_(conn);
+    }
+}

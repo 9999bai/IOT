@@ -15,9 +15,9 @@ ModbusRtuMediator::ModbusRtuMediator(EventLoop* loop, const iot_gateway& gateway
                     , modbusrtuFramePtr_(modbusRtuFactory->createFrame(gateway))
 {
     //解析完数据的回调函数  立即发送下一帧数据  (速度太快)
-    modbusrtuAnalysePtr_->setAnalyseFinishCallback(std::bind(&ModbusRtuMediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2));
+    modbusrtuAnalysePtr_->setAnalyseFinishCallback(std::bind(&ModbusRtuMediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
 
-   // observerPtr_->setObserverRecvCallback(std::bind(&ModbusRtuMediator::onObserverRecv, this));
+    // observerPtr_->setObserverRecvCallback(std::bind(&ModbusRtuMediator::onObserverRecv, this));
     serialPortPtr_->setNextFrameCallback(std::bind(&ModbusRtuMediator::onNextFrame, this));
     serialPortPtr_->setMessageCallback(std::bind(&ModbusRtuMediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
@@ -27,10 +27,15 @@ ModbusRtuMediator::~ModbusRtuMediator()
 
 }
 
+void ModbusRtuMediator::secTimer()
+{
+
+}
+
 void ModbusRtuMediator::start()
 {
     modbusrtuFramePtr_->start(); // 组合数据帧
-    serialPortPtr_->start();    // 打开串口
+    serialPortPtr_->start(MODBUSRTUNEXT_FREQ);    // 打开串口,定时发送请求帧频率
 }
 
 //modbusRTU 控制帧加入待发送队列
@@ -63,7 +68,7 @@ void ModbusRtuMediator::onNextFrame()
     }
 }
 
-void ModbusRtuMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw)
+void ModbusRtuMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType)
 {
     if(rw == enum_write)
     {

@@ -31,8 +31,8 @@ NetSerialPtr Factory::createNetSerial(const enum_netserial_type& type, const iot
             break;
         case enum_netserial_tcp:
         {
-            // NetSerialPtr tmp = std::make_shared<TcpClient>(loop_, gateway);
-            // return tmp;
+            NetSerialPtr tmp = std::make_shared<myTcpClient>(loop_, gateway);
+            return tmp;
         }
             break;
     }

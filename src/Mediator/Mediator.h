@@ -16,8 +16,14 @@ public:
     virtual void addControlFrame(const nextFrame& controlFrame) = 0;
     virtual void start() = 0;
 
+    virtual void secTimer() = 0;
+
 protected:
     EventLoop *loop_;
     std::shared_ptr<ThreadPool> poolPtr_;
     iot_gateway gateway_;
+
+    nextFrame sendedFrame_;     //当前发送的数据及解析参数
+
+    int sec_;
 };

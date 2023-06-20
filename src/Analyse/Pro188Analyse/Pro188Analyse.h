@@ -21,5 +21,5 @@ private:
 
     std::string CJT188AnalyseData(const frame& data, const iot_template& templat);
 
-    std::vector<char> v_data;
+    // std::vector<char> v_data;
 };
