@@ -406,7 +406,7 @@ typedef enum{
     ENUM_Normal = 1,        // 不需要发送
     ENUM_RebootSocket,      // 重启socket
     ENUM_Send_S_Frame,      // 需发送S确认帧
-    ENUM_Send_U_testFrame,      // 需发送U链路测试帧
+    // ENUM_Send_U_testFrame,      // 需发送U链路测试帧
     ENUM_Send_U_testRespFrame,  // 需发送U帧链路测试确认帧
     ENUM_SendFirst_I_Frame, // 第一次/定时 发送总召唤
     ENUM_SendNext_I_Frame   // YM 遥脉召唤帧（如果存在YM）

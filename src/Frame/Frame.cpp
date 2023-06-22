@@ -16,7 +16,7 @@ Frame::~Frame()
 
 bool Frame::cycleFinish()
 {
-    return (index_+1) == R_Vector.size();
+    return index_ == 0;
 }
 
 void Frame::addControlFrame(const nextFrame& controlFrame)

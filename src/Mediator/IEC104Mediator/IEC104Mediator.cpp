@@ -39,28 +39,50 @@ void IEC104Mediator::secTimer()
     if(!BoolT1_ && (++T1_ >= 15))
     {
         // T1时间内没接收到 I/U 帧回复， 重启tcp
+        BoolT1_ = true;
         T1_ = 0;
+        LOG_INFO("T1 timerout-----reboot--------");
         tcpClientPtr_->restart();
     }
 
     if(!BoolT2_ && (++T2_ >= 10))
     {
         // 发送s确认帧
+        LOG_INFO("T2 timerout-----s frame--------");
+        BoolT2_ = true;
         T2_ = 0;
         union_uint16TOuchar data;
         data.u16_data = iec104AnalysePtr_->getRX_SN();
         std::string buf(s_frame_.begin(), s_frame_.end());
         buf.push_back(data.uchar_data[0]);
         buf.push_back(data.uchar_data[1]);
+
+        iot_device device;
+        iot_template templat;
+        templat.rw = enum_read;
+        sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, templat));
+
+        printFrame("TX", frame(buf.begin(), buf.end()));
         tcpClientPtr_->SendData(buf);
-        printFrame("TX", u_testRespFrame_);
     }
 
     if(!BoolT3_ && (++T3_ >= 20))
     {
+        LOG_INFO("T3 timerout-----u_test frame--------");
         T3_ = 0;
+
+        BoolT1_ = false;  // T1 开启
+        // T1_ = 0;
+
         // U帧测试链路帧
+
+        iot_device device;
+        iot_template templat;
+        templat.rw = enum_read;
+        sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, templat));
+
         std::string buf(u_testFrame_.begin(), u_testFrame_.end());
+        printFrame("TX", u_testFrame_);
         tcpClientPtr_->SendData(buf);
     }
 }
@@ -83,12 +105,12 @@ void IEC104Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseRes
         if(ok)
         {
             // 写 成功
-            LOG_INFO("ModbusRtuMediator 写成功...");
+            LOG_INFO("IEC104Mediator 写成功...");
         }
         else
         {
             // 写 失败
-            LOG_INFO("ModbusRtuMediator 写失败...");
+            LOG_INFO("IEC104Mediator 写失败...");
         }
     }
     else if(rw == enum_read)
@@ -96,14 +118,14 @@ void IEC104Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseRes
         if(ok)
         {
             // 读 成功
-            LOG_INFO("ModbusRtuMediator 读成功...");
+            LOG_INFO("IEC104Mediator 读成功...");
             HandleResult(result);
             HandleFrameType(frameType);
         }
         else
         {
             // 读 失败
-            LOG_INFO("ModbusRtuMediator 读失败...");
+            LOG_INFO("IEC104Mediator 读失败...");
         }
     }
 }
@@ -135,6 +157,13 @@ void IEC104Mediator::onConnection()
 {
     BoolT1_ = false; // T1 开启
     T1_ = 0;
+
+    iot_device device;
+    iot_template templat;
+    templat.rw = enum_read;
+    sendedFrame_ = nextFrame(u_startFrame_, pair_frame(device, templat));
+    
+    printFrame("TX", u_startFrame_);
     tcpClientPtr_->SendData(std::string(u_startFrame_.begin(), u_startFrame_.end())); // 发送U帧启动帧
 }
 
@@ -150,25 +179,36 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
         case ENUM_Normal:
             break;
         case ENUM_RebootSocket:
-            break;
-        case ENUM_Send_S_Frame:
-            break;
-        case ENUM_Send_U_testFrame:
         {
-            std::string buf(u_testFrame_.begin(), u_testFrame_.end());
-            BoolT1_ = false; // T1 开启
-            T1_ = 0;
-            tcpClientPtr_->SendData(buf);
-            printFrame("TX", u_testRespFrame_);
+            tcpClientPtr_->restart();
             break;
         }
+        case ENUM_Send_S_Frame:
+            break;
+        // case ENUM_Send_U_testFrame:
+        // {
+        //     std::string buf(u_testFrame_.begin(), u_testFrame_.end());
+
+        //     iot_device device;
+        //     iot_template templat;
+        //     templat.rw = enum_read;
+        //     sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, templat));
+
+        //     printFrame("TX", u_testFrame_);
+        //     tcpClientPtr_->SendData(buf);
+        //     break;
+        // }
         case ENUM_Send_U_testRespFrame:
         {
             std::string buf(u_testRespFrame_.begin(), u_testRespFrame_.end());
-            BoolT1_ = false; // T1 开启
-            T1_ = 0;
-            tcpClientPtr_->SendData(buf);
+            
+            iot_device device;
+            iot_template templat;
+            templat.rw = enum_read;
+            sendedFrame_ = nextFrame(u_testRespFrame_, pair_frame(device, templat));
+
             printFrame("TX", u_testRespFrame_);
+            tcpClientPtr_->SendData(buf);
             break;
         }
         case ENUM_SendFirst_I_Frame:
@@ -179,16 +219,25 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
                 sendedFrame_ = next;
                 updateFrame(next.first, iec104AnalysePtr_->getTX_SN(), iec104AnalysePtr_->getRX_SN());
                 std::string buf(next.first.begin(), next.first.end());
+
                 BoolT1_ = false; // T1 开启
-                T1_ = 0;
+                // T1_ = 0;
+
+                printFrame("TX", frame(buf.begin(), buf.end()));
                 tcpClientPtr_->SendData(buf);
-                printFrame("TX", frame(next.first.begin(), next.first.end()));
+                iec104AnalysePtr_->IncreaseTX();
             }
+            else
+            {
+                LOG_ERROR("second getNextReadFrame error...");
+            }
+            break;
         }
         case ENUM_SendNext_I_Frame:
         {
             if(iec104FramePtr_->cycleFinish())
             {
+                LOG_INFO("没有后续I帧....");
                 // 没有后续 YM
             }
             else
@@ -199,10 +248,15 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
                     sendedFrame_ = next;
                     updateFrame(next.first, iec104AnalysePtr_->getTX_SN(), iec104AnalysePtr_->getRX_SN());
                     std::string buf(next.first.begin(), next.first.end());
+                    
                     BoolT1_ = false; // T1 开启
-                    T1_ = 0;
+                    // T1_ = 0;
+
+                    printFrame("TX", frame(buf.begin(), buf.end()));
                     tcpClientPtr_->SendData(buf);
-                    printFrame("TX", frame(next.first.begin(), next.first.end()));
+                    iec104AnalysePtr_->IncreaseTX();
+                }else{
+                    LOG_ERROR("first getNextReadFrame error...");
                 }
             }
             break;
@@ -246,8 +300,14 @@ void IEC104Mediator::HandleFrameType(std::pair<int, IEC104FrameType>& frameType)
                 std::string buf(s_frame_.begin(), s_frame_.end());
                 buf.push_back(data.uchar_data[0]);
                 buf.push_back(data.uchar_data[1]);
+
+                iot_device device;
+                iot_template templat;
+                templat.rw = enum_read;
+                sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, templat));
+
+                printFrame("TX", frame(buf.begin(), buf.end()));
                 tcpClientPtr_->SendData(buf);
-                printFrame("TX", u_testRespFrame_);
             }
             break;
         }
