@@ -32,6 +32,7 @@ void GatewayManage::ThreadPoolInit(int size)
 
 void GatewayManage::onObserverRecv(const std::string& topic, const std::string& msg)
 {
+    LOG_INFO("GatewayManage::onObserverRecv-------------------%s", msg.c_str());
     std::vector<iot_data_item> control_item;
     Json::Value root;
     Json::Reader reader;
@@ -47,27 +48,26 @@ void GatewayManage::onObserverRecv(const std::string& topic, const std::string& 
     for (auto i = 0; i < count; i++)
     {
         iot_data_item item;
+        item.gateway_id = root[i]["gateway_id"].asInt();
         item.device_id = root[i]["device_id"].asInt();
-        item.templat_id = root[i]["templat_id"].asInt();
         item.param_id = root[i]["param_id"].asInt();
         item.value = root[i]["value"].asString();
         control_item.emplace_back(item);
-        LOG_INFO("recv : device_d=%d, param_id=%d, value=%s", item.device_id, item.param_id, item.value.c_str());
+        LOG_INFO("recv : gateway_id=%d,device_d=%d, param_id=%d, value=%s", item.gateway_id, item.device_id, item.param_id, item.value.c_str());
     }
     
     for(auto item : control_item)
     {
-        int gateway_id;
-        iot_device device;
-        iot_template templat;
-        enum_pro_name pro_name;
-        if (findControlParam(item, gateway_id, pro_name, device, templat))
+        iot_device device;      // 要控制的设备所属的device
+        iot_template templat;   // 要控制的设备所属的templat
+        enum_pro_name pro_name; // 所属协议
+        if (findControlParam(item, pro_name, device, templat))
         {
             switch(pro_name)
             {
                 case enum_pro_name_ModbusRTU:
                     LOG_INFO("control enum_pro_name_ModbusRTU...");
-                    controlFrameModbusRTU(gateway_id, item.value, device, templat);
+                    controlFrameModbusRTU(item.gateway_id, item.value, device, templat);
                     break;
                 case enum_pro_name_ModbusTCP:
                     break;
@@ -78,6 +78,8 @@ void GatewayManage::onObserverRecv(const std::string& topic, const std::string& 
                 case enum_pro_name_IEC104:
                     break;
                 case enum_pro_name_BAcnetIP:
+                    LOG_INFO("control enum_pro_name_BAcnetIP...");
+                    controlFrameBacnetIP(item.gateway_id, item.value, device, templat);
                     break;
                 case enum_pro_name_OPCUA:
                     break;
@@ -88,31 +90,33 @@ void GatewayManage::onObserverRecv(const std::string& topic, const std::string& 
         else
         {
             // 没有对应的设备
+            LOG_ERROR("not finddevice...");
         }
     }
 }
 
-bool GatewayManage::findControlParam(const iot_data_item& item, int& gateway_id, enum_pro_name& pro_name, iot_device& dest_device, iot_template& dest_templat)
+bool GatewayManage::findControlParam(const iot_data_item& item, enum_pro_name& pro_name, iot_device& dest_device, iot_template& dest_templat)
 {
     for(auto gateway : v_gateway_)
     {
-        for(auto device : gateway.v_device)
+        if(item.gateway_id == gateway.gateway_id)
         {
-            if(item.device_id == device.device_id)
+            for(auto device : gateway.v_device)
             {
-                for(auto templat: device.v_template)
+                if(item.device_id == device.device_id)
                 {
-                    if(templat.template_id == item.templat_id && templat.param_id == item.param_id && templat.priority != enum_priority_read)
+                    for(auto templat : device.v_template)
                     {
-                        gateway_id = gateway.gateway_id;
-                        pro_name = gateway.pro_name;
-                        dest_device = device;
-                        dest_templat = templat;
-                        dest_templat.rw = enum_write;
-                        return true;
+                        if(item.param_id == templat.param_id)
+                        {
+                            pro_name = gateway.pro_name;
+                            dest_device = device;
+                            dest_templat = templat;
+                            dest_templat.rw = enum_write;
+                            return true;
+                        }
                     }
                 }
-                return false;
             }
         }
     }
@@ -164,8 +168,8 @@ void GatewayManage::controlFrameModbusRTU(int gateway_id, const std::string& val
         case enum_w_func_0x10:
         {
             uint16_To_char2(std::atoi(templat.register_addr.c_str()), t_frame);
-            uint16_To_char2(templat.register_quantity, t_frame);
-            t_frame.emplace_back(templat.register_quantity * 2);
+            uint16_To_char2((u_int16_t)templat.register_quantity, t_frame);
+            t_frame.emplace_back((u_int16_t)templat.register_quantity * 2);
             switch (templat.data_type)
             {
                 case enum_data_type_int16_hex:
@@ -195,7 +199,9 @@ void GatewayManage::controlFrameModbusRTU(int gateway_id, const std::string& val
     {
         if(gateway_id == it->first)
         {
-            nextFrame controlFrame(t_frame, pair_frame(device, templat));
+            std::vector<iot_template> v_templat;
+            v_templat.emplace_back(templat);
+            nextFrame controlFrame(t_frame, pair_frame(device, v_templat));
             LOG_INFO("---- %d, %d, %s, %d, %d", device.gateway_id, device.device_id, device.device_addr.c_str(), device.template_id, templat.param_id);
             it->second->addControlFrame(controlFrame);
             return;
@@ -208,10 +214,58 @@ void GatewayManage::controlFrameModbusTCP(int gateway_id, const std::string& val
 
 }
 
+void GatewayManage::controlFrameBacnetIP(int gateway_id, const std::string& value, const iot_device& device, iot_template& templat)
+{
+    // write 固定头部
+    frame data = HexStrToByteArray("81 0A 00 00 01 04 00 03 64 0F");
+
+    ObjectIdentifier(templat, data);
+    int propertyValue = std::atoi(templat.correct_mode.c_str());
+    if (propertyValue >0 && propertyValue<= 0xFF)
+    {
+        data.emplace_back(0x19);
+        data.emplace_back(propertyValue);
+    }
+    else if(propertyValue > 0xFF && propertyValue <= 0xFFFF)
+    {
+        data.emplace_back(0x1A);
+        data.emplace_back(propertyValue >> 8);
+        data.emplace_back(propertyValue & 0xFF);
+    }
+
+    data.emplace_back(0x3E);
+    strToBacnetIPValue(value, templat.register_quantity, data);
+    data.emplace_back(0x3F);
+
+    data.emplace_back(0x49);    // write 优先级16 
+    data.emplace_back(0x10);
+
+    // 更新数据长度
+    u_int16_t length = data.size();
+    data[2] = length >> 8;
+    data[3] = length & 0xFF;
+
+    printFrame("Bacnetip Control --------------------- ", data);
+
+    for (auto it = v_controlmediator_.begin(); it != v_controlmediator_.end(); it++)
+    {
+        if(gateway_id == it->first)
+        {
+            // templat.rw = enum_write;
+            std::vector<iot_template> v_templat;
+            v_templat.emplace_back(templat);
+            nextFrame controlFrame(data, pair_frame(device, v_templat));
+
+            LOG_INFO("---- %d, %d, %s, %d, %d", device.gateway_id, device.device_id, device.device_addr.c_str(), device.template_id, templat.param_id);
+            it->second->addControlFrame(controlFrame);
+            return;
+        }
+    }
+}
+
 void GatewayManage::CreateModbusRTUFactory(const iot_gateway& gateway)
 {
     FactoryPtr modbusRtuFactory = std::make_shared<ModbusRtuFactory>(loop_);
-    // modbusRtuFactory = std::make_shared<ModbusRtuFactory>(loop_);
     MediatorPtr mediatorPtr = std::make_shared<ModbusRtuMediator>(loop_, gateway, poolPtr_, modbusRtuFactory);
 
     controlmediator tmp(gateway.gateway_id, mediatorPtr);
@@ -250,7 +304,7 @@ void GatewayManage::CreateBUS188Factory(const iot_gateway& gateway)
 void GatewayManage::CreateIEC104Factory(const iot_gateway& gateway)
 {
     FactoryPtr iec104Factory = std::make_shared<IEC104Factory>(loop_);
-    MediatorPtr mediatorPtr = std::make_shared<IEC104Mediator>(loop_, gateway, poolPtr_,iec104Factory);
+    MediatorPtr mediatorPtr = std::make_shared<IEC104Mediator>(loop_, gateway, poolPtr_, iec104Factory);
 
     controlmediator tmp(gateway.gateway_id, mediatorPtr);
     v_controlmediator_.emplace_back(tmp);
@@ -259,7 +313,13 @@ void GatewayManage::CreateIEC104Factory(const iot_gateway& gateway)
 
 void GatewayManage::CreateBAcnetIPFactory(const iot_gateway& gateway)
 {
+    LOG_INFO("CreateBAcnetIPFactory...");
+    FactoryPtr bacnetipFactory = std::make_shared<BacnetipFactory>(loop_);
+    MediatorPtr mediatorPtr = std::make_shared<BacnetipMediator>(loop_, gateway, poolPtr_, bacnetipFactory);
 
+    controlmediator tmp(gateway.gateway_id, mediatorPtr);
+    v_controlmediator_.emplace_back(tmp);
+    mediatorPtr->start();
 }
 
 void GatewayManage::CreateOPCUAFactory(const iot_gateway& gateway)
@@ -269,7 +329,7 @@ void GatewayManage::CreateOPCUAFactory(const iot_gateway& gateway)
 
 void GatewayManage::start()
 {
-    LOG_INFO("GatewayManage  v_gateway_.size = %d \n", v_gateway_.size());
+    LOG_INFO("GatewayManage  v_gateway_.size = %d ", v_gateway_.size());
     for (auto it = v_gateway_.begin(); it != v_gateway_.end(); it++)
     {
         switch(it->pro_name)
@@ -388,5 +448,133 @@ void GatewayManage::sendDataTD()
     {
         std::unique_lock<std::mutex> lock(lock_);
         sendFinish_--;
+    }
+}
+
+void GatewayManage::strToBacnetIPValue(const std::string& value, int valueType, frame& data)
+{
+    switch(valueType)
+    {
+        case 0:     // null
+            data.emplace_back(0x00);
+            break;
+        case 1:     // bool
+        {
+            int tmp = std::atoi(value.c_str());
+            if(tmp == 0)
+            {
+                data.emplace_back(0x10); // false
+            }
+            else{
+                data.emplace_back(0x11); // true
+            }
+            break;
+        }
+        case 2:     // uint
+        {
+            u_int32_t tmp = std::atoi(value.c_str());
+            if(tmp >= 0 && tmp <= 0xFF)
+            {
+                data.emplace_back(0x21);
+                data.emplace_back(tmp & 0xFF);
+            }else if(tmp > 0xFF && tmp <= 0xFFFF)
+            {
+                data.emplace_back(0x22);
+                data.emplace_back(tmp >> 8);
+                data.emplace_back(tmp & 0xFF);
+            }else if(tmp > 0xFFFF && tmp <= 0xFFFFFF)
+            {
+                data.emplace_back(0x23);
+                data.emplace_back(tmp >> 16);
+                data.emplace_back((tmp >> 8) & 0xFF);
+                data.emplace_back(tmp & 0xFF);
+            }else {
+                data.emplace_back(0x24);
+                data.emplace_back(tmp >> 24);
+                data.emplace_back((tmp >> 16) & 0xFF);
+                data.emplace_back((tmp >> 8) & 0xFF);
+                data.emplace_back(tmp & 0xFF);
+            }
+            break;
+        }
+        case 3:     // int
+        {
+            int32_t tmp = std::atoi(value.c_str());
+            if(tmp >= 0 && tmp <= 0xFF)
+            {
+                data.emplace_back(0x31);
+                data.emplace_back(tmp & 0xFF);
+            }else if(tmp > 0xFF && tmp <= 0xFFFF)
+            {
+                data.emplace_back(0x32);
+                data.emplace_back(tmp >> 8);
+                data.emplace_back(tmp & 0xFF);
+            }else if(tmp > 0xFFFF && tmp <= 0xFFFFFF)
+            {
+                data.emplace_back(0x33);
+                data.emplace_back(tmp >> 16);
+                data.emplace_back((tmp >> 8) & 0xFF);
+                data.emplace_back(tmp & 0xFF);
+            }else {
+                data.emplace_back(0x34);
+                data.emplace_back(tmp >> 24);
+                data.emplace_back((tmp >> 16) & 0xFF);
+                data.emplace_back((tmp >> 8) & 0xFF);
+                data.emplace_back(tmp & 0xFF);
+            }
+            break;
+        }
+        case 4:     // real
+        {
+            data.emplace_back(0x44);
+            float tmp = std::atof(value.c_str());
+            u_int32_t res;
+            float_To_IEEE754(tmp, res);
+            LOG_INFO("real tmp=%2f, u32=%d", tmp, (int)res);
+
+            data.emplace_back(res >> 24);
+            data.emplace_back((res >> 16) & 0xFF);
+            data.emplace_back((res >> 8) & 0xFF);
+            data.emplace_back(res & 0xFF);
+            break;
+        }
+        case 5:     // double
+            break;
+        case 6:     // Octet String 字节串
+            break;
+        case 7:     // Character String 字符串
+        {
+
+            break;
+        }
+        case 8:     // Bit String 比特串
+            break;
+        case 9:     // 枚举
+        {
+            int tmp = std::atoi(value.c_str());
+            if (tmp >= 0 && tmp <= 0xFF)
+            {
+                data.emplace_back(0x91);
+                data.emplace_back(tmp);
+            }else if(tmp > 0xFF && tmp <= 0xFFFF)
+            {
+                data.emplace_back(0x92);
+                data.emplace_back(tmp >> 8);
+                data.emplace_back(tmp & 0xFF);
+            }else if(tmp > 0xFFFF && tmp <= 0xFFFFFF)
+            {
+                data.emplace_back(0x93);
+                data.emplace_back(tmp >> 16);
+                data.emplace_back((tmp >> 8) & 0xFF);
+                data.emplace_back(tmp & 0xFF);
+            }
+            break;
+        }
+        case 10:     // date
+            break;
+        case 11:     // time
+            break;
+        default:
+            break;
     }
 }

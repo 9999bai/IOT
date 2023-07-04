@@ -36,13 +36,12 @@ void ModbusRtuFrame::start()
                 frame.emplace_back(crctmp.uchar_data[0]);//发送时modbusRTU数据帧时 crc16校验 低地址在前
                 frame.emplace_back(crctmp.uchar_data[1]);
 
-                nextFrame nextf(frame, pair_frame(device, templat));
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+
+                nextFrame nextf(frame, pair_frame(device, v_templat));
                 R_Vector.emplace_back(nextf);
 
-                // v_frame_.emplace_back(frame);
-                // pair_frame p_frame(device, templat);
-                // m_frame_[m_frame_.size()] = p_frame;
-                
                 frame = tmp;
                 LOG_INFO("modbusrtu frame ++ ");
             }

@@ -24,7 +24,13 @@ void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
     int IframeCount = 0;
     std::pair<int, IEC104FrameType> frameType(0, ENUM_Normal_Frame);
     iot_device device = nextframe.second.first;
-    iot_template templat = nextframe.second.second;
+    std::vector<iot_template> v_templat = nextframe.second.second;
+
+    if(v_templat.size() < 0)
+    {
+        LOG_FATAL("IEC104Analyse::AnalyseFunc v_templat.size < 0");
+    }
+    iot_template templat = v_templat.at(0);
 
     if(templat.rw == enum_read)// 读语句返回 解析
     {
@@ -605,7 +611,7 @@ void IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, i
 
             std::string str_value = floatToString(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
-
+            
             // addr += number;
         }
     }

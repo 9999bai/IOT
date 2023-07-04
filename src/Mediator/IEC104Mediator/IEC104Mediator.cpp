@@ -60,7 +60,10 @@ void IEC104Mediator::secTimer()
         iot_device device;
         iot_template templat;
         templat.rw = enum_read;
-        sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, templat));
+
+        std::vector<iot_template> v_templat;
+        v_templat.emplace_back(templat);
+        sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
 
         printFrame("TX", frame(buf.begin(), buf.end()));
         tcpClientPtr_->SendData(buf);
@@ -79,7 +82,10 @@ void IEC104Mediator::secTimer()
         iot_device device;
         iot_template templat;
         templat.rw = enum_read;
-        sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, templat));
+
+        std::vector<iot_template> v_templat;
+        v_templat.emplace_back(templat);
+        sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, v_templat));
 
         std::string buf(u_testFrame_.begin(), u_testFrame_.end());
         printFrame("TX", u_testFrame_);
@@ -161,7 +167,10 @@ void IEC104Mediator::onConnection()
     iot_device device;
     iot_template templat;
     templat.rw = enum_read;
-    sendedFrame_ = nextFrame(u_startFrame_, pair_frame(device, templat));
+            
+    std::vector<iot_template> v_templat;
+    v_templat.emplace_back(templat);
+    sendedFrame_ = nextFrame(u_startFrame_, pair_frame(device, v_templat));
     
     printFrame("TX", u_startFrame_);
     tcpClientPtr_->SendData(std::string(u_startFrame_.begin(), u_startFrame_.end())); // 发送U帧启动帧
@@ -205,7 +214,10 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
             iot_device device;
             iot_template templat;
             templat.rw = enum_read;
-            sendedFrame_ = nextFrame(u_testRespFrame_, pair_frame(device, templat));
+
+            std::vector<iot_template> v_templat;
+            v_templat.emplace_back(templat);
+            sendedFrame_ = nextFrame(u_testRespFrame_, pair_frame(device, v_templat));
 
             printFrame("TX", u_testRespFrame_);
             tcpClientPtr_->SendData(buf);
@@ -304,7 +316,10 @@ void IEC104Mediator::HandleFrameType(std::pair<int, IEC104FrameType>& frameType)
                 iot_device device;
                 iot_template templat;
                 templat.rw = enum_read;
-                sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, templat));
+
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+                sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
 
                 printFrame("TX", frame(buf.begin(), buf.end()));
                 tcpClientPtr_->SendData(buf);

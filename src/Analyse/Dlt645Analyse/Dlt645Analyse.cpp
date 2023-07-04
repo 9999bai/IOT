@@ -31,7 +31,13 @@ void Dlt645Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
     enum_RW resRW;
     int index = 0;
     iot_device device = nextframe.second.first;
-    iot_template templat = nextframe.second.second;
+    std::vector<iot_template> v_templat = nextframe.second.second;
+
+    if(v_templat.size() < 0)
+    {
+        LOG_FATAL("Dlt645Analyse::AnalyseFunc v_templat.size < 0");
+    }
+    iot_template templat = v_templat.at(0);
 
     if(templat.rw == enum_read)// 读语句返回 解析
     {

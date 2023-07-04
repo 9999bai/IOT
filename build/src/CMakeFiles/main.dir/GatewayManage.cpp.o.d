@@ -262,6 +262,13 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /home/brian/iot4/src/Frame/IEC104Frame/IEC104Frame.h \
  /home/brian/iot4/src/Analyse/IEC104Analyse/IEC104Analyse.h \
  /home/brian/iot4/src/Mediator/BacnetipMediator/BacnetipMediator.h \
+ /home/brian/iot4/src/Factory/BacnetipFactory/BacnetipFactory.h \
+ /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h \
+ /usr/include/mymuduo/UdpClient.h /usr/include/mymuduo/UdpConnector.h \
+ /usr/include/mymuduo/AbstractConnector.h \
+ /usr/include/mymuduo/UdpConnection.h \
+ /home/brian/iot4/src/Frame/BacnetipFrame/BacnetipFrame.h \
+ /home/brian/iot4/src/Analyse/BacnetipAnalyse/BacnetipAnalyse.h \
  /home/brian/iot4/src/Mediator/Pro188Mediator/Pro188Mediator.h \
  /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h \
  /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \

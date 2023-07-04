@@ -25,16 +25,14 @@ NetSerialPtr Factory::createNetSerial(const enum_netserial_type& type, const iot
         }
         case enum_netserial_udp:
         {
-            // NetSerialPtr tmp = std::make_shared<UdpClient>(loop_, gateway);
-            // return tmp;
+            NetSerialPtr tmp = std::make_shared<myUdpClient>(loop_, gateway, localip);
+            return tmp;
         }
-            break;
         case enum_netserial_tcp:
         {
             NetSerialPtr tmp = std::make_shared<myTcpClient>(loop_, gateway);
             return tmp;
         }
-            break;
     }
 }
 

@@ -287,7 +287,7 @@ void MysqlDatabase::getTemplateConfigure(int template_id, std::vector<iot_templa
                 iot_template templat;
                 templat.template_id = (row[0] == nullptr) ? (0) : std::atoi(row[0]);
                 templat.register_addr = (row[1] == nullptr) ? ("NULL") : (std::string(row[1]));
-                templat.register_quantity = (row[2] == nullptr) ? (0) : ((uint16_t)std::atoi(row[2]));
+                templat.register_quantity = (row[2] == nullptr) ? (0) : ((int)std::atoi(row[2]));
                 
                 int r_func_code = (row[3] == nullptr) ? (0) : (*row[3] - '0');
                 templat.r_func = (enum_r_func_code)r_func_code;

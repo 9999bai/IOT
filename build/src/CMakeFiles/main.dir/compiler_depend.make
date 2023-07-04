@@ -275,6 +275,14 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: /home/brian/iot4/src/GatewayManage.
   /home/brian/iot4/src/Frame/IEC104Frame/IEC104Frame.h \
   /home/brian/iot4/src/Analyse/IEC104Analyse/IEC104Analyse.h \
   /home/brian/iot4/src/Mediator/BacnetipMediator/BacnetipMediator.h \
+  /home/brian/iot4/src/Factory/BacnetipFactory/BacnetipFactory.h \
+  /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h \
+  /usr/include/mymuduo/UdpClient.h \
+  /usr/include/mymuduo/UdpConnector.h \
+  /usr/include/mymuduo/AbstractConnector.h \
+  /usr/include/mymuduo/UdpConnection.h \
+  /home/brian/iot4/src/Frame/BacnetipFrame/BacnetipFrame.h \
+  /home/brian/iot4/src/Analyse/BacnetipAnalyse/BacnetipAnalyse.h \
   /home/brian/iot4/src/Mediator/Pro188Mediator/Pro188Mediator.h \
   /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h \
   /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \
@@ -559,6 +567,14 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
   /home/brian/iot4/src/Frame/IEC104Frame/IEC104Frame.h \
   /home/brian/iot4/src/Analyse/IEC104Analyse/IEC104Analyse.h \
   /home/brian/iot4/src/Mediator/BacnetipMediator/BacnetipMediator.h \
+  /home/brian/iot4/src/Factory/BacnetipFactory/BacnetipFactory.h \
+  /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h \
+  /usr/include/mymuduo/UdpClient.h \
+  /usr/include/mymuduo/UdpConnector.h \
+  /usr/include/mymuduo/AbstractConnector.h \
+  /usr/include/mymuduo/UdpConnection.h \
+  /home/brian/iot4/src/Frame/BacnetipFrame/BacnetipFrame.h \
+  /home/brian/iot4/src/Analyse/BacnetipAnalyse/BacnetipAnalyse.h \
   /home/brian/iot4/src/Mediator/Pro188Mediator/Pro188Mediator.h \
   /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h \
   /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \
@@ -601,6 +617,18 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h:
 
+/home/brian/iot4/src/Analyse/BacnetipAnalyse/BacnetipAnalyse.h:
+
+/usr/include/mymuduo/AbstractConnector.h:
+
+/usr/include/mymuduo/UdpConnector.h:
+
+/usr/include/mymuduo/UdpClient.h:
+
+/home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h:
+
+/home/brian/iot4/src/Factory/BacnetipFactory/BacnetipFactory.h:
+
 /home/brian/iot4/src/Analyse/IEC104Analyse/IEC104Analyse.h:
 
 /home/brian/iot4/src/Frame/IEC104Frame/IEC104Frame.h:
@@ -612,6 +640,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /home/brian/iot4/src/Frame/ModbusTcpFrame/ModbusTcpFrame.h:
 
 /home/brian/iot4/src/Mediator/ModbusTcpMediator/ModbusTcpMediator.h:
+
+/usr/include/mymuduo/UdpConnection.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/mathcalls.h:
 
@@ -1010,6 +1040,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/uio.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ios:
+
+/home/brian/iot4/src/Frame/BacnetipFrame/BacnetipFrame.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/ios_base.h:
 

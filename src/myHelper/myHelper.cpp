@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <sstream>
 
-
-enun_endian ENDIAN = enum_little_endian;//默认小端
+std::string localip = "192.168.2.103";
+enun_endian ENDIAN = enum_little_endian; //默认小端
 std::mutex TD_mutex_;
 std::mutex RD_mutex_;
 std::list<iot_data_item> list_iotdataTD_;			//定时数据
@@ -63,13 +63,13 @@ void float_To_IEEE754(const float& src, u_int32_t& dest)
 	value.float_data = src;
 	switch(ENDIAN)
 	{
-		case LITTLE_ENDIAN:
+		case enum_little_endian:
 		for (int i = 3; i >= 0; i--)
 		{
 			dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
 		}
 		break;
-		case BIG_ENDIAN:
+		case enum_big_endian:
 		for (int i = 0; i < 4; i++)
 		{
 			dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
@@ -229,7 +229,7 @@ iot_data_item setItem(const int& gatewid, const int& device_id,const std::string
     iot_data_item item;
     item.gateway_id = gatewid;
     item.device_id = device_id;
-    item.device_addr = deviceaddr;
+    // item.device_addr = deviceaddr;
     item.param_id = param_id;
     item.param_name = param_name;
     item.value = value;
@@ -255,7 +255,7 @@ std::string itemToJson(const std::string& title, const iot_data_item& item)
 
 	node["gateway_id"] = item.gateway_id;
 	node["device_id"] = item.device_id;
-	node["device_addr"] = item.device_addr;
+	// node["device_addr"] = item.device_addr;
 	node["param_id"] = item.param_id;
 	node["param_name"] = item.param_name;
 	node["value"] = item.value;
@@ -278,7 +278,7 @@ std::string itemToJson(const std::string& title, const std::vector<iot_data_item
 		iot_data_item item = v_item.at(i);
 		node["gateway_id"] = item.gateway_id;
 		node["device_id"] = item.device_id;
-		node["device_addr"] = item.device_addr;
+		// node["device_addr"] = item.device_addr;
 		node["param_id"] = item.param_id;
 		node["param_name"] = item.param_name;
 		node["value"] = item.value;
@@ -293,9 +293,7 @@ void addIotDataTD(const iot_data_item& item)
 {
 	for(iot_data_item& tmp : list_iotdataTD_)
 	{
-		if(tmp.gateway_id == item.gateway_id && 
-			tmp.device_id == item.device_id &&
-			tmp.param_id == item.param_id)
+		if(tmp.gateway_id == item.gateway_id && tmp.device_id == item.device_id && tmp.param_id == item.param_id)
 		{
 			if(tmp.value != item.value)
 			{
@@ -311,17 +309,19 @@ void addIotDataTD(const iot_data_item& item)
 		std::unique_lock<std::mutex> lock(TD_mutex_);
 		list_iotdataTD_.emplace_back(item);
 	}
-	// LOG_INFO("list_iotdataTD_++++++++");
+	LOG_INFO("list_iotdataTD_++++++++");
 }
 
 void QueueData(int send_type, const iot_data_item& item)
 {
-    if(send_type == 1) // 立即发送
-    {
+	// LOG_INFO("************************************%d", send_type);
+	if (send_type == 1) // 立即发送
+	{
         std::unique_lock<std::mutex> lock(RD_mutex_);
         queue_iotdataRD_.push(item);
-    }
-    else
+		LOG_INFO("实时表 +++++++++++++++");
+	}
+	else
     {
         addIotDataTD(item);
     }
@@ -369,3 +369,47 @@ char DLTCheck(const frame& src)
     }
     return res &= 0xFF;
 }
+
+void ObjectIdentifier(const iot_template& templat, frame& data)
+{
+    data.emplace_back(0x0C);
+    BacnetIP_ObjectIdentifity object = strToObject(templat.register_addr);
+
+    union_uchar4TOuint32 uc32;
+    uc32.u32_data = (object.objectType << 22) | (object.InstanceNumber & 0x3FFFFF);
+
+    LOG_INFO("objectType=%d, instance=%d", object.objectType, object.InstanceNumber);
+    // LOG_INFO("res= %d", uc32.u32_data);
+
+    data.emplace_back(uc32.uchar_data[3]);
+    data.emplace_back(uc32.uchar_data[2]);
+    data.emplace_back(uc32.uchar_data[1]);
+    data.emplace_back(uc32.uchar_data[0]);
+}
+
+BacnetIP_ObjectIdentifity strToObject(const std::string& strObject)
+{
+    BacnetIP_ObjectIdentifity object;
+    std::vector<std::string> res;
+    if(stringSplit(strObject, res, '-'))
+    {
+        try
+        {
+            object.objectType = std::atoi(res.at(0).c_str());
+            object.InstanceNumber = std::atoi(res.at(1).c_str());
+        }
+        catch(std::out_of_range)
+        {
+            LOG_FATAL("BacnetipFrame::strToObject out_of_range...%s", strObject.c_str());
+        }
+        catch(...)
+        {
+            LOG_FATAL("BacnetipFrame::strToObject other error...%s", strObject.c_str());
+        }
+    }else{
+        LOG_FATAL("BacnetipFrame::strToObject error..%s", strObject.c_str());
+    }
+    return object;
+}
+
+

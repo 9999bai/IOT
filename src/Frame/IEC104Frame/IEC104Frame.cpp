@@ -67,7 +67,11 @@ void IEC104Frame::start()
                     LOG_ERROR("IEC104 typeIdentity = %s", templat.register_addr.c_str());
                     continue;
                 }
-                nextFrame nextf(tmp, pair_frame(device, templat));
+
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+
+                nextFrame nextf(tmp, pair_frame(device, v_templat));
                 R_Vector.emplace_back(nextf);
             }
         }

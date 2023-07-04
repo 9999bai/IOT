@@ -29,7 +29,14 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     enum_RW resRW;
     int index = 0;
     iot_device device = nextframe.second.first;
-    iot_template templat = nextframe.second.second;
+    std::vector<iot_template> v_templat = nextframe.second.second;
+
+    if(v_templat.size() < 0)
+    {
+        LOG_FATAL("ModbusRTUAnalyse::AnalyseFunc v_templat.size < 0");
+    }
+    iot_template templat = v_templat.at(0);
+
 
     if(templat.rw == enum_read)// 读语句返回 解析
     {
@@ -139,14 +146,14 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             LOG_ERROR("ModbusRtuAnalyse::Analyse  error out_of_range...");
             v_data.clear();
             resOK = false;
-            return;
+            // return;
         }
         catch(...)
         {
             LOG_ERROR("ModbusRtuAnalyse::Analyse  error ...");
             v_data.clear();
             resOK = false;
-            return;
+            // return;
         }
         v_data.clear();
     }

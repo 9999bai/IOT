@@ -13,7 +13,7 @@ public:
     int getDeviceAddr(const iot_device& device) { return std::atoi(device.device_addr.c_str()); }
     int getDeviceReadFuncCode(const iot_template &templat) { return templat.r_func; }
     uint16_t getRegisterAddr(const iot_template &templat) { return std::atoi(templat.register_addr.c_str()); }
-    uint16_t getRegisterQuantity(const iot_template& templat) { return templat.register_quantity; }
+    uint16_t getRegisterQuantity(const iot_template& templat) { return (u_int16_t)templat.register_quantity; }
 
     virtual void start() = 0;
 

@@ -21,9 +21,9 @@ void ModbusTcpFrame::start()
         {
             if(templat.priority != enum_priority_write)
             {
+                templat.rw = enum_read;
                 std::vector<char> frame;
                 templat.other = std::to_string(frameNumber_);   // other用来传递事务值
-                templat.rw = enum_read;                         // 当前帧为读
                 uint16_To_char2(frameNumber_++, frame);         // 报文序列号
                 uint16_To_char2(ModbusTcpIdentity, frame);      // modbustcp标志
                 uint16_To_char2(ModbusTcpReadLength, frame);    // 数据长度
@@ -32,7 +32,10 @@ void ModbusTcpFrame::start()
                 uint16_To_char2(getRegisterAddr(templat), frame);
                 uint16_To_char2(getRegisterQuantity(templat), frame);
 
-                nextFrame nextf(frame, pair_frame(device, templat));
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+
+                nextFrame nextf(frame, pair_frame(device, v_templat));
                 R_Vector.emplace_back(nextf);
 
                 frame.clear();

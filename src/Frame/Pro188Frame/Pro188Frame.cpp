@@ -19,6 +19,7 @@ void Pro188Frame::start()
         {
             if(templat.priority != enum_priority_write)
             {
+                templat.rw = enum_read;
                 std::vector<char> tmp;
                 tmp.emplace_back(0x68); // 起始
                 tmp.emplace_back(0x10); // 10:水表
@@ -29,7 +30,7 @@ void Pro188Frame::start()
                 }
                     
                 tmp.emplace_back(templat.r_func); // 控制码
-                tmp.emplace_back(templat.register_quantity); // 数据域长度
+                tmp.emplace_back((u_int16_t)templat.register_quantity); // 数据域长度
 
                 frame ident = HexStrToByteArray(templat.register_addr);
                 for (auto it = ident.begin(); it != ident.end(); it++)
@@ -40,7 +41,10 @@ void Pro188Frame::start()
                 tmp.emplace_back(DLTCheck(tmp));
                 tmp.emplace_back(0x16); // 结束符
 
-                nextFrame nextf(tmp, pair_frame(device, templat));
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+
+                nextFrame nextf(tmp, pair_frame(device, v_templat));
                 R_Vector.emplace_back(nextf);
                 LOG_INFO("CJT188Frame frame ++ ");
             }

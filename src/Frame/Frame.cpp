@@ -30,6 +30,7 @@ void Frame::addControlFrame(const nextFrame& controlFrame)
 
 bool Frame::getNextReadFrame(nextFrame& next_frame)
 {
+    // 取 写队列
     if(!W_Queue.empty())
     {
         {
@@ -40,6 +41,7 @@ bool Frame::getNextReadFrame(nextFrame& next_frame)
         return true;
     }
 
+    // 取 读队列 
     if(0 == R_Vector.size())
     {
         LOG_FATAL("%sFrame::getNextReadFrame error : R_Vector.size == 0", name_.c_str());

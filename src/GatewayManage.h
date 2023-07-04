@@ -33,11 +33,12 @@ private:
     void sendDataRD();
     void sendDataTD();
 
-    bool findControlParam(const iot_data_item& item, int& gateway_id, enum_pro_name& pro_name, iot_device& dest_device, iot_template& dest_templat);
+    bool findControlParam(const iot_data_item& item, enum_pro_name& pro_name, iot_device& dest_device, iot_template& dest_templat);
 
     //写单个线圈/寄存器
     void controlFrameModbusRTU(int gateway_id, const std::string& value, const iot_device& device, const iot_template& templat);
     void controlFrameModbusTCP(int gateway_id, const std::string& value, const iot_device& device, const iot_template& templat);
+    void controlFrameBacnetIP(int gateway_id, const std::string& value, const iot_device& device, iot_template& templat);
 
     void CreateModbusRTUFactory(const iot_gateway& gateway);
     void CreateModbusTCPFactory(const iot_gateway& gateway);
@@ -48,6 +49,10 @@ private:
     void CreateOPCUAFactory(const iot_gateway& gateway);
 
     void ThreadPoolInit(int size);
+
+    // bacnetip
+    void strToBacnetIPValue(const std::string &value, int valueType, frame &data);
+
 
     EventLoop *loop_;
 

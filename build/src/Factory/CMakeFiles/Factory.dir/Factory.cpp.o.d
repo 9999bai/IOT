@@ -232,4 +232,6 @@ src/Factory/CMakeFiles/Factory.dir/Factory.cpp.o: \
  /usr/include/mymuduo/TcpClient.h \
  /usr/include/mymuduo/TcpClientConnector.h \
  /usr/include/mymuduo/AbstractConnector.h \
- /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h
+ /home/brian/iot4/src/NetSerial/myUdpClient/myUdpClient.h \
+ /usr/include/mymuduo/UdpClient.h /usr/include/mymuduo/UdpConnector.h \
+ /usr/include/mymuduo/UdpConnection.h

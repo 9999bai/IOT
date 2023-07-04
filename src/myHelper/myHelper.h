@@ -78,13 +78,16 @@ typedef union{
 } union_uchar4TOuint32;
 
 typedef struct{
+    // 控制和上传
     int gateway_id;
     int device_id;
-    int templat_id;
-    std::string device_addr;
     int param_id;
-    std::string param_name;
     std::string value;
+    
+    // 上传
+    std::string param_name;
+    // std::string device_addr;
+    // int templat_id;
 } iot_data_item;
 
 
@@ -191,7 +194,6 @@ typedef struct
     std::string user_passwd;
 } sqlServer_info;
 
-
 typedef struct
 {
     mymuduo::enum_data_res valid = mymuduo::enum_data_res_disvalid;
@@ -210,7 +212,7 @@ typedef struct{
 
 typedef enum{
     enum_data_type_normal = 0,
-    enum_data_type_bool = 1,
+    enum_data_type_bool,
     enum_data_type_int8_str,
     enum_data_type_int8_hex,
     enum_data_type_int16_str,
@@ -220,7 +222,19 @@ typedef enum{
     enum_data_type_float,
     enum_data_type_double,
     enum_data_type_string,
-    enum_data_type_BCD
+    enum_data_type_BCD,
+    enum_data_type_BA_bool,         // 应用标记编码 1
+    enum_data_type_BA_uint,         // 无符号整型
+    enum_data_type_BA_int,          // 有符号整型
+    enum_data_type_BA_float,        // IEEE754-float
+    enum_data_type_BA_double,       // IEEE754-double
+    enum_data_type_BA_octet_string, // 字符串
+    enum_data_type_BA_character_string,// 字符串
+    enum_data_type_BA_bit_string,       // 比特位串
+    enum_data_type_BA_enum,             // 枚举
+    enum_data_type_BA_date,             // 日期
+    enum_data_type_BA_time,             // 时间
+    enum_data_type_BA_ObjectIdentifity  // 对象标识符
 } enum_data_type;
 
 typedef enum{
@@ -305,7 +319,7 @@ typedef struct{
 typedef struct{
     int template_id;
     std::string register_addr;
-    uint16_t register_quantity;
+    int register_quantity;
     enum_r_func_code r_func;
     enum_w_func_code w_func;
     std::string param_name;
@@ -418,12 +432,42 @@ typedef enum{
     ENUM_YM
 } IEC104Type;
 
+// BacnetIP-----
+
+typedef struct{
+    int objectType;     // 对象类型 -- 前10位
+    int InstanceNumber; // 实例号   -- 后22位
+}BacnetIP_ObjectIdentifity;
+
+typedef enum{
+    enum_ApplicationTag = 0, // 应用标记
+    enum_ContextTag          // 上下文标记
+} BacnetIP_ClassType;
+
+typedef enum{
+    enum_PrimitiveData = 1, // 原语数据
+    enum_ConstructedData_opening,    // 构件数据-open
+    enum_ConstructedData_closing     // 构件数据-clos
+} BacnetIP_TVL;
+
+typedef struct{
+    BacnetIP_ClassType classType;   // 类别
+    u_int8_t tagNumber;  // 标记编号
+    BacnetIP_TVL tvlType;
+    int tvlValue; // tvlType为原语数据时，tvl域值
+} BacnetIP_Tag;
+
+void ObjectIdentifier(const iot_template &templat, frame &data);
+BacnetIP_ObjectIdentifity strToObject(const std::string &strObject);
+
+
+
 // using AnalyseFinishCallback = std::function<void(const std::vector<iot_data_item>&)>;
 using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, std::pair<int, IEC104FrameType>)>;
 using NextFrameCallback = std::function<void()>;
 using NewConnectionCallback = std::function<void()>;
 
-using pair_frame = std::pair<iot_device, iot_template>;
+using pair_frame = std::pair<iot_device, std::vector<iot_template>>;
 using map_frame = std::unordered_map<int, pair_frame>;
 
 using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
@@ -461,7 +505,6 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 
 #define SendPeriodTimer     40              //定时发送数据  周期 单位：秒
 
-
 // IEC104
 #define IEC104_T0  30  // tcp连接的超时
 #define IEC104_T1  15  // 发送方发送一个I格式报文或U格式报文后，必须在t1的时间内得到接收方的认可，否则发送方认为TCP连接出现问题并应重新建立连接。
@@ -470,7 +513,13 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define IEC104Next_Freq 60*15 // IEC104 定时总召唤 15分钟
 #define IEC104AnalyseFrame_Minsize 0x06    // IEC104 最小帧长度
  
+//Bacnetip
+// #define BACNETIP_FREQ  2 // 
+#define BACNETIP_RX_MAXLENGTH 1024
+#define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
+#define BACNETIP_Freq 3
 
+extern std::string localip;
 
 extern enun_endian ENDIAN;
 

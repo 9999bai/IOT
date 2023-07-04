@@ -19,6 +19,7 @@ void Dlt645Frame::start()
         {
             if(templat.priority != enum_priority_write)
             {
+                templat.rw = enum_read;
                 std::vector<char> tmp;
                 tmp.emplace_back(0x68);
                 frame addrHex = HexStrToByteArray(device.device_addr);
@@ -30,7 +31,7 @@ void Dlt645Frame::start()
                 tmp.emplace_back();
                 tmp.emplace_back(0x68);
                 tmp.emplace_back(DLT645ControlCode);
-                tmp.emplace_back(templat.register_quantity);
+                tmp.emplace_back((u_int16_t)templat.register_quantity);
 
                 frame tframe = HexStrToByteArray(templat.register_addr);
                 for (auto it = tframe.begin(); it != tframe.end(); it++)
@@ -40,7 +41,10 @@ void Dlt645Frame::start()
                 tmp.emplace_back(DLTCheck(tmp));
                 tmp.emplace_back(0x16);
 
-                nextFrame nextf(tmp, pair_frame(device, templat));
+                std::vector<iot_template> v_templat;
+                v_templat.emplace_back(templat);
+
+                nextFrame nextf(tmp, pair_frame(device, v_templat));
                 R_Vector.emplace_back(nextf);
                 LOG_INFO("Dlt645Frame frame ++ ");
             }
