@@ -18,7 +18,7 @@ myTcpClient::~myTcpClient()
 
 void myTcpClient::start(double interval)
 {
-    timer_Interval_ = interval;
+    nextFrameInterval_ = interval;
     tcpClient_.connect();
 };
 
@@ -30,11 +30,6 @@ void myTcpClient::SendData(const std::string &buf)
     }
 }
 
-void myTcpClient::getMsgTimer(double interval)  //定时获取缓存区数据
-{
-    getData_EveryT_ = loop_->runEvery(interval, std::bind(&myTcpClient::getMsg, this));
-}
-
 void myTcpClient::getMsg()
 {
     if(buff_.readableBytes() > 0 && messageCallback_ && boolconn_)
@@ -44,11 +39,6 @@ void myTcpClient::getMsg()
             messageCallback_(conn_, &buff_, Timestamp::now());
         }
     }
-}
-
-void myTcpClient::getNextFrameTimer(double interval)
-{
-    sendNext_EveryT_ = loop_->runEvery(interval, std::bind(&myTcpClient::getNextFrame, this));
 }
 
 void myTcpClient::getNextFrame()
@@ -66,8 +56,8 @@ void myTcpClient::onConnection(const ConnectionPtr &conn)
         LOG_INFO("TcpClient onConnection UP: %s\n",conn->name().c_str());
         conn_ = conn;
         boolconn_ = true;
-        getMsgTimer(TCP_GETMAG_TIMER_INTERVAL); // 定时获取 接收缓冲区 数据
-        getNextFrameTimer(timer_Interval_);     // 定时发送
+        // getMsgTimer(TCP_GETMAG_TIMER_INTERVAL); // 定时获取 接收缓冲区 数据
+        // getNextFrameTimer(timer_Interval_);     // 定时发送
         if(newConnectionCallback_)
         {
             newConnectionCallback_();
@@ -76,8 +66,8 @@ void myTcpClient::onConnection(const ConnectionPtr &conn)
     else
     {
         boolconn_ = false;
-        RequestTimer_stop();
-        GetDataTimer_stop();
+        // RequestTimer_stop();
+        // GetDataTimer_stop();
         LOG_INFO("TcpClient onConnection DOWN: %s\n", conn->name().c_str());
         LOG_INFO("everyT Timer  closed...");
     }
@@ -94,5 +84,19 @@ void myTcpClient::onClose(const ConnectionPtr& conn)
     if(closeCallback_)
     {
         closeCallback_(conn);
+    }
+}
+
+void myTcpClient::originTimer()
+{
+    if(boolconn_)
+    {
+        getMsg(); // 定时获取缓冲区数据
+
+        if(++timerValue_ >= nextFrameInterval_)
+        {
+            timerValue_ = 0;
+            getNextFrame();
+        }
     }
 }

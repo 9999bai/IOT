@@ -96,7 +96,7 @@ void IEC104Mediator::secTimer()
 void IEC104Mediator::start()
 {
     iec104FramePtr_->start();
-    tcpClientPtr_->start(IEC104Next_Freq);
+    tcpClientPtr_->start(IEC104_Freq);
 }
 
 void IEC104Mediator::addControlFrame(const nextFrame& controlFrame)

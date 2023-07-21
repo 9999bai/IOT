@@ -19,7 +19,6 @@ BacnetipMediator::~BacnetipMediator()
 
 void BacnetipMediator::start()
 {
-    LOG_INFO("---------------start------------");
     bacnetipFramePtr_->start();
     udpClientPtr_->start(BACNETIP_Freq);
 }

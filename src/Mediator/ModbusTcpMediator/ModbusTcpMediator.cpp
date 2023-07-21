@@ -25,7 +25,7 @@ void ModbusTcpMediator::secTimer()
 void ModbusTcpMediator::start()
 {
     modbustcpFramePtr_->start(); // 组合数据帧
-    tcpclientPtr_->start(ModbusTcpNEXT_FREQ);      // tcp
+    tcpclientPtr_->start(ModbusTcp_Freq);      // tcp
 }
 
 void ModbusTcpMediator::addControlFrame(const nextFrame& controlFrame)

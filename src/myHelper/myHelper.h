@@ -447,7 +447,7 @@ typedef enum{
 typedef enum{
     enum_PrimitiveData = 1, // 原语数据
     enum_ConstructedData_opening,    // 构件数据-open
-    enum_ConstructedData_closing     // 构件数据-clos
+    enum_ConstructedData_closing     // 构件数据-close
 } BacnetIP_TVL;
 
 typedef struct{
@@ -473,51 +473,54 @@ using map_frame = std::unordered_map<int, pair_frame>;
 using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 
 
-#define PROJECT_ID 2                        // 项目id
-#define TCP_GETMAG_TIMER_INTERVAL 0.05      // tcp缓存区buff 获取数据间隔
-#define UDP_GETMAG_TIMER_INTERVAL 0.1       // udp缓冲区buff 获取数据间隔
-#define Serial_GETMAG_TIMER_INTERVAL 0.2    // serial缓冲区buff 获取数据间隔
+
+/* 时间间隔以50毫秒为单位 */
+#define Project_ID 2                        // 项目id
+#define Origin_Timer 0.05                   // 定时间隔 一个单位 50ms
+
+// #define TCP_GETMAG_TIMER_INTERVAL 1         // tcp缓存区buff 获取数据间隔 1个时间间隔 50ms
+// #define UDP_GETMAG_TIMER_INTERVAL 2         // udp缓冲区buff 获取数据间隔 2个时间间隔 100ms
+// #define Serial_GETMAG_TIMER_INTERVAL 0.2    // serial缓冲区buff 获取数据间隔
 
 
 //threadpool
 #define THREADPOOL_MAX_QUEUE_SIZE 200       // threadpool 装载函数最大数量
 #define THREADPOOL_MAX_THREAD_SIZE 25       // threadpool 最大线程数量
-#define THREADPOOL_MIN_THREAD_SIZE 10       // threadpool 最大线程数量
+#define THREADPOOL_MIN_THREAD_SIZE 10       // threadpool 最小线程数量
 
 // modbusrtu
-#define MODBUSRTUNEXT_FREQ 0.9              // modbusRtu 定时发送频率
+#define ModbusRtu_Freq 16                   // modbusRtu 定时发送频率 ----表示16个50ms=0.8s
 #define ModbusRtuAnalyseFrame_MinSize 5     // modbusRtu 数据帧最小长度
 
 // modbustcp
-#define ModbusTcpNEXT_FREQ 2                // modbustcp 定时发送频率
+#define ModbusTcp_Freq 16                   // modbustcp 定时发送频率 ----表示16个50ms=0.8s
 #define ModbusTcpIdentity 0x00              // modbustcp标识符
-#define ModbusTcpReadLength   0x06          // modbustcp 读数据帧长度
+#define ModbusTcpReadLength 0x06            // modbustcp 读数据帧长度
 #define ModbusTcpAnalyseFrame_Minsize 0x09  // modbustcp返回帧最小长度
 
 //dlt645
-#define DLT645NEXT_FREQ 0.9                 // dlt645 定时发送频率
-#define DLT645ControlCode   0x11            // dlt645-2007 控制码
+#define DLT645_Freq 16                      // dlt645 定时发送频率 ----表示16个50ms=0.8s
+#define DLT645ControlCode 0x11              // dlt645-2007 控制码
 #define DLT645AnalyseFrame_Minsize 0x0C     // dlt645 数据帧最小长度
 
 // CJT188
-#define CJT188NEXT_FREQ 0.9                 // CJT188 定时发送频率
+#define CJT188_Freq 16                      // CJT188 定时发送频率 ----表示16个50ms=0.8s
 #define CJT188AnalyseFrame_Minsize  0x16    // CJT188 数据帧最小长度
 
-#define SendPeriodTimer     40              //定时发送数据  周期 单位：秒
+#define SendPeriodTimer 40                   //定时发送数据  周期 单位：秒
 
 // IEC104
 #define IEC104_T0  30  // tcp连接的超时
 #define IEC104_T1  15  // 发送方发送一个I格式报文或U格式报文后，必须在t1的时间内得到接收方的认可，否则发送方认为TCP连接出现问题并应重新建立连接。
 #define IEC104_T2  10  // 接收方接收到I帧后，t2时间内未收到I帧，发送S确认帧    (t2<t1)
 #define IEC104_T3  20  // 未收到 I/U/S帧，发送测试链路帧  (U帧)
-#define IEC104Next_Freq 60*15 // IEC104 定时总召唤 15分钟
+#define IEC104_Freq 20*60*15 // IEC104 定时总召唤 15分钟
 #define IEC104AnalyseFrame_Minsize 0x06    // IEC104 最小帧长度
  
 //Bacnetip
-// #define BACNETIP_FREQ  2 // 
 #define BACNETIP_RX_MAXLENGTH 1024
 #define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
-#define BACNETIP_Freq 3
+#define BACNETIP_Freq 20    // 20*50ms=1s
 
 extern std::string localip;
 

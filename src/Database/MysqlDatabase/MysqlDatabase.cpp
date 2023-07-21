@@ -159,7 +159,7 @@ void MysqlDatabase::getGatewayConfigure()
     MYSQL_RES* res;
     MYSQL_ROW row;
     char sql[200] = {0};
-    snprintf(sql, 200, "select gateway_id,gateway_name,description,pro_mode+0,pro_name+0,net_serial,project_id,status+0 from iot_gateway where project_id = '%d' and status = 2;", PROJECT_ID);
+    snprintf(sql, 200, "select gateway_id,gateway_name,description,pro_mode+0,pro_name+0,net_serial,project_id,status+0 from iot_gateway where project_id = '%d' and status = 2;", Project_ID);
     // LOG_INFO("getGatewayConfigure sql: %s\n", sql);
 
     if (0 == mysql_real_query(&mysql_, sql, sizeof sql))
@@ -220,7 +220,7 @@ void MysqlDatabase::getDeviceConfigure(int gateway_id, std::vector<iot_device>& 
     MYSQL_RES* res;
     MYSQL_ROW row;
     char sql[400] = {0};
-    snprintf(sql, 400, "select gateway_id,device_id,device_addr,device_name,template_id,project_id,status+0 from iot_device where project_id = '%d' and status = 2 and gateway_id = '%d';", PROJECT_ID, gateway_id);
+    snprintf(sql, 400, "select gateway_id,device_id,device_addr,device_name,template_id,project_id,status+0 from iot_device where project_id = '%d' and status = 2 and gateway_id = '%d';", Project_ID, gateway_id);
     // LOG_INFO("getDeviceConfigure sql: %s\n", sql);
 
     if (0 == mysql_real_query(&mysql_, sql, (unsigned int)strlen(sql)))

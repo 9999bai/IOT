@@ -16,11 +16,6 @@ mySerialPort::~mySerialPort()
     
 }
 
-void mySerialPort::getMsgTimer(double interval)  //定时获取缓存区数据
-{
-    getData_EveryT_ = loop_->runEvery(interval, std::bind(&mySerialPort::getMsg, this));
-}
-
 void mySerialPort::getMsg()
 {
     if(buff_.readableBytes() > 0 && messageCallback_ && boolconn_)
@@ -30,11 +25,6 @@ void mySerialPort::getMsg()
             messageCallback_(conn_, &buff_, Timestamp::now());
         }
     }
-}
-
-void mySerialPort::getNextFrameTimer(double interval)
-{
-    sendNext_EveryT_ = loop_->runEvery(interval, std::bind(&mySerialPort::getNextFrame, this));
 }
 
 void mySerialPort::getNextFrame()  // 定时发送数据请求帧
@@ -58,8 +48,8 @@ void mySerialPort::onConnection(const ConnectionPtr& conn)
         LOG_INFO("SerialPort onConnection UP: %s\n",conn->name().c_str());
         conn_ = conn;
         boolconn_ = true;
-        getMsgTimer(Serial_GETMAG_TIMER_INTERVAL);//定时获取缓冲区数据
-        getNextFrameTimer(timer_Interval_);//定时发送
+        // getMsgTimer(Serial_GETMAG_TIMER_INTERVAL);//定时获取缓冲区数据
+        // getNextFrameTimer(timer_Interval_);//定时发送
         // if (newConnectionCallback_)
         // {
         //     newConnectionCallback_();
@@ -68,8 +58,8 @@ void mySerialPort::onConnection(const ConnectionPtr& conn)
     else
     {
         boolconn_ = false;
-        RequestTimer_stop();
-        GetDataTimer_stop();
+        // RequestTimer_stop();
+        // GetDataTimer_stop();
         LOG_INFO("SerialPort onConnection DOWN: %s\n", conn->name().c_str());
         LOG_INFO("everyT Timer  closed...");
     }
@@ -78,10 +68,10 @@ void mySerialPort::onConnection(const ConnectionPtr& conn)
 void mySerialPort::onClose(const ConnectionPtr& conn)
 {
     boolconn_ = false;
-    RequestTimer_stop();
-    GetDataTimer_stop();
+    // RequestTimer_stop();
+    // GetDataTimer_stop();
     LOG_INFO("SerialPort conn [%s] closed... ",conn->name().c_str());
-    LOG_INFO("everyT Timer  closed..."); 
+    LOG_INFO("everyT Timer  closed...");
 }
 
 void mySerialPort::SendData(const std::string& buf)
@@ -89,5 +79,19 @@ void mySerialPort::SendData(const std::string& buf)
     if(boolconn_ && conn_)
     {
         conn_->send(buf);
+    }
+}
+
+void mySerialPort::originTimer()
+{
+    if(boolconn_)
+    {
+        getMsg(); // 定时获取缓冲区数据
+
+        if(++timerValue_ >= nextFrameInterval_)
+        {
+            timerValue_ = 0;
+            getNextFrame();
+        }
     }
 }

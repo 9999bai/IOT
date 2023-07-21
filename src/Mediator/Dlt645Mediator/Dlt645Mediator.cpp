@@ -25,7 +25,7 @@ void Dlt645Mediator::secTimer()
 void Dlt645Mediator::start()
 {
     dlt645FramePtr_->start();
-    serialPortPtr_->start(DLT645NEXT_FREQ);
+    serialPortPtr_->start(DLT645_Freq);
 }
 
 void Dlt645Mediator::addControlFrame(const nextFrame& controlFrame)

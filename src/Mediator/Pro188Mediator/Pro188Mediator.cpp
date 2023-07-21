@@ -24,7 +24,7 @@ void Pro188Mediator::secTimer()
 void Pro188Mediator::start()
 {
     pro188FramePtr_->start();   // 组合数据帧
-    serialPortPtr_->start(CJT188NEXT_FREQ);    // 打开串口
+    serialPortPtr_->start(CJT188_Freq);    // 打开串口
 }
 
 void Pro188Mediator::addControlFrame(const nextFrame& controlFrame)
