@@ -16,7 +16,7 @@ IEC104Mediator::IEC104Mediator(EventLoop* loop, const iot_gateway& gateway, cons
                 , u_testRespFrame_(HexStrToByteArray("68 04 83 00 00 00"))
                 , s_frame_(HexStrToByteArray("68 04 01 00"))
 {
-    iec104AnalysePtr_->setAnalyseFinishCallback(std::bind(&IEC104Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+    iec104AnalysePtr_->setAnalyseFinishCallback(std::bind(&IEC104Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5));
     tcpClientPtr_->setNextFrameCallback(std::bind(&IEC104Mediator::onNextFrame, this));
     tcpClientPtr_->setMessageCallback(std::bind(&IEC104Mediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     tcpClientPtr_->setNewConnectionCallback(std::bind(&IEC104Mediator::onConnection, this));
@@ -104,7 +104,7 @@ void IEC104Mediator::addControlFrame(const nextFrame& controlFrame)
     iec104FramePtr_->addControlFrame(controlFrame);
 }
 
-void IEC104Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType)     //解析完成后
+void IEC104Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)     //解析完成后
 {
     if(rw == enum_write)
     {
@@ -126,7 +126,7 @@ void IEC104Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseRes
             // 读 成功
             LOG_INFO("IEC104Mediator 读成功...");
             HandleResult(result);
-            HandleFrameType(frameType);
+            HandleFrameType(count, type);
         }
         else
         {
@@ -276,10 +276,10 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
     }
 }
 
-void IEC104Mediator::HandleFrameType(std::pair<int, IEC104FrameType>& frameType)
+void IEC104Mediator::HandleFrameType(int count, IEC104FrameType type)
 {
     static int IFrame_count = 0;
-    switch (frameType.second)
+    switch (type)
     {
         case ENUM_Normal_Frame:
             break;
@@ -303,7 +303,7 @@ void IEC104Mediator::HandleFrameType(std::pair<int, IEC104FrameType>& frameType)
             BoolT3_ = false; // T3 开启
             T3_ = 0;
 
-            IFrame_count += frameType.first;
+            IFrame_count += count;
             if(IFrame_count >= W_)
             {
                 IFrame_count = 0;

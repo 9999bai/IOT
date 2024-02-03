@@ -463,7 +463,8 @@ BacnetIP_ObjectIdentifity strToObject(const std::string &strObject);
 
 
 // using AnalyseFinishCallback = std::function<void(const std::vector<iot_data_item>&)>;
-using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, std::pair<int, IEC104FrameType>)>;
+// using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, std::pair<int, IEC104FrameType>)>;
+using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, int, IEC104FrameType)>;
 using NextFrameCallback = std::function<void()>;
 using NewConnectionCallback = std::function<void()>;
 
@@ -531,9 +532,6 @@ extern std::mutex TD_mutex_;
 extern std::mutex RD_mutex_;
 extern std::list<iot_data_item> list_iotdataTD_; //定时数据
 extern std::queue<iot_data_item> queue_iotdataRD_; //实时数据
-
-
-
 
 
 

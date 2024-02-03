@@ -88,7 +88,7 @@ void mySerialPort::originTimer()
     {
         getMsg(); // 定时获取缓冲区数据
 
-        if(++timerValue_ >= nextFrameInterval_)
+        if(++timerValue_ >= nextFrameInterval_) // 定时发送下一帧数据
         {
             timerValue_ = 0;
             getNextFrame();

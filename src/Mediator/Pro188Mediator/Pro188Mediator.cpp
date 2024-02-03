@@ -6,7 +6,7 @@ Pro188Mediator::Pro188Mediator(EventLoop* loop, const iot_gateway& gateway, cons
                 , pro188AnalysePtr_(pro188Factory->createAnalyse())
                 , serialPortPtr_(pro188Factory->createNetSerial(enum_netserial_serialport, gateway))
 {
-    pro188AnalysePtr_->setAnalyseFinishCallback(std::bind(&Pro188Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+    pro188AnalysePtr_->setAnalyseFinishCallback(std::bind(&Pro188Mediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5));
     serialPortPtr_->setNextFrameCallback(std::bind(&Pro188Mediator::onNextFrame, this));
     serialPortPtr_->setMessageCallback(std::bind(&Pro188Mediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
@@ -56,7 +56,7 @@ void Pro188Mediator::onNextFrame()
     }
 }
 
-void Pro188Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType)
+void Pro188Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)
 {
     if(rw == enum_write)
     {

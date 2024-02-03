@@ -15,7 +15,7 @@ public:
     void secTimer();
 
 private:
-    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType);
+    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type);
     void updateFrame(frame &data, const u_int16_t &txsn, const u_int16_t &rxsn);
 
     void onNextFrame();
@@ -24,7 +24,7 @@ private:
     void onClose(const ConnectionPtr& conn);
 
     void HandleResult(AnalyseResult& result);
-    void HandleFrameType(std::pair<int, IEC104FrameType>& frameType);
+    void HandleFrameType(int count, IEC104FrameType type);
 
     NetSerialPtr tcpClientPtr_;
     AnalysePtr iec104AnalysePtr_;

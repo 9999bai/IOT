@@ -7,7 +7,7 @@ BacnetipMediator::BacnetipMediator(EventLoop* loop, const iot_gateway& gateway, 
                 , udpClientPtr_(bacnetipFactory->createNetSerial(enum_netserial_udp, gateway))
                 , bacnetipFramePtr_(bacnetipFactory->createFrame(gateway))
 {
-    bacnetipAnalysePtr_->setAnalyseFinishCallback(std::bind(&BacnetipMediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+    bacnetipAnalysePtr_->setAnalyseFinishCallback(std::bind(&BacnetipMediator::HandleAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5));
     udpClientPtr_->setNextFrameCallback(std::bind(&BacnetipMediator::onNextFrame, this));
     udpClientPtr_->setMessageCallback(std::bind(&BacnetipMediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
@@ -28,7 +28,7 @@ void BacnetipMediator::addControlFrame(const nextFrame& controlFrame)
     bacnetipFramePtr_->addControlFrame(controlFrame);
 }
 
-void BacnetipMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType)
+void BacnetipMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)
 {
     if(rw == enum_write)
     {

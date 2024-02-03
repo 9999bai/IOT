@@ -9,7 +9,7 @@ public:
     Analyse();
     virtual ~Analyse();
 
-    void setAnalyseFinishCallback(const AnalyseFinishCallback &cb) { analyseFinishCallback_ = cb; }
+    void setAnalyseFinishCallback(AnalyseFinishCallback cb) { analyseFinishCallback_ = cb; }
 
     // virtual void setFrameConf(const nextFrame& frameConfig) = 0;
     virtual void AnalyseFunc(const std::string& msg, const nextFrame& nextframe) = 0;

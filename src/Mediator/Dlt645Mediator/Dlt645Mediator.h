@@ -14,7 +14,7 @@ public:
     void addControlFrame(const nextFrame& controlFrame);
     void secTimer();
 private:
-    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, std::pair<int, IEC104FrameType> frameType);     //解析完成后
+    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type);     //解析完成后
     
     void onNextFrame();
     void onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp time); //有新消息
