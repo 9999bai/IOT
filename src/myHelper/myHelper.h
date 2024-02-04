@@ -523,6 +523,10 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
 #define BACNETIP_Freq 20    // 20*50ms=1s
 
+#define TD_Data_Title "TD"
+#define RD_Data_Title "RD"
+#define TD_DataSize  10     // 定时发送数据个数  个数/次
+
 extern std::string localip;
 
 extern enun_endian ENDIAN;
@@ -530,8 +534,8 @@ extern enun_endian ENDIAN;
 
 extern std::mutex TD_mutex_;
 extern std::mutex RD_mutex_;
-extern std::list<iot_data_item> list_iotdataTD_; //定时数据
-extern std::queue<iot_data_item> queue_iotdataRD_; //实时数据
+extern std::list<iot_data_item> list_iotdataTD_;   // 定时数据
+extern std::queue<iot_data_item> queue_iotdataRD_; // 实时数据
 
 
 

@@ -25,8 +25,9 @@ GatewayManage::~GatewayManage()
 
 void GatewayManage::ThreadPoolInit(int size)
 {
+    LOG_INFO("开启线程数量 = %d", size > THREADPOOL_MAX_THREAD_SIZE ? THREADPOOL_MAX_THREAD_SIZE : size);
     poolPtr_->setMaxQueueSize(THREADPOOL_MAX_QUEUE_SIZE);                                  // 队列最大容量
-    poolPtr_->start(size > THREADPOOL_MAX_THREAD_SIZE ? THREADPOOL_MAX_THREAD_SIZE : size);//开启线程数量
+    poolPtr_->start(size > THREADPOOL_MAX_THREAD_SIZE ? THREADPOOL_MAX_THREAD_SIZE : size);// 开启线程数量
     LOG_INFO("GatewayManage::ThreadPoolInit over...");
 }
 
@@ -402,7 +403,7 @@ void GatewayManage::sendDataRD()
             item = queue_iotdataRD_.front();
             queue_iotdataRD_.pop();
         }
-        std::string jsonStr = itemToJson("RD", item);
+        std::string jsonStr = itemToJson(RD_Data_Title, item);
         observerPtr_->publicTopic(jsonStr);
         // LOG_INFO("MQTT publish RD size = %d", jsonStr.size());
     }
@@ -429,9 +430,9 @@ void GatewayManage::sendDataTD()
         for (auto it = list_iotdataTD_.begin(); it != list_iotdataTD_.end(); it++)
         {
             v_item.emplace_back(*it);
-            if (++count >= 10)
+            if (++count >= TD_DataSize)
             {
-                std::string jsonStr = itemToJson("TD",v_item);
+                std::string jsonStr = itemToJson(TD_Data_Title,v_item);
                 observerPtr_->publicTopic(jsonStr);
                 // LOG_INFO("MQTT publish TD size = %d", jsonStr.size());
                 v_item.clear();
@@ -440,7 +441,7 @@ void GatewayManage::sendDataTD()
         }
         if(!v_item.empty())
         {
-            std::string jsonStr = itemToJson("TD",v_item);
+            std::string jsonStr = itemToJson(TD_Data_Title,v_item);
             observerPtr_->publicTopic(jsonStr);
             // LOG_INFO("MQTT publish TD size = %d", jsonStr.size());
         }

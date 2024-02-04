@@ -8,7 +8,7 @@ int main()
 {
     LOG_INFO("main threadID = %d",CurrentThread::tid());
 
-    //---------MYSQL------------
+    // ----MYSQL----
     sqlServer_info info;
     info.mysqlServer_ip = "192.168.2.105";
     info.db_name = "test";
@@ -19,7 +19,7 @@ int main()
     mysqlDatabasePtr->start();
     std::vector<iot_gateway> v_gateway = mysqlDatabasePtr->getSqlConfigData();
 
-    //---------MQTT------------
+    // ----MQTT----
     mqtt_info mqttconf;
     mqttconf.hostname = "192.168.2.102";
     mqttconf.port = 1883;

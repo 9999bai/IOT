@@ -34,7 +34,7 @@ void ModbusRtuMediator::secTimer()
 
 void ModbusRtuMediator::start()
 {
-    modbusrtuFramePtr_->start(); // 组合数据帧
+    modbusrtuFramePtr_->start();              // 组合数据帧
     serialPortPtr_->start(ModbusRtu_Freq);    // 打开串口,定时发送请求帧频率
 }
 
