@@ -158,7 +158,7 @@ void BacnetipAnalyse::AnalyseFunc(const std::string &msg, const nextFrame &nextf
     }
     if(analyseFinishCallback_)
     {
-        analyseFinishCallback_(resOK, resRW, ENUM_Normal, std::pair<int, IEC104FrameType>(0, ENUM_Normal_Frame));
+        analyseFinishCallback_(resOK, resRW, ENUM_Normal, 0, ENUM_Normal_Frame/*std::pair<int, IEC104FrameType>(0, ENUM_Normal_Frame)*/);
     }
 }
 

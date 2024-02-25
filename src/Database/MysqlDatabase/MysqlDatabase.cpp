@@ -341,7 +341,7 @@ void MysqlDatabase::getSubTemplateConfigure(int& subTemplate_id, std::vector<iot
     MYSQL_RES* res;
     MYSQL_ROW row;
     char sql[400] = {0};
-    snprintf(sql, 400, "select sub_template_id, param_name, param_id, s_addr,data_quantity,bit,data_type+0,byte_type+0,correct_mode,data_unit,send_type,priority+0 from iot_sub_template where sub_template_id = '%d';", subTemplate_id);
+    snprintf(sql, 400, "select sub_template_id, param_name, param_id, s_addr,data_quantity,bit,register_addr,w_func_code+0,data_type+0,byte_type+0,correct_mode,data_unit,send_type,priority+0 from iot_sub_template where sub_template_id = '%d';", subTemplate_id);
     // LOG_INFO("getSubTemplateConfigure sql: %s\n", sql);
     if (0 == mysql_real_query(&mysql_, sql, (unsigned int)strlen(sql)))
     {
@@ -363,20 +363,28 @@ void MysqlDatabase::getSubTemplateConfigure(int& subTemplate_id, std::vector<iot
 
                 int bit = (row[5] == nullptr) ?(0) : (*row[5] - '0');
                 sub_templat.bit = bit;
-                int data_type  = (row[6] == nullptr) ? (0) : (*row[6] - '0');
+                sub_templat.register_addr = (row[6] == nullptr) ? ("NULL") : (std::string(row[6]));
+
+                int w_func = (row[7] == nullptr) ? (0) : (*row[7] - '0');
+                if(w_func > 6) // mysql 读enum超过9结果为1
+                {
+                    w_func+=8;
+                }
+                sub_templat.w_func = (enum_w_func_code)w_func;
+                int data_type = (row[8] == nullptr) ? (0) : (*row[8] - '0');
                 sub_templat.data_type = (enum_data_type)data_type;
-                int byte_order = (row[7] == nullptr) ? (0) : (*row[7] - '0');
+                int byte_order = (row[9] == nullptr) ? (0) : (*row[9] - '0');
                 sub_templat.byte_order = (enum_byte_order)byte_order;
-                sub_templat.correct_mode = (row[8] == nullptr) ? ("NULL") : std::string(row[8]);
-                sub_templat.data_unit = (row[9] == nullptr) ? ("NULL") : std::string(row[9]);
-                sub_templat.send_type = (row[10] == nullptr) ? (0) : std::atoi(row[10]);
-                int priority = (row[11] == nullptr) ? (1) : (*row[11] - '0');
+                sub_templat.correct_mode = (row[10] == nullptr) ? ("NULL") : std::string(row[10]);
+                sub_templat.data_unit = (row[11] == nullptr) ? ("NULL") : std::string(row[11]);
+                sub_templat.send_type = (row[12] == nullptr) ? (0) : std::atoi(row[12]);
+                int priority = (row[13] == nullptr) ? (1) : (*row[13] - '0');
                 sub_templat.priority = (enum_priority)priority;
                
                 subtemplateConfList.emplace_back(sub_templat);
-                LOG_INFO("MysqlDatabase::getSubTemplateConfigure %d--%s--%d--%d--%d--%d--%d--%d--%s--%s--%d--%d",\
+                LOG_INFO("MysqlDatabase::getSubTemplateConfigure %d--%s--%d--%d--%d--%d--wfunc=%d--%d--%d--%s--%s--%d--%d",\
                         (int)sub_templat.sub_template_id, sub_templat.param_name.c_str(), (int)sub_templat.param_id,\
-                        (int)sub_templat.s_addr, (int)sub_templat.data_quantity, (int)sub_templat.bit,\
+                        (int)sub_templat.s_addr, (int)sub_templat.data_quantity, (int)sub_templat.bit,(int)sub_templat.w_func,\
                         (int)sub_templat.data_type, (int)sub_templat.byte_order, sub_templat.correct_mode.c_str(),\
                         sub_templat.data_unit.c_str(), (int)sub_templat.send_type,(int)sub_templat.priority);
             }

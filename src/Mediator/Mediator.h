@@ -18,6 +18,8 @@ public:
 
     virtual void secTimer() = 0;
 
+    void setAnalyseNotifyCallback(AnalyseFinishCallback cb) { analyseFinishCallback_ = cb; } 
+
 protected:
     EventLoop *loop_;
     std::shared_ptr<ThreadPool> poolPtr_;
@@ -25,5 +27,6 @@ protected:
 
     nextFrame sendedFrame_;     //当前发送的数据及解析参数
 
+    AnalyseFinishCallback analyseFinishCallback_;
     int sec_;
 };

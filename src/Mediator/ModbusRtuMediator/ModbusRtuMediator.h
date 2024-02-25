@@ -24,6 +24,7 @@ private:
 
     // nextFrame sendedFrame_;     //当前发送的数据及解析参数
 
+
     NetSerialPtr serialPortPtr_;
     AnalysePtr modbusrtuAnalysePtr_;
     FramePtr modbusrtuFramePtr_;

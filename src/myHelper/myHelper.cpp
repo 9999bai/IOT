@@ -47,6 +47,37 @@ void endianMode()
 // 	}
 // }
 
+u_int32_t LittleEndianStrToU32Bit(const frame& str)
+{
+    int len = str.size();
+    u_int32_t value=0;
+    u_int32_t tmp=0;
+    for(int i=len-1; i>=0; i--)
+    {
+        tmp=0;
+        tmp = str.at(i)&0x0f ;
+        tmp +=((((u_int8_t)str.at(i))>>4))*16;
+        value = (value<<8) + tmp;
+    }
+    return value;
+}
+
+u_int32_t BigEndianStrToU32Bit(const frame& str)
+{
+    int len = str.size();
+    u_int32_t value=0;
+    u_int32_t tmp=0;
+    for(int i=0; i<len; i++)
+    {
+        tmp=0;
+        tmp = str.at(i)&0x0f ;
+        //        quint8 a=(str.at(i)>>4);
+        tmp +=((((u_int8_t)str.at(i))>>4))*16;
+        value = (value<<8) + tmp;
+    }
+    return value;
+}
+
 void IEEE754_To_float(const u_int32_t& src, float& dest)
 {
 	union_uchar4TOfloat value;
@@ -61,27 +92,31 @@ void float_To_IEEE754(const float& src, u_int32_t& dest)
 {
 	union_uchar4TOfloat value;
 	value.float_data = src;
-	switch(ENDIAN)
+	// switch(ENDIAN)
+	// {
+	// 	case enum_little_endian:
+	// 	for (int i = 3; i >= 0; i--)
+	// 	{
+	// 		dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
+	// 	}
+	// 	break;
+	// 	case enum_big_endian:
+	// 	for (int i = 0; i < 4; i++)
+	// 	{
+	// 		dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
+	// 	}
+	// 	break;
+	// }
+	for (int i = 0; i < 4; i++)
 	{
-		case enum_little_endian:
-		for (int i = 3; i >= 0; i--)
-		{
-			dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
-		}
-		break;
-		case enum_big_endian:
-		for (int i = 0; i < 4; i++)
-		{
-			dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
-		}
-		break;
+		dest |= (u_int32_t)value.uchar_data[i] << (i * 8);
 	}
 }
 
 void IEEE754_To_double(){}
 void double_To_IEEE754(){}
 
-void uint16_To_char2(const u_int16_t& src, frame&  dest)
+void uint16_To_char2(const u_int16_t& src, frame& dest)
 {
 	union_uint16TOuchar data;
 	data.u16_data = src;
@@ -118,7 +153,6 @@ void uint32_To_char4(const u_int32_t&src, frame& dest)
 		break;
 	}
 }
-
 
 char ConvertHexChar(char ch)
 {

@@ -26,7 +26,7 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
         return;
     }
     bool resOK = false; // 解析是否成功
-    enum_RW resRW;
+    enum_RW resRW; // 当前解析的帧为 读/写
     int index = 0;
     iot_device device = nextframe.second.first;
     std::vector<iot_template> v_templat = nextframe.second.second;
@@ -37,7 +37,6 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     }
     iot_template templat = v_templat.at(0);
 
-
     if(templat.rw == enum_read)// 读语句返回 解析
     {
         resRW = enum_read;
@@ -47,14 +46,14 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             {
                 index = 0;
                 
-                if(!compairAddr(v_data, index, device.device_addr))// addr
+                if(!CompairAddr(v_data, index, device.device_addr))// addr
                 {
                     LOG_ERROR("Addr error...\n");
                     continue;
                 }
                 index++;
                 
-                if(!compairFuncCode(v_data, index, templat.r_func))// func code
+                if(!CompairFuncCode(v_data, index, templat.r_func))// func code
                 {
                     LOG_ERROR("FuncCode error...\n");
                     continue;
@@ -63,10 +62,10 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
                 break;
             }
 
-            u_int8_t len = v_data.at(index);// len
+            u_int8_t len = v_data.at(index); // len
             index++;
 
-            if(index + len + 2 > v_data.size())//未接收完
+            if(index + len + 2 > v_data.size()) //未接收完
             {
                 // LOG_INFO("未接收完全...");
                 return;
@@ -76,7 +75,7 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             // (要进行CRC校验的数据段, 报文最后俩字节CRC数据段)
             if (!CheckCRC(frame(it, it + index + len), frame(v_data.end()-2, v_data.end()))) // CRC校验
             {
-                LOG_INFO("CRC error...\n");//清空
+                LOG_INFO("CRC error...\n"); //清空
                 v_data.clear();
                 return;
             }
@@ -113,32 +112,27 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     }
     else if(templat.rw == enum_write) // 写语句返回 解析
     {
-        resRW = enum_write;
+        resRW = enum_write; // 解析的是写返回数据
         try
         {
-            while (!v_data.empty())
+            frame senddata = nextframe.first;
+            if (senddata.at(0) != v_data.at(0))
             {
-                index = 0;
-                if(!compairAddr(v_data, index, device.device_addr)) // addr
-                {
-                    LOG_ERROR("enum_write Addr error...\n");
-                    continue;
-                }
-                index++;
-                
-                if(v_data.at(index) == templat.w_func)
+                resOK = false;
+                LOG_ERROR("ModbusRtu write error sendaddr = %d, recvaddr = %d", senddata.at(0), v_data.at(0));
+            }
+            else
+            {
+                int wfunc = v_data.at(1);
+                if(wfunc == enum_w_func_0x05 || wfunc == enum_w_func_0x06 || wfunc == enum_w_func_0x0F || wfunc == enum_w_func_0x10)
                 {
                     resOK = true;
-                    break;
-                    //解析完成 成功
                 }
-                else if(v_data.at(index) == (templat.w_func | 0x80))
+                else if(wfunc == enum_error_func_0x85 || wfunc == enum_error_func_0x86 || wfunc == enum_error_func_0x8F || wfunc == enum_error_func_0x90)
                 {
                     resOK = false;
-                    break;
-                    //解析完成 失败
+                    LOG_ERROR("ModbusRtu write [error code] = %d", wfunc);
                 }
-                break;
             }
         }
         catch(std::out_of_range)//数组越界
@@ -165,7 +159,7 @@ void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     }
 }
 
-bool ModbusRtuAnalyse::compairAddr(frame& v_data, int index, const std::string& s2)
+bool ModbusRtuAnalyse::CompairAddr(frame& v_data, int index, const std::string& s2)
 {
     if(v_data.at(index) == std::atoi(s2.c_str()))
     {
@@ -179,7 +173,7 @@ bool ModbusRtuAnalyse::compairAddr(frame& v_data, int index, const std::string& 
     }
 }
 
-bool ModbusRtuAnalyse::compairFuncCode(frame& data, int index, const enum_r_func_code& funcCode)
+bool ModbusRtuAnalyse::CompairFuncCode(frame& data, int index, const enum_r_func_code& funcCode)
 {
     if(data.at(index) == funcCode)
     {

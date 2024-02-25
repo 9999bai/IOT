@@ -31,7 +31,7 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
         try{
             HandleByte_order(v_data, templat.byte_order);
             std::string res = HandleData_type(v_data, templat.data_type, templat.correct_mode);
-            LOG_INFO("%s = %s", templat.param_name.c_str(), res.c_str());
+            LOG_INFO("解析 %s = %s", templat.param_name.c_str(), res.c_str());
             QueueData(templat.send_type, setItem(device.gateway_id, device.device_id, device.device_addr, templat.param_id, templat.param_name, res));
         }
         catch(std::out_of_range)
@@ -57,7 +57,6 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
         {
             for (auto it = templat.v_sub_template.begin(); it != templat.v_sub_template.end(); it++)
             {
-            
                 std::string res;
                 if (it->bit == 0)
                 {
@@ -92,7 +91,6 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
         return true;
     }
 }
-
 
 void Analyse::HandleByte_order(const frame &v_data, const enum_byte_order& type)
 {

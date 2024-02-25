@@ -105,7 +105,7 @@ void Pro188Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
     // 解析完成
     if(analyseFinishCallback_)
     {
-        analyseFinishCallback_(resOK, resRW, ENUM_Normal, std::pair<int, IEC104FrameType>(0, ENUM_Normal_Frame));
+        analyseFinishCallback_(resOK, resRW, ENUM_Normal, 0, ENUM_Normal_Frame/*std::pair<int, IEC104FrameType>(0, ENUM_Normal_Frame)*/);
     }
 }
 

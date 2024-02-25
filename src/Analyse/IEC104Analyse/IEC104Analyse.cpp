@@ -125,7 +125,7 @@ void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
     v_data.clear();
     if (analyseFinishCallback_)
     {
-        analyseFinishCallback_(resOK, resRW, result_, frameType);
+        // analyseFinishCallback_(resOK, resRW, result_, frameType);
     }
 }
 

@@ -17,8 +17,9 @@ public:
     void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
 
 private:
-    bool compairAddr(frame& v_data, int index, const std::string &s2);
-    bool compairFuncCode(frame& v_data, int index, const enum_r_func_code& funcCode);
+    // bool CompairData(const frame& src1, const frame& src2);
+    bool CompairAddr(frame &v_data, int index, const std::string &s2);
+    bool CompairFuncCode(frame& v_data, int index, const enum_r_func_code& funcCode);
 
     // bool HandleData(const frame& v_data, const nextFrame& nextframe);
 

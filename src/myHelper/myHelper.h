@@ -79,7 +79,7 @@ typedef union{
 
 typedef struct{
     // 控制和上传
-    int gateway_id;
+    int                                                                                                                                                                                                                                                                                                                   gateway_id;
     int device_id;
     int param_id;
     std::string value;
@@ -158,6 +158,9 @@ std::string handleData_correct_mode(T& src, const std::string& correct_mode)
 
 iot_data_item setItem(const int &gatewid, const int &device_id, const std::string &deviceaddr, const int &param_id, const std::string &param_name, const std::string &value);
 void QueueData(int send_type, const iot_data_item &item);
+
+u_int32_t LittleEndianStrToU32Bit(const frame &str);
+u_int32_t BigEndianStrToU32Bit(const frame &str);
 
 void IEEE754_To_float(const u_int32_t &src, float &dest);
 void float_To_IEEE754(const float& src, u_int32_t& dest);
@@ -276,6 +279,17 @@ typedef enum{
 }enum_r_func_code;
 
 typedef enum{
+    enum_error_func_0x81,
+    enum_error_func_0x82,
+    enum_error_func_0x83,
+    enum_error_func_0x84,
+    enum_error_func_0x85,
+    enum_error_func_0x86,
+    enum_error_func_0x8F,
+    enum_error_func_0x90
+}enum_error_func_code; // modbus错误码
+
+typedef enum{
     enum_pro_name_ModbusRTU = 1,
     enum_pro_name_ModbusTCP,
     enum_pro_name_DLT645,
@@ -308,6 +322,8 @@ typedef struct{
     int s_addr;
     int data_quantity;
     int bit;
+    std::string register_addr;
+    enum_w_func_code w_func;
     enum_data_type data_type;
     enum_byte_order byte_order;
     std::string correct_mode;
@@ -508,7 +524,6 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define CJT188_Freq 16                      // CJT188 定时发送频率 ----表示16个50ms=0.8s
 #define CJT188AnalyseFrame_Minsize  0x16    // CJT188 数据帧最小长度
 
-#define SendPeriodTimer 40                   //定时发送数据  周期 单位：秒
 
 // IEC104
 #define IEC104_T0  30  // tcp连接的超时
@@ -523,6 +538,7 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
 #define BACNETIP_Freq 20    // 20*50ms=1s
 
+#define SendPeriodTimer 40                  //定时发送数据  周期 单位：秒
 #define TD_Data_Title "TD"
 #define RD_Data_Title "RD"
 #define TD_DataSize  10     // 定时发送数据个数  个数/次

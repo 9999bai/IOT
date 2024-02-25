@@ -33,10 +33,16 @@ private:
     void sendDataRD();
     void sendDataTD();
 
-    bool findControlParam(const iot_data_item& item, enum_pro_name& pro_name, iot_device& dest_device, iot_template& dest_templat);
+    bool findProname(const int& gatewayId, enum_pro_name& pro_name);
+    bool findModbusParam(const iot_data_item &item, iot_device &dest_device, iot_template& dest_templat, iot_sub_template &dest_subtemplat);
+    bool findControlParam(const iot_data_item &item, enum_pro_name &pro_name, iot_device &device, bool &sub_status, iot_template &dest_templat, iot_sub_template &dest_subtemplat);
+
+    void WriteBytetypeData(enum_byte_order byteorder, const frame& td, frame& t_frame);
+
 
     //写单个线圈/寄存器
-    void controlFrameModbusRTU(int gateway_id, const std::string& value, const iot_device& device, const iot_template& templat);
+    // void controlFrameModbusRTU(int gateway_id, const std::string& value, const iot_device& device, const iot_template& templat);
+    void controlFrameModbusRTU(int gateway_id, const std::string& value, const iot_device& device, iot_template& templat, const iot_sub_template& sub_templat);
     void controlFrameModbusTCP(int gateway_id, const std::string& value, const iot_device& device, const iot_template& templat);
     void controlFrameBacnetIP(int gateway_id, const std::string& value, const iot_device& device, iot_template& templat);
 
@@ -49,6 +55,9 @@ private:
     void CreateOPCUAFactory(const iot_gateway& gateway);
 
     void ThreadPoolInit(int size);
+
+    void onAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type);
+
 
     // bacnetip
     void strToBacnetIPValue(const std::string &value, int valueType, frame &data);
