@@ -13,7 +13,8 @@ Analyse::~Analyse()
 
 bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
 {
-    if(v_data.empty())
+    // LOG_INFO("**********data.size=%d",v_data.size());
+    if (v_data.empty())
     {
         return false;
     }
@@ -29,8 +30,9 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
     if(0 == templat.sub_template_id)
     {
         try{
-            HandleByte_order(v_data, templat.byte_order);
-            std::string res = HandleData_type(v_data, templat.data_type, templat.correct_mode);
+            frame dest;
+            HandleByte_order(v_data, dest, templat.byte_order);
+            std::string res = HandleData_type(dest, templat.data_type, templat.correct_mode);
             LOG_INFO("解析 %s = %s", templat.param_name.c_str(), res.c_str());
             QueueData(templat.send_type, setItem(device.gateway_id, device.device_id, device.device_addr, templat.param_id, templat.param_name, res));
         }
@@ -62,8 +64,10 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
                 {
                     auto d_it = v_data.begin();
                     frame tmp(d_it + it->s_addr, d_it + it->s_addr + it->data_quantity);
-                    HandleByte_order(tmp, it->byte_order);
-                    res = HandleData_type(tmp, it->data_type, it->correct_mode);
+
+                    frame dest;
+                    HandleByte_order(tmp, dest, it->byte_order);
+                    res = HandleData_type(dest, it->data_type, it->correct_mode);
                 }
                 else
                 {
@@ -92,7 +96,7 @@ bool Analyse::HandleData(const frame& v_data, const nextFrame& nextframe)
     }
 }
 
-void Analyse::HandleByte_order(const frame &v_data, const enum_byte_order& type)
+void Analyse::HandleByte_order(const frame &v_data, frame& dest, const enum_byte_order& type)
 {
     switch (type)
     {
@@ -105,29 +109,32 @@ void Analyse::HandleByte_order(const frame &v_data, const enum_byte_order& type)
         case enum_byte_order_AB:
             break;
         case enum_byte_order_BA:
-            const_cast<frame&>(v_data) = char2_BA(v_data);
+            dest = char2_BA(v_data);
             break;
         case enum_byte_order_AB_CD:
             break;
         case enum_byte_order_CD_AB:
-            const_cast<frame&>(v_data) = char4_CD_AB(v_data);
+            dest = char4_CD_AB(v_data);
             break;
         case enum_byte_order_BA_DC:
-            const_cast<frame&>(v_data) = char4_BA_DC(v_data);
+            dest = char4_BA_DC(v_data);
             break;
         case enum_byte_order_DC_BA:
-            const_cast<frame&>(v_data) = char4_DC_BA(v_data);
+            dest = char4_DC_BA(v_data);
             break;
         case enum_byte_order_AB_CD_EF_GH:
             break;
         case enum_byte_order_GH_EF_CD_AB:
-            const_cast<frame&>(v_data) = char8_GH_EF_CD_AB(v_data);
+            dest = char8_GH_EF_CD_AB(v_data);
             break;
         case enum_byte_order_BA_DC_FE_HG:
-            const_cast<frame&>(v_data) = char8_BA_DC_FE_HG(v_data);
+            dest = char8_BA_DC_FE_HG(v_data);
             break;
         case enum_byte_order_HG_FE_DC_BA:
-            const_cast<frame&>(v_data) = char8_HG_FE_DC_BA(v_data);
+            dest = char8_HG_FE_DC_BA(v_data);
+            break;
+        default:
+            LOG_ERROR("HandleByte_order -- %d", (int)type);
             break;
     }
 }
@@ -201,6 +208,7 @@ std::string Analyse::HandleData_type(const frame &v_data, const enum_data_type& 
             break;
         }
         default:
+            LOG_ERROR("HandleData_type error %d", data_type);
             break;
     }
     return res;

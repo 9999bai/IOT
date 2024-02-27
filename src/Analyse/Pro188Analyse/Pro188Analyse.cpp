@@ -141,7 +141,8 @@ bool Pro188Analyse::CJT188MeteridCheck(const frame& data, const std::string& str
 
 std::string Pro188Analyse::CJT188AnalyseData(const frame& data, const iot_template& templat)
 {
-    HandleByte_order(data, templat.byte_order);
-    std::string res = HandleData_type(data, templat.data_type, templat.correct_mode);
+    frame dest;
+    HandleByte_order(data, dest, templat.byte_order);
+    std::string res = HandleData_type(dest, templat.data_type, templat.correct_mode);
     return res;
 }

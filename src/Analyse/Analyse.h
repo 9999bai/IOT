@@ -49,7 +49,7 @@ protected:
     u_int16_t RX_SN_; // 接收序号
     
     // Modbus
-    void HandleByte_order(const frame &v_data, const enum_byte_order &type);
+    void HandleByte_order(const frame &v_data, frame& dest, const enum_byte_order &type);
     std::string HandleData_type(const frame &v_data, const enum_data_type& data_type, const std::string& correct_mode);
     std::string HandleData_typeBit(const char& data, const int& bit);
 

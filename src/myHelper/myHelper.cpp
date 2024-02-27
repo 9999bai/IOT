@@ -253,9 +253,10 @@ bool stringSplit(const std::string& src, std::vector<std::string>& dst, char del
 
 std::string floatToString(const float& f)
 {
-	char buf[20] = {0};
+	char buf[100] = {0};
 	sprintf(buf, "%.2f", f);
-	return std::string(buf);
+	std::string tmp(buf);
+	return tmp;
 }
 
 iot_data_item setItem(const int& gatewid, const int& device_id,const std::string& deviceaddr, const int& param_id, const std::string& param_name, const std::string& value)
@@ -272,7 +273,7 @@ iot_data_item setItem(const int& gatewid, const int& device_id,const std::string
 
 void printFrame(const std::string& str, const frame& data)
 {
-	printf("[INFO]----/--/-- --:--:-- : %s : ", str.c_str());
+	printf("[INFO]----/--/-- --:--:-- : %d %s : ", data.size(), str.c_str());
 	for (auto it = data.begin(); it != data.end(); it++)
 	{
 		printf("%02x ", *it);

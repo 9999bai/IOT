@@ -59,30 +59,8 @@ void Dlt645Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp
 
 void Dlt645Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)
 {
-    if(rw == enum_write)
+    if(analyseFinishCallback_)
     {
-        if(ok)
-        {
-            // 写 成功
-            LOG_INFO("Dlt645Mediator 写成功...");
-        }
-        else
-        {
-            // 写 失败
-            LOG_INFO("Dlt645Mediator 写失败...");
-        }
-    }
-    else if(rw == enum_read)
-    {
-        if(ok)
-        {
-            // 读 成功
-            // LOG_INFO("Dlt645Mediator 读成功...");
-        }
-        else
-        {
-            // 读 失败
-            LOG_INFO("Dlt645Mediator 读失败...");
-        }
+        analyseFinishCallback_(ok, rw, result, count, type);
     }
 }   

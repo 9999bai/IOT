@@ -30,31 +30,9 @@ void BacnetipMediator::addControlFrame(const nextFrame& controlFrame)
 
 void BacnetipMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)
 {
-    if(rw == enum_write)
+    if(analyseFinishCallback_)
     {
-        if(ok)
-        {
-            // 写 成功
-            LOG_INFO("BacnetipMediator 写成功...");
-        }
-        else
-        {
-            // 写 失败
-            LOG_INFO("BacnetipMediator 写失败...");
-        }
-    }
-    else if(rw == enum_read)
-    {
-        if(ok)
-        {
-            // 读 成功
-            LOG_INFO("BacnetipMediator 读成功...");
-        }
-        else
-        {
-            // 读 失败
-            LOG_INFO("BacnetipMediator 读失败...");
-        }
+        analyseFinishCallback_(ok, rw, result, count, type);
     }
 }
 

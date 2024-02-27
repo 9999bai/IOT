@@ -23,17 +23,17 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     int index = 0;
 
     auto it = v_data.begin();
-    // int length = v_data.at(5);
-    int length = 0;
+    int length = 0; // 除事务标志字节外总长度
     char2or4Hex_To_uint16or32(frame(it + 4, it + 4 + 2), length);
 
     if(length + 6 > v_data.size())
     {
-        return;//数据未接收完全
+        return; //数据未接收完全
     }
 
     iot_device device = nextframe.second.first;
     std::vector<iot_template> v_templat = nextframe.second.second;
+    frame t_frame = nextframe.first;
 
     if(v_templat.size() < 0)
     {
@@ -41,29 +41,35 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
     }
     iot_template templat = v_templat.at(0);
 
-
     if(templat.rw == enum_read)// 读语句返回 解析
     {
         resRW = enum_read;
         try
         {
-            if (!ModbustTcpMBAP(frame(it, it + 7), device, templat))
+            // if (!ModbustTcpMBAP(frame(it, it + 7), device, templat))
+            // {
+            //     LOG_ERROR("ModbustTcpMBAP error... ");
+            //     v_data.clear();
+            //     return;
+            // }
+            index += 6;
+            if (v_data.at(index) != t_frame.at(index))
             {
-                LOG_ERROR("ModbustTcpMBAP error... ");
-                v_data.clear();
-                return;
-            }
-            index += 7;
-
-            if(v_data.at(index) != (int)templat.r_func)
-            {
-                LOG_ERROR("ModbustTcp funcCode error... %d", v_data.at(index));
-                v_data.clear();
+                LOG_ERROR("ModbustTcp deviceid error... %d, %d", (int)v_data.at(index), (int)t_frame.at(index));
                 return;
             }
             index++;
 
-            if(HandleData(frame(it+index, it+index+length), nextframe))
+            if((int)v_data.at(index) != (int)templat.r_func)
+            {
+                LOG_ERROR("ModbustTcp funcCode error... %d", v_data.at(index));
+                // resOK = false;
+                return;
+            }
+            index++;
+
+            length = v_data.at(index++); // 数据部分长度
+            if (!HandleData(frame(it + index, it + index + length), nextframe))
             {
                 LOG_ERROR("ModbusTcpAnalyse::AnalyseData error");
                 resOK = false;
@@ -71,7 +77,6 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             else{
                 resOK = true;
             }
-            v_data.clear();
         }
         catch(std::out_of_range)
         {
@@ -91,22 +96,32 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
         resRW = enum_write;
         try
         {
-            if (!ModbustTcpMBAP(frame(it, it + 7), device, templat))
+            // if (!ModbustTcpMBAP(frame(it, it + 7), device, templat))
+            // {
+            //     LOG_ERROR("write ModbustTcpMBAP error... ");
+            //     v_data.clear();
+            //     return;
+            // }
+            index += 6;
+            if(v_data.at(index) != t_frame.at(index))
             {
-                LOG_ERROR("write ModbustTcpMBAP error... ");
-                v_data.clear();
-                return;
+                LOG_ERROR("ModbusTCPAnalyse deviceID error %d, %d", (int)v_data.at(index), (int)t_frame.at(index));
+                resOK = false;
             }
-            index += 7;
-            if(v_data.at(index) == templat.w_func)
+            index++;
+            if (v_data.at(index) == t_frame.at(index))
             {
                 resOK = true;
                 //解析完成 成功
             }
             else if(v_data.at(index) == (templat.w_func | 0x80))
             {
+                LOG_ERROR("ModbusTCPAnalyse func code error %d", (int)v_data.at(index));
                 resOK = false;
                 //解析完成 失败
+            }else{
+                LOG_ERROR("ModbusTCPAnalyse func code error %d, %d", (int)v_data.at(index), (int)templat.w_func);
+                resOK = false;
             }
         }
         catch(const std::out_of_range)
@@ -124,6 +139,8 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
             return;
         }
     }
+    
+    v_data.clear();
 
     if(analyseFinishCallback_)
     {
@@ -134,11 +151,16 @@ void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& next
 bool ModbusTcpAnalyse::ModbustTcpMBAP(const frame& src, const iot_device& device, const iot_template& templat)
 {
     int value = 0;
-    char2or4Hex_To_uint16or32(frame(src.begin(), src.begin() + 2), value);
+    frame t_data = frame(src.begin(), src.begin() + 2);
+    value += (u_int8_t)t_data.at(0) * 16 + (u_int8_t)t_data.at(1);
 
-    if( value != std::atoi(templat.other.c_str()))
+    // char2or4Hex_To_uint16or32(frame(src.begin(), src.begin() + 2), value);
+    // printFrame("-----", src);
+
+    // LOG_INFO("------%s", templat.other.c_str());
+    if (value != std::atoi(templat.other.c_str()))
     {
-        LOG_ERROR("ModbustTcpMBAP transaction identity error...");
+        LOG_ERROR("ModbustTcpMBAP transaction identity error... %d, %d",value, std::atoi(templat.other.c_str()));
         return false;
     }
 
@@ -146,7 +168,7 @@ bool ModbusTcpAnalyse::ModbustTcpMBAP(const frame& src, const iot_device& device
     char2or4Hex_To_uint16or32(frame(src.begin() +2 , src.begin() + 4), identity);
     if(identity != 0)
     {
-        LOG_ERROR("ModbustTcpMBAP identity error...");
+        LOG_ERROR("ModbustTcpMBAP identity error...%d", identity);
         return false;
     }
 

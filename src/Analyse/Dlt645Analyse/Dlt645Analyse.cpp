@@ -164,13 +164,14 @@ std::string Dlt645Analyse::DLTAnalyseData(const frame& src, const iot_template& 
     {
         // 数据项没有对比
         frame tmp(src.begin() + 4, src.begin() + 8);
-        HandleByte_order(tmp, templat.byte_order);
+        frame dest;
+        HandleByte_order(tmp, dest, templat.byte_order);
         // Dlt -0x33
-        for (auto it = tmp.begin(); it != tmp.end(); it++)
+        for (auto it = dest.begin(); it != dest.end(); it++)
         {
             *it -= 0x33;
         }
-        std::string res = HandleData_type(tmp, templat.data_type, templat.correct_mode);
+        std::string res = HandleData_type(dest, templat.data_type, templat.correct_mode);
         return res;
     }
     else

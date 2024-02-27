@@ -126,12 +126,10 @@ void char2or4Str_To_Uint16or32(const frame& src, T& dest)
 template<typename T>
 std::string handleData_correct_mode(T& src, const std::string& correct_mode)
 {
-    // LOG_INFO("handleData_correct_mode");
     float value = 0;
     if (correct_mode == "1")
     {
         value = src * 1.0;
-        return floatToString(value);
     }
     else if(correct_mode.at(0) == '/')
     {
@@ -153,7 +151,8 @@ std::string handleData_correct_mode(T& src, const std::string& correct_mode)
         int param = std::atoi(correct_mode.substr(1).c_str());
         value = src * 1.0 - param;
     }
-    return floatToString(value);
+    std::string tmp = floatToString(value);
+    return tmp;
 }
 
 iot_data_item setItem(const int &gatewid, const int &device_id, const std::string &deviceaddr, const int &param_id, const std::string &param_name, const std::string &value);
@@ -510,7 +509,7 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define ModbusRtuAnalyseFrame_MinSize 5     // modbusRtu 数据帧最小长度
 
 // modbustcp
-#define ModbusTcp_Freq 16                   // modbustcp 定时发送频率 ----表示16个50ms=0.8s
+#define ModbusTcp_Freq 50                   // modbustcp 定时发送频率 ----表示200个50ms=10s
 #define ModbusTcpIdentity 0x00              // modbustcp标识符
 #define ModbusTcpReadLength 0x06            // modbustcp 读数据帧长度
 #define ModbusTcpAnalyseFrame_Minsize 0x09  // modbustcp返回帧最小长度
