@@ -244,6 +244,8 @@ typedef enum{
     enum_byte_order_A = 1,
     enum_byte_order_AB,
     enum_byte_order_BA,
+    enum_byte_order_ABC,
+    enum_byte_order_CBA,
     enum_byte_order_AB_CD,
     enum_byte_order_CD_AB,
     enum_byte_order_BA_DC,
@@ -515,7 +517,7 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define ModbusTcpAnalyseFrame_Minsize 0x09  // modbustcp返回帧最小长度
 
 //dlt645
-#define DLT645_Freq 16                      // dlt645 定时发送频率 ----表示16个50ms=0.8s
+#define DLT645_Freq 100                     // dlt645 定时发送频率 ----表示16个50ms=0.8s
 #define DLT645ControlCode 0x11              // dlt645-2007 控制码
 #define DLT645AnalyseFrame_Minsize 0x0C     // dlt645 数据帧最小长度
 

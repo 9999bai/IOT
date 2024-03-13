@@ -21,6 +21,8 @@ IEC104Mediator::IEC104Mediator(EventLoop* loop, const iot_gateway& gateway, cons
     tcpClientPtr_->setMessageCallback(std::bind(&IEC104Mediator::onMessage, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     tcpClientPtr_->setNewConnectionCallback(std::bind(&IEC104Mediator::onConnection, this));
     tcpClientPtr_->setCloseCallback(std::bind(&IEC104Mediator::onClose, this, std::placeholders::_1));
+
+    // LOG_INFO("IEC104Mediator currentThreadID = %d", (int)CurrentThread::tid());
 }
 
 IEC104Mediator::~IEC104Mediator()
@@ -30,18 +32,14 @@ IEC104Mediator::~IEC104Mediator()
 
 void IEC104Mediator::secTimer()
 {
-    // if (!BoolT0_ && (++T0_ >= 30))
-    // {
-    //     T0_ = 0;
-    //     // tcp连接超时， 重启tcp
-    // }
-
     if(!BoolT1_ && (++T1_ >= 15))
     {
         // T1时间内没接收到 I/U 帧回复， 重启tcp
         BoolT1_ = true;
         T1_ = 0;
         LOG_INFO("T1 timerout-----reboot--------");
+
+        // LOG_INFO("IEC104Mediator::secTimer T1 currentThreadID = %d", (int)CurrentThread::tid());
         tcpClientPtr_->restart();
     }
 
@@ -66,6 +64,7 @@ void IEC104Mediator::secTimer()
         sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
 
         printFrame("TX", frame(buf.begin(), buf.end()));
+        // LOG_INFO("IEC104Mediator::secTimer T2 currentThreadID = %d", (int)CurrentThread::tid());
         tcpClientPtr_->SendData(buf);
     }
 
@@ -89,6 +88,7 @@ void IEC104Mediator::secTimer()
 
         std::string buf(u_testFrame_.begin(), u_testFrame_.end());
         printFrame("TX", u_testFrame_);
+        // LOG_INFO("IEC104Mediator::secTimer T3 currentThreadID = %d", (int)CurrentThread::tid());
         tcpClientPtr_->SendData(buf);
     }
 }
@@ -167,7 +167,7 @@ void IEC104Mediator::onConnection()
     iot_device device;
     iot_template templat;
     templat.rw = enum_read;
-            
+    
     std::vector<iot_template> v_templat;
     v_templat.emplace_back(templat);
     sendedFrame_ = nextFrame(u_startFrame_, pair_frame(device, v_templat));
@@ -189,6 +189,7 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
             break;
         case ENUM_RebootSocket:
         {
+            // LOG_INFO("IEC104Mediator::HandleResult tcp restart currentThreadID = %d", (int)CurrentThread::tid());
             tcpClientPtr_->restart();
             break;
         }

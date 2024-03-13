@@ -19,8 +19,8 @@ void IEC104Frame::start()
         frame data;
         data.emplace_back(0x68);
         data.emplace_back(0x0e);
-        uint16_To_char2(0, data);
-        uint16_To_char2(0, data);
+        uint16_To_char2(0x00, data);
+        uint16_To_char2(0x00, data);
         for (iot_template &templat : device.v_template)
         {
             frame tmp = data;

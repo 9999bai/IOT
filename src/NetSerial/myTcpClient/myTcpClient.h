@@ -13,7 +13,7 @@ public:
     ~myTcpClient();
 
     void start(double interval);
-    void restart() { tcpClient_.restart(); }
+    void restart() { tcpClient_.stop(); }
     void SendData(const std::string &buf);
 
     void originTimer();

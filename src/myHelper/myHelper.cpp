@@ -199,7 +199,6 @@ frame HexStrToByteArray(const std::string& str)
     return senddata;
 }
 
-
 // template <typename T>
 // void uchar2_To_u16(const frame& v_data, T& dest)
 // {

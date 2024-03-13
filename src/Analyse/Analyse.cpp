@@ -111,6 +111,11 @@ void Analyse::HandleByte_order(const frame &v_data, frame& dest, const enum_byte
         case enum_byte_order_BA:
             dest = char2_BA(v_data);
             break;
+        case enum_byte_order_ABC:
+            break;
+        case enum_byte_order_CBA:
+            dest = char3_CBA(v_data);
+            break;
         case enum_byte_order_AB_CD:
             break;
         case enum_byte_order_CD_AB:
@@ -335,6 +340,20 @@ frame Analyse::char2_BA(const frame& src)
 		return tmp;
 	}else{
 		LOG_ERROR("error char2_BA size = %d", src.size());
+	}
+}
+
+frame Analyse::char3_CBA(const frame& src)
+{
+    if(src.size() == 3)
+	{
+		frame tmp;
+		tmp.emplace_back(src[2]);
+		tmp.emplace_back(src[1]);
+		tmp.emplace_back(src[0]);
+		return tmp;
+	}else{
+		LOG_ERROR("error char3_CBA size = %d", src.size());
 	}
 }
 

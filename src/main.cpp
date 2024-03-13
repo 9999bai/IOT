@@ -2,11 +2,12 @@
 
 #include "GatewayManage.h"
 #include "Database/MysqlDatabase/MysqlDatabase.h"
+// #include "/usr/include/mymuduo/EventLoopThread.h"
 #include "myHelper/myHelper.h"
 
 int main()
 {
-    LOG_INFO("main threadID = %d",CurrentThread::tid());
+    // LOG_INFO("main threadID = %d",CurrentThread::tid());
 
     // ----MYSQL----
     sqlServer_info info;
@@ -30,6 +31,8 @@ int main()
 
     // ---loop ---
     EventLoop loop;
+    // EventLoopThread loopThread;
+    // EventLoop* loop = loopThread.startLoop();
     GatewayManage manage(&loop, v_gateway, mqttconf);
     manage.start();
     loop.loop();

@@ -65,6 +65,7 @@ protected:
     u_int32_t handleData_BCD(frame& bcd);
 
     frame char2_BA(const frame& src);
+    frame char3_CBA(const frame &src);
     frame char4_CD_AB(const frame &src);
     frame char4_BA_DC(const frame& src);
     frame char4_DC_BA(const frame& src);

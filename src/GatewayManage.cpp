@@ -430,7 +430,7 @@ void GatewayManage::controlFrameModbusTCP(int gateway_id, const std::string& val
         {
             t_frame.emplace_back(0x00);
             t_frame.emplace_back(0x06);
-            t_frame.emplace_back(std::atoi(t_device.device_addr.c_str())); //设备地址
+            t_frame.emplace_back((u_int8_t)std::atoi(t_device.device_addr.c_str())); //设备地址
             t_frame.emplace_back((int)sub_templat.w_func);   // 功能码
             uint16_To_char2(std::atoi(sub_templat.register_addr.c_str()), t_frame);
             if(value == "0") // OFF
@@ -451,7 +451,7 @@ void GatewayManage::controlFrameModbusTCP(int gateway_id, const std::string& val
         {
             t_frame.emplace_back(0x00);
             t_frame.emplace_back(0x06);
-            t_frame.emplace_back(std::atoi(t_device.device_addr.c_str())); //设备地址
+            t_frame.emplace_back((u_int8_t)std::atoi(t_device.device_addr.c_str())); //设备地址
             t_frame.emplace_back((int)sub_templat.w_func);   // 功能码
             uint16_To_char2(std::atoi(sub_templat.register_addr.c_str()), t_frame);
             uint16_To_char2(std::atoi(value.c_str()), t_frame);

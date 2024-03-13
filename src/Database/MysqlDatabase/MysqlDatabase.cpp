@@ -176,11 +176,11 @@ void MysqlDatabase::getGatewayConfigure()
                 iot_gateway gateway;
                 gateway.gateway_id = std::atoi(row[0]);
                 gateway.gateway_name = std::string(row[1]);
-                gateway.description = std::string(row[2]==nullptr?(""):(row[2]));
-                int promode = (*row[3] - '0');
+                gateway.description = std::string(row[2] == nullptr ? ("") : (row[2]));
+                int promode = std::atoi(row[3]);
                 gateway.pro_mode = (enum_pro_mode)promode;
 
-                int proname = (*row[4] - '0');
+                int proname = std::atoi(row[4]);
                 gateway.pro_name = (enum_pro_name)proname;
 
                 if (gateway.pro_mode == enum_pro_mode_serial)
@@ -194,7 +194,7 @@ void MysqlDatabase::getGatewayConfigure()
                     LOG_FATAL("MysqlDatabase::getGatewayConfigure error.. gateway.pro_mode=%d\n", gateway.pro_mode);
                 }
                 gateway.project_id = std::atoi(row[6]);
-                int status = (*row[7] - '0');
+                int status = std::atoi(row[7]);
                 gateway.status = (enum_status)status;
 
                 LOG_INFO("MysqlDatabase::getGatewayConfigure() %d--%s--%s--%d--%d--%d--%d\n", gateway.gateway_id,\
@@ -241,7 +241,7 @@ void MysqlDatabase::getDeviceConfigure(int gateway_id, std::vector<iot_device>& 
                 device.device_name = std::string(row[3]);
                 device.template_id = std::atoi(row[4]);
                 device.project_id = std::atoi(row[5]);
-                int status = (*row[6] - '0');
+                int status = std::atoi(row[6]);
                 device.status = (enum_status)status;
                 
                 LOG_INFO("MysqlDatabase::getDeviceConfigure() %d--%d--%s--%s--%d--%d--%d\n",\
@@ -289,10 +289,10 @@ void MysqlDatabase::getTemplateConfigure(int template_id, std::vector<iot_templa
                 templat.register_addr = (row[1] == nullptr) ? ("NULL") : (std::string(row[1]));
                 templat.register_quantity = (row[2] == nullptr) ? (0) : ((int)std::atoi(row[2]));
                 
-                int r_func_code = (row[3] == nullptr) ? (0) : (*row[3] - '0');
+                int r_func_code = (row[3] == nullptr) ? (0) : (std::atoi(row[3]));
                 templat.r_func = (enum_r_func_code)r_func_code;
 
-                int w_func_code = (row[4] == nullptr) ? (0) : (*row[4] - '0');
+                int w_func_code = (row[4] == nullptr) ? (0) : (std::atoi(row[4]));
                 if(w_func_code == 7)
                     w_func_code = 15;
                 else if(w_func_code == 8)
@@ -300,9 +300,9 @@ void MysqlDatabase::getTemplateConfigure(int template_id, std::vector<iot_templa
                 templat.w_func = (enum_w_func_code)w_func_code;
 
                 templat.param_name = (row[5] == nullptr) ? ("NULL") : (std::string(row[5]));
-                int data_type  = (row[6] == nullptr) ? (0) : (*row[6]-'0');
+                int data_type  = (row[6] == nullptr) ? (0) : (std::atoi(row[6]));
                 templat.data_type = (enum_data_type)data_type;
-                int byte_order = (row[7] == nullptr) ? (0) : (*row[7]-'0');
+                int byte_order = (row[7] == nullptr) ? (0) : (std::atoi(row[7]));
                 templat.byte_order = (enum_byte_order)byte_order;
 
                 templat.correct_mode = (row[8] == nullptr) ? ("NULL") : (std::string(row[8]));
@@ -310,7 +310,7 @@ void MysqlDatabase::getTemplateConfigure(int template_id, std::vector<iot_templa
                 templat.data_unit = (row[10] == nullptr) ? ("NULL") : (std::string(row[10]));
                 templat.send_type = (row[11] == nullptr) ? (0) : (std::atoi(row[11]));
                 templat.sub_template_id = (row[12] == nullptr) ? (0) : (std::atoi(row[12]));
-                int priority = (row[13] == nullptr) ? (1) : (*row[13]-'0');
+                int priority = (row[13] == nullptr) ? (1) : (std::atoi(row[13]));
                 templat.priority = (enum_priority)priority;
 
                 LOG_INFO("MysqlDatabase::getTemplateConfigure() --%d--%s--%d--%d--%d--%s--%d--%d--%s--%d--%s--%d--%d--%d--\n",\
@@ -361,24 +361,24 @@ void MysqlDatabase::getSubTemplateConfigure(int& subTemplate_id, std::vector<iot
                 sub_templat.s_addr = (row[3] == nullptr) ? (0) : std::atoi(row[3]);
                 sub_templat.data_quantity = (row[4] == nullptr) ? (0) : std::atoi(row[4]);
 
-                int bit = (row[5] == nullptr) ?(0) : (*row[5] - '0');
+                int bit = (row[5] == nullptr) ?(0) : (std::atoi(row[5]));
                 sub_templat.bit = bit;
                 sub_templat.register_addr = (row[6] == nullptr) ? ("NULL") : (std::string(row[6]));
 
-                int w_func = (row[7] == nullptr) ? (0) : (*row[7] - '0');
+                int w_func = (row[7] == nullptr) ? (0) : (std::atoi(row[7]));
                 if(w_func > 6) // mysql 读enum超过9结果为1
                 {
                     w_func+=8;
                 }
                 sub_templat.w_func = (enum_w_func_code)w_func;
-                int data_type = (row[8] == nullptr) ? (0) : (*row[8] - '0');
+                int data_type = (row[8] == nullptr) ? (0) : (std::atoi(row[8]));
                 sub_templat.data_type = (enum_data_type)data_type;
-                int byte_order = (row[9] == nullptr) ? (0) : (*row[9] - '0');
+                int byte_order = (row[9] == nullptr) ? (0) : (std::atoi(row[9]));
                 sub_templat.byte_order = (enum_byte_order)byte_order;
                 sub_templat.correct_mode = (row[10] == nullptr) ? ("NULL") : std::string(row[10]);
                 sub_templat.data_unit = (row[11] == nullptr) ? ("NULL") : std::string(row[11]);
                 sub_templat.send_type = (row[12] == nullptr) ? (0) : std::atoi(row[12]);
-                int priority = (row[13] == nullptr) ? (1) : (*row[13] - '0');
+                int priority = (row[13] == nullptr) ? (1) : (std::atoi(row[13]));
                 sub_templat.priority = (enum_priority)priority;
                
                 subtemplateConfList.emplace_back(sub_templat);

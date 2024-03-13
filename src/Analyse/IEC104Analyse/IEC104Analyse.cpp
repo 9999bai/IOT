@@ -87,8 +87,27 @@ void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
                         }
                         IncreaseRX(); // RX_SN++
 
-                        AnalyseTypeIdentify(tmp, index); // 类型标识
-                        resOK = true;
+                        // 结果集
+                        std::vector<std::pair<int, std::string>> v_addrvalue;
+                        v_addrvalue = AnalyseTypeIdentify(tmp, index); // 类型标识
+                        LOG_INFO("v_addrvalue.size = %d", v_addrvalue.size());
+                        if (v_addrvalue.size() > 0)
+                        {
+                            for (auto it = v_addrvalue.begin(); it != v_addrvalue.end(); it++)
+                            {
+                                for (auto t_templat = templat.v_sub_template.begin(); t_templat != templat.v_sub_template.end(); t_templat++)
+                                {
+                                    // LOG_INFO("it->first = %d, t_templat->s_addr = %d", it->first, t_templat->s_addr);
+                                    if (it->first == t_templat->s_addr)
+                                    {
+                                        QueueData(t_templat->send_type, setItem(device.gateway_id, device.device_id, device.device_addr, t_templat->param_id, t_templat->param_name, it->second));
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                            resOK = true;
                         break;
                     }
                     case ENUM_S_Frame:
@@ -125,7 +144,7 @@ void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
     v_data.clear();
     if (analyseFinishCallback_)
     {
-        // analyseFinishCallback_(resOK, resRW, result_, frameType);
+        analyseFinishCallback_(resOK, resRW, result_,frameType.first, frameType.second);
     }
 }
 
@@ -219,14 +238,14 @@ void IEC104Analyse::Analyse_S_Frame()
 
 }
 
-void IEC104Analyse::AnalyseTypeIdentify(const frame& data, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseTypeIdentify(const frame& data, int& index)
 {
     IEC104TypeIdentity typeIdentity = (IEC104TypeIdentity)data.at(index);
     index++;
-    AnalyseVSQ(data, typeIdentity, index);
+    return AnalyseVSQ(data, typeIdentity, index);
 }
 
-void IEC104Analyse::AnalyseVSQ(const frame& data, IEC104TypeIdentity typeIdentity, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseVSQ(const frame& data, IEC104TypeIdentity typeIdentity, int& index)
 {
     bool cont = false; // SQ=1: 连续  SQ=0：不连续
     if (((u_int8_t)data.at(index) & 0x80) == 0x80)
@@ -237,11 +256,11 @@ void IEC104Analyse::AnalyseVSQ(const frame& data, IEC104TypeIdentity typeIdentit
     int del = (u_int8_t)data.at(index);
     index++;
     LOG_INFO("%d是否连续:%d, count=%d", del, (int)cont, objCount);
-    AnalyseCOT(data, typeIdentity, cont, objCount, index);
+    return AnalyseCOT(data, typeIdentity, cont, objCount, index);
 }
 
 // 传送原因 2个字节
-void IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
 {
     frame tmp;
     ReverseOrder(frame(data.begin()+index, data.begin()+index+2), tmp);
@@ -253,8 +272,8 @@ void IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentit
         case ENUM_I_COT_0x01: // = 0x01, // 周期、循环
         {
             LOG_INFO("传送原因cot=0x01 周期、循环");
-            AnalyseRTU(data, typeIdentity, cont, objCount, index);
-            break;
+            return AnalyseRTU(data, typeIdentity, cont, objCount, index);
+            // break;
         }
         case ENUM_I_COT_0x02: //  = 0x02, // 双点遥控
         {
@@ -264,8 +283,8 @@ void IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentit
         case ENUM_I_COT_0x03: //  = 0x03, // 突变
         {
             LOG_INFO("传送原因cot=0x03 突变");
-            AnalyseRTU(data, typeIdentity, cont, objCount, index);
-            break;
+            return AnalyseRTU(data, typeIdentity, cont, objCount, index);
+            // break;
         }
         case ENUM_I_COT_0x04: //  = 0x04, // 初始化
         {
@@ -291,7 +310,9 @@ void IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentit
             int rtu = 0;
             char2or4Hex_To_uint16or32(tmp, rtu);
             LOG_INFO("RTU = %d", rtu);
-            break;
+            std::vector<std::pair<int, std::string>> v_addrvalue;
+            return v_addrvalue;
+            // break;
         }
         case ENUM_I_COT_0x08: //  = 0x08, // 停止激活
         {
@@ -314,25 +335,28 @@ void IEC104Analyse::AnalyseCOT(const frame& data, IEC104TypeIdentity typeIdentit
 
             result_ = ENUM_SendNext_I_Frame; // 当前如果是遥测，发送遥脉召唤帧（支持的话）；当前是遥脉，等待下一次轮询
             LOG_INFO("------OVER-----");
-            break;
+
+            std::vector<std::pair<int, std::string>> v_addrvalue;
+            return v_addrvalue;
+            // break;
         }
         case ENUM_I_COT_0x14: //  = 0x14  // 响应总召唤
         {
             LOG_INFO("传送原因cot=0x14 响应总召唤");
-            AnalyseRTU(data, typeIdentity, cont, objCount, index);
-            break;
+            return AnalyseRTU(data, typeIdentity, cont, objCount, index);
+            // break;
         }
         case ENUM_I_COT_0x25: // 遥脉
         {
-            AnalyseRTU(data, typeIdentity, cont, objCount, index);
-            break;
+            return AnalyseRTU(data, typeIdentity, cont, objCount, index);
+            // break;
         }
         default:
             break;
     }
 }
 
-void IEC104Analyse::AnalyseRTU(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseRTU(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
 {
     frame tmp;
     ReverseOrder(frame(data.begin()+index, data.begin()+index+2), tmp);
@@ -341,17 +365,17 @@ void IEC104Analyse::AnalyseRTU(const frame& data, IEC104TypeIdentity typeIdentit
     int rtu = 0;
     char2or4Hex_To_uint16or32(tmp, rtu);
     LOG_INFO("RTU = %d", rtu);
-    AnalyseBlock(data, typeIdentity, cont, objCount, index);
+    return AnalyseBlock(data, typeIdentity, cont, objCount, index);
 }
 
-void IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdentity, bool cont, int objCount, int& index)
 {
     switch(typeIdentity)
     {
     // 遥信
         case ENUM_I_TypeIdentity_01: // = 0x01, // 不带时标的单点遥信， 每个遥信占一个字节
         {
-            AnalyseItem_01(data, cont, objCount, index);
+            return AnalyseItem_01(data, cont, objCount, index);
         }
         case ENUM_I_TypeIdentity_03: // = 0x03, // 不带时标的双点遥信， 每个遥信占一个字节
         {
@@ -364,8 +388,8 @@ void IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdent
     //遥测
         case ENUM_I_TypeIdentity_09: // = 0x09, // 带品质描述的测量值， 每个遥测值占3个字节
         {
-            AnalyseItem_09(data, cont, objCount, index);
-            break;
+            return AnalyseItem_09(data, cont, objCount, index);
+            // break;
         }
         case ENUM_I_TypeIdentity_0A: // = 0x0A, // 带3个字节时标的且具有品质描述的测量值，每个遥测值占6个字节
         {
@@ -373,8 +397,8 @@ void IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdent
         }
         case ENUM_I_TypeIdentity_0B: // = 0x0B, // 不带时标的标准化值，每个遥测值占3个字节
         {
-            AnalyseItem_0B(data, cont, objCount, index);
-            break;
+            return AnalyseItem_0B(data, cont, objCount, index);
+            // break;
         }
         case ENUM_I_TypeIdentity_0C: // = 0x0C, // 带3个时标的标准化值，每个遥测值占6个字节
         {
@@ -382,8 +406,8 @@ void IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdent
         }
         case ENUM_I_TypeIdentity_0D: // = 0x0D, // 带品质描述的浮点值，每个遥测值占5个字节
         {
-            AnalyseItem_0D(data, cont, objCount, index);
-            break;
+            return AnalyseItem_0D(data, cont, objCount, index);
+            // break;
         }
         case ENUM_I_TypeIdentity_0E: // = 0x0E, // 带三个字节时标且具有品质描述的浮点值，每个遥测值占8个字节
         {
@@ -396,8 +420,8 @@ void IEC104Analyse::AnalyseBlock(const frame& data, IEC104TypeIdentity typeIdent
     // 遥脉
         case ENUM_I_TypeIdentity_0F: // = 0x0F, // 不带时标的电能量，每个电能量占5个字节
         {
-            AnalyseItem_0F(data, cont, objCount, index);
-            break;
+            return AnalyseItem_0F(data, cont, objCount, index);
+            // break;
         }
         case ENUM_I_TypeIdentity_10: // = 0x10, // 带三个字节短时标的电能量，每个电能量占8个字节
         {
@@ -498,29 +522,31 @@ void IEC104Analyse::AnalyseQDS(const frame& data, int& index) // 品质描述符
     // LOG_INFO("品质描述符 IV=%d, NT=%d", IV, NT);
 }
 
-void IEC104Analyse::AnalyseItem_01(const frame& data, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>> IEC104Analyse::AnalyseItem_01(const frame& data, bool cont, int objCount, int& index)
 {
+    std::vector<std::pair<int, std::string>> v_addrvalue;
     if (cont) // 连续 (地址，数据；数据；数据;...)
     {
         int addr = 0;
         AnalyseAddr(data, index, addr); // 地址
         index += 3;
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int value = data.at(index);
             index++;
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
-
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
             // addr += number;
+            number++;
         }
     }
     else // 不连续
     {
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int addr = 0;
             AnalyseAddr(data, index, addr); // 地址
@@ -531,14 +557,17 @@ void IEC104Analyse::AnalyseItem_01(const frame& data, bool cont, int objCount, i
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
-
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
             // addr += number;
+            number++;
         }
     }
+    return v_addrvalue;
 }
 
-void IEC104Analyse::AnalyseItem_09(const frame& data, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>>  IEC104Analyse::AnalyseItem_09(const frame& data, bool cont, int objCount, int& index)
 {
+    std::vector<std::pair<int, std::string>> v_addrvalue;
     if (cont) // 连续 (地址，数据；数据；数据;...)
     {
         int addr = 0;
@@ -546,7 +575,7 @@ void IEC104Analyse::AnalyseItem_09(const frame& data, bool cont, int objCount, i
         index += 3;
 
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int value = 0;
             AnalyseData_09(data, index, value);
@@ -557,14 +586,16 @@ void IEC104Analyse::AnalyseItem_09(const frame& data, bool cont, int objCount, i
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
 
+            number++;
             // addr += number;
         }
     }
     else
     {
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int addr = 0;
             AnalyseAddr(data, index, addr); // 地址
@@ -579,19 +610,24 @@ void IEC104Analyse::AnalyseItem_09(const frame& data, bool cont, int objCount, i
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
 
+            number++;
             // addr += number;
         }
     }
+    return v_addrvalue;
 }
 
-void IEC104Analyse::AnalyseItem_0B(const frame& data, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>>  IEC104Analyse::AnalyseItem_0B(const frame& data, bool cont, int objCount, int& index)
 {
-    
+    std::vector<std::pair<int, std::string>> v_addrvalue;
+    return v_addrvalue;
 }
 
-void IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>>  IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, int& index)
 {
+    std::vector<std::pair<int, std::string>> v_addrvalue;
     if (cont) // 连续 (地址，数据；数据；数据;...)
     {
         int addr = 0;
@@ -599,7 +635,7 @@ void IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, i
         index += 3;
 
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             // LOG_INFO("连续  index=%d, number=%d", index, number);
             // 短浮点数
@@ -611,14 +647,16 @@ void IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, i
 
             std::string str_value = floatToString(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
             
+            number++;
             // addr += number;
         }
     }
     else // 不连续 (地址，数据；地址，数据；地址，数据;...)
     {
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             // LOG_INFO("不连续  index=%d, number=%d", index, number);
             int addr = 0;
@@ -634,14 +672,18 @@ void IEC104Analyse::AnalyseItem_0D(const frame& data, bool cont, int objCount, i
 
             std::string str_value = floatToString(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
 
+            number++;
             // addr += number;
         }
     }
+    return v_addrvalue;
 }
 
-void IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, int& index)
+std::vector<std::pair<int, std::string>>  IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, int& index)
 {
+    std::vector<std::pair<int, std::string>> v_addrvalue;
     if (cont) // 连续 (地址，数据；数据；数据;...)
     {
         int addr = 0;
@@ -649,7 +691,7 @@ void IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, i
         index += 3;
 
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int value;
             AnalyseData_0F(data, index, value); // 数据
@@ -659,7 +701,9 @@ void IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, i
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
 
+            number++;
             // addr += number;
             // break;
         }
@@ -667,7 +711,7 @@ void IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, i
     else // 不连续 (地址，数据；地址，数据；地址，数据;...)
     {
         int number = 0;
-        while (number++ < objCount)
+        while (number < objCount)
         {
             int addr = 0;
             AnalyseAddr(data, index, addr); // 地址
@@ -681,9 +725,12 @@ void IEC104Analyse::AnalyseItem_0F(const frame& data, bool cont, int objCount, i
 
             std::string str_value = std::to_string(value);
             LOG_INFO("addr=%d, data=%s", addr + number, str_value.c_str());
+            v_addrvalue.emplace_back(std::pair<int, std::string>(addr + number, str_value));
 
+            number++;
             // addr += number;
             // break;
         }
     }
+    return v_addrvalue;
 }
