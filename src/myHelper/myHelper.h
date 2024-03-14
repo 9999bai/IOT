@@ -537,7 +537,7 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 //Bacnetip
 #define BACNETIP_RX_MAXLENGTH 1024
 #define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
-#define BACNETIP_Freq 20    // 20*50ms=1s
+#define BACNETIP_Freq 200    // 20*50ms=1s
 
 #define SendPeriodTimer 40                  //定时发送数据  周期 单位：秒
 #define TD_Data_Title "TD"

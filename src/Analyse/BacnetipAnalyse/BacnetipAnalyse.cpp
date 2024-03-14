@@ -726,7 +726,7 @@ std::string BacnetipAnalyse::AnalyseValue(const frame& data, int& index, BacnetI
         {
             bool value;
             applicationTag.tvlValue == 0 ? (value = false) : (value = true);
-            resValue = (value == true) ? (true) : (false);
+            resValue = (value == true) ? ("true") : ("false");
             LOG_INFO("BacnetIP AnalyseValue bool value=%d", (int)value);
             break;
         }
@@ -756,7 +756,7 @@ std::string BacnetipAnalyse::AnalyseValue(const frame& data, int& index, BacnetI
             IEEE754_To_float(u32_data, value);
             index += applicationTag.tvlValue;
             resValue = floatToString(value);
-            LOG_INFO("BacnetIP AnalyseValue float value=%f", value);
+            LOG_INFO("BacnetIP AnalyseValue float value=%s", resValue.c_str());
             break;
         }
         case 5:     // IEEE754-double
@@ -814,6 +814,7 @@ std::string BacnetipAnalyse::AnalyseValue(const frame& data, int& index, BacnetI
 
             object.objectType = u32 >> 22;
             object.InstanceNumber = u32 & 0x3FFFFF;
+            LOG_INFO("BacnetIP AnalyseValue 对象标识(%d-%d)", object.objectType, object.InstanceNumber);
             break;
         }
         default:

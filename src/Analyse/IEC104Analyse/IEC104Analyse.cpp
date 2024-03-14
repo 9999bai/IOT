@@ -105,7 +105,6 @@ void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextfra
                                     }
                                 }
                             }
-
                         }
                             resOK = true;
                         break;
