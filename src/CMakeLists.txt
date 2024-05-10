@@ -9,6 +9,7 @@ add_subdirectory(NetSerial)
 add_subdirectory(Observer)
 add_subdirectory(Factory)
 add_subdirectory(open62541)
+add_subdirectory(Control)
 
 
 target_link_libraries(main 
@@ -21,6 +22,7 @@ PRIVATE
     NetSerial
     Observer
     Factory
+    Control
     open62541
     mymuduo
     jsoncpp

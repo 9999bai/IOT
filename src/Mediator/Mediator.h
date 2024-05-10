@@ -25,7 +25,7 @@ protected:
     std::shared_ptr<ThreadPool> poolPtr_;
     iot_gateway gateway_;
 
-    nextFrame sendFrame_;     //当前发送的数据及解析参数
+    structNextFrame sendFrame_;     //当前发送的数据及解析参数
     // opcnextFrame opcSendFrame_; // opc
 
     AnalyseFinishCallback analyseFinishCallback_;

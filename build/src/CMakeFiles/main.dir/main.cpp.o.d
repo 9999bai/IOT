@@ -322,6 +322,11 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
  /usr/include/mosquitto-arm/mosquittopp.h \
  /usr/include/mosquitto-arm/mosquitto.h \
  /home/brian/iot4/src/Observer/Observer.h \
+ /home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.h \
+ /home/brian/iot4/src/Control/Control.h \
+ /home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.h \
+ /home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.h \
+ /home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.h \
  /home/brian/iot4/src/Database/MysqlDatabase/MysqlDatabase.h \
  /home/brian/iot4/src/Database/Database.h /usr/include/mysql-arm/mysql.h \
  /usr/include/mysql-arm/mysql_version.h \

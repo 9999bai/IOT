@@ -18,7 +18,7 @@ public:
     virtual void start() = 0;
 
     bool cycleFinish();
-    bool getNextReadFrame(nextFrame &next_frame);           // 下一帧数据
+    bool getNextReadFrame(structNextFrame& strnextframe);           // 下一帧数据
     void addControlFrame(const nextFrame &controlFrame);    // 添加控制数据帧
 
     // bool getOPCNextReadFrame(opcnextFrame &opcnextframe);

@@ -73,7 +73,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 14,
+				"line" : 15,
 				"parent" : 0
 			},
 			{
@@ -173,6 +173,10 @@
 				},
 				{
 					"backtrace" : 9,
+					"path" : "/home/brian/iot4/src/Control"
+				},
+				{
+					"backtrace" : 9,
 					"path" : "/home/brian/iot4/src/open62541"
 				}
 			],
@@ -221,6 +225,10 @@
 		{
 			"backtrace" : 9,
 			"id" : "open62541::@0661e22d5f09fde8c118"
+		},
+		{
+			"backtrace" : 9,
+			"id" : "Control::@e31504c42ceffb2033ef"
 		}
 	],
 	"id" : "main::@145eef247bfb46b6828c",
@@ -308,6 +316,11 @@
 			{
 				"backtrace" : 9,
 				"fragment" : "/home/brian/iot4/bin/libFactory.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "/home/brian/iot4/bin/libControl.so",
 				"role" : "libraries"
 			},
 			{
@@ -407,7 +420,15 @@
 				42,
 				43,
 				44,
-				45
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53
 			]
 		}
 	],
@@ -638,6 +659,46 @@
 		{
 			"backtrace" : 9,
 			"path" : "src/Factory/Pro188Factory/Pro188Factory.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/Control.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/BacnetipControl/BacnetipControl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/Dlt645Control/Dlt645Control.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/IEC104Control/IEC104Control.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/ModbusRtuControl/ModbusRtuControl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/ModbusTcpControl/ModbusTcpControl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/OpcuaControl/OpcuaControl.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 9,
+			"path" : "src/Control/Pro188Control/Pro188Control.h",
 			"sourceGroupIndex" : 1
 		},
 		{

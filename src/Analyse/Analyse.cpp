@@ -11,14 +11,8 @@ Analyse::~Analyse()
 }
 
 // opc
-UA_StatusCode Analyse::OPCMultiRead(UA_Client *client, UA_ReadResponse& response, UA_ReadValueId* arrayItem, const int& arraySize, const nextFrame& sendFrame)
+UA_StatusCode Analyse::OPCMultiRead(UA_Client *client, UA_ReadResponse& response, UA_ReadValueId* arrayItem, const int& arraySize, const structNextFrame& sendFrame)
 {
-    // UA_ReadRequest request;
-    // UA_ReadRequest_init(&request);
-	// request.nodesToRead = &arrayItem[0];
-	// request.nodesToReadSize = arraySize;
-
-	// UA_ReadResponse response = UA_Client_Service_read(client, request);
 	UA_StatusCode retval = response.responseHeader.serviceResult;
 	if (retval == UA_STATUSCODE_GOOD)
 	{
@@ -36,7 +30,7 @@ UA_StatusCode Analyse::OPCMultiRead(UA_Client *client, UA_ReadResponse& response
                         UA_Variant out;
                         memcpy(&out, &response.results[i].value, sizeof(UA_Variant));
                         UA_Variant_init(&response.results[i].value);
-                        OPCAnalyse(i, sendFrame, out);
+                        OPCAnalyse(i, sendFrame.nextframe, out);
                         // AnalyseFunc(i, send, out);
                         // poolPtr_->run(std::bind(&Analyse::AnalyseFunc, opcuaAnalysePtr_, strtmp, sendFrame_, (void *)&out));
                     }else

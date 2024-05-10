@@ -266,6 +266,19 @@ open62541/fast:
 	$(MAKE) $(MAKESILENT) -f src/open62541/CMakeFiles/open62541.dir/build.make src/open62541/CMakeFiles/open62541.dir/build
 .PHONY : open62541/fast
 
+#=============================================================================
+# Target rules for targets named Control
+
+# Build rule for target.
+Control: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Control
+.PHONY : Control
+
+# fast build rule for target.
+Control/fast:
+	$(MAKE) $(MAKESILENT) -f src/Control/CMakeFiles/Control.dir/build.make src/Control/CMakeFiles/Control.dir/build
+.PHONY : Control/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -277,6 +290,7 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... Analyse"
+	@echo "... Control"
 	@echo "... Database"
 	@echo "... Factory"
 	@echo "... Frame"

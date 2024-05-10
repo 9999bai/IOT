@@ -154,6 +154,8 @@ void OpcUAAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextfram
     }else if(templat.rw == enum_write)
     {
         resRW = enum_write;
+        bool resOK = true; // 解析是否成功
+        
     }
     if(analyseFinishCallback_)
     {

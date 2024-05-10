@@ -1,12 +1,12 @@
 [
 {
   "directory": "/home/brian/iot4/build/src",
-  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++  -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory -I/home/brian/iot4/src/open62541   -std=c++11 -pthread -fPIC -g -o CMakeFiles/main.dir/GatewayManage.cpp.o -c /home/brian/iot4/src/GatewayManage.cpp",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++  -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory -I/home/brian/iot4/src/Control -I/home/brian/iot4/src/open62541   -std=c++11 -pthread -fPIC -g -o CMakeFiles/main.dir/GatewayManage.cpp.o -c /home/brian/iot4/src/GatewayManage.cpp",
   "file": "/home/brian/iot4/src/GatewayManage.cpp"
 },
 {
   "directory": "/home/brian/iot4/build/src",
-  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++  -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory -I/home/brian/iot4/src/open62541   -std=c++11 -pthread -fPIC -g -o CMakeFiles/main.dir/main.cpp.o -c /home/brian/iot4/src/main.cpp",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++  -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory -I/home/brian/iot4/src/Control -I/home/brian/iot4/src/open62541   -std=c++11 -pthread -fPIC -g -o CMakeFiles/main.dir/main.cpp.o -c /home/brian/iot4/src/main.cpp",
   "file": "/home/brian/iot4/src/main.cpp"
 },
 {
@@ -228,5 +228,45 @@
   "directory": "/home/brian/iot4/build/src/open62541",
   "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-gcc -Dopen62541_EXPORTS -I/usr/include/mymuduo -I/usr/include/mysql-arm -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/mosquitto-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/open62541/.. -I/home/brian/iot4/src/open62541 -g -fPIC   -std=c99 -o CMakeFiles/open62541.dir/open62541_gm.c.o -c /home/brian/iot4/src/open62541/open62541_gm.c",
   "file": "/home/brian/iot4/src/open62541/open62541_gm.c"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/Control.cpp.o -c /home/brian/iot4/src/Control/Control.cpp",
+  "file": "/home/brian/iot4/src/Control/Control.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/BacnetipControl/BacnetipControl.cpp.o -c /home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.cpp",
+  "file": "/home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/Dlt645Control/Dlt645Control.cpp.o -c /home/brian/iot4/src/Control/Dlt645Control/Dlt645Control.cpp",
+  "file": "/home/brian/iot4/src/Control/Dlt645Control/Dlt645Control.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/IEC104Control/IEC104Control.cpp.o -c /home/brian/iot4/src/Control/IEC104Control/IEC104Control.cpp",
+  "file": "/home/brian/iot4/src/Control/IEC104Control/IEC104Control.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/ModbusRtuControl/ModbusRtuControl.cpp.o -c /home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.cpp",
+  "file": "/home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/ModbusTcpControl/ModbusTcpControl.cpp.o -c /home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.cpp",
+  "file": "/home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/OpcuaControl/OpcuaControl.cpp.o -c /home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.cpp",
+  "file": "/home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.cpp"
+},
+{
+  "directory": "/home/brian/iot4/build/src/Control",
+  "command": "/usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++ -DControl_EXPORTS -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/Control   -std=c++11 -pthread -fPIC -g -fPIC -o CMakeFiles/Control.dir/Pro188Control/Pro188Control.cpp.o -c /home/brian/iot4/src/Control/Pro188Control/Pro188Control.cpp",
+  "file": "/home/brian/iot4/src/Control/Pro188Control/Pro188Control.cpp"
 }
 ]

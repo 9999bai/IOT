@@ -30,7 +30,8 @@
 						7,
 						8,
 						9,
-						10
+						10,
+						11
 					],
 					"jsonFile" : "directory-src-Debug-b6cf2213fc5053b67c22.json",
 					"minimumCMakeVersion" : 
@@ -42,7 +43,7 @@
 					"source" : "src",
 					"targetIndexes" : 
 					[
-						7
+						8
 					]
 				},
 				{
@@ -57,7 +58,7 @@
 					"source" : "src/myHelper",
 					"targetIndexes" : 
 					[
-						8
+						9
 					]
 				},
 				{
@@ -72,7 +73,7 @@
 					"source" : "src/Database",
 					"targetIndexes" : 
 					[
-						1
+						2
 					]
 				},
 				{
@@ -102,7 +103,7 @@
 					"source" : "src/Frame",
 					"targetIndexes" : 
 					[
-						3
+						4
 					]
 				},
 				{
@@ -117,7 +118,7 @@
 					"source" : "src/Mediator",
 					"targetIndexes" : 
 					[
-						4
+						5
 					]
 				},
 				{
@@ -132,7 +133,7 @@
 					"source" : "src/NetSerial",
 					"targetIndexes" : 
 					[
-						5
+						6
 					]
 				},
 				{
@@ -147,7 +148,7 @@
 					"source" : "src/Observer",
 					"targetIndexes" : 
 					[
-						6
+						7
 					]
 				},
 				{
@@ -162,7 +163,7 @@
 					"source" : "src/Factory",
 					"targetIndexes" : 
 					[
-						2
+						3
 					]
 				},
 				{
@@ -177,7 +178,22 @@
 					"source" : "src/open62541",
 					"targetIndexes" : 
 					[
-						9
+						10
+					]
+				},
+				{
+					"build" : "src/Control",
+					"jsonFile" : "directory-src.Control-Debug-f454a528213a7a1a925e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/Control",
+					"targetIndexes" : 
+					[
+						1
 					]
 				}
 			],
@@ -197,7 +213,8 @@
 						7,
 						8,
 						9,
-						10
+						10,
+						11
 					],
 					"name" : "iot_gateway",
 					"targetIndexes" : 
@@ -211,7 +228,8 @@
 						6,
 						7,
 						8,
-						9
+						9,
+						10
 					]
 				}
 			],
@@ -222,6 +240,13 @@
 					"id" : "Analyse::@caeb3e34792b2e589e8c",
 					"jsonFile" : "target-Analyse-Debug-058567f57105725af7d6.json",
 					"name" : "Analyse",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "Control::@e31504c42ceffb2033ef",
+					"jsonFile" : "target-Control-Debug-184162cef4ec0e422a6f.json",
+					"name" : "Control",
 					"projectIndex" : 0
 				},
 				{
@@ -269,7 +294,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "main::@145eef247bfb46b6828c",
-					"jsonFile" : "target-main-Debug-3c80b75bfd7edacc1531.json",
+					"jsonFile" : "target-main-Debug-cd0de48c6b947cffe8f6.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},

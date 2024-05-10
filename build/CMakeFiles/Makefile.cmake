@@ -13,6 +13,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.24.0-rc1/CMakeSystem.cmake"
   "/home/brian/iot4/src/Analyse/CMakeLists.txt"
   "/home/brian/iot4/src/CMakeLists.txt"
+  "/home/brian/iot4/src/Control/CMakeLists.txt"
   "/home/brian/iot4/src/Database/CMakeLists.txt"
   "/home/brian/iot4/src/Factory/CMakeLists.txt"
   "/home/brian/iot4/src/Frame/CMakeLists.txt"
@@ -60,6 +61,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "src/Observer/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/Factory/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/open62541/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/Control/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -74,4 +76,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/Observer/CMakeFiles/Observer.dir/DependInfo.cmake"
   "src/Factory/CMakeFiles/Factory.dir/DependInfo.cmake"
   "src/open62541/CMakeFiles/open62541.dir/DependInfo.cmake"
+  "src/Control/CMakeFiles/Control.dir/DependInfo.cmake"
   )

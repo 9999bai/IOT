@@ -209,6 +209,84 @@ frame HexStrToByteArray(const std::string& str)
 // 	}
 // }
 
+void WriteBytetypeData(enum_byte_order byteorder, const frame& td, frame& t_frame)
+{
+    switch(byteorder)
+    {
+        case enum_byte_order_A:
+        {
+            if(td.size()==1)
+            {
+                t_frame.emplace_back(td.at(0));
+            }
+        }
+            break;
+        case enum_byte_order_AB:
+        {
+            if(td.size()==2)
+            {
+                t_frame.emplace_back(td.at(0));
+                t_frame.emplace_back(td.at(1));
+            }
+        }
+            break;
+        case enum_byte_order_BA:
+        {
+            if (td.size() == 2)
+            {
+                t_frame.emplace_back(td.at(1));
+                t_frame.emplace_back(td.at(0));
+            }
+        }
+            break;
+        case enum_byte_order_AB_CD:
+        {
+            if(td.size()==4)
+            {
+                t_frame.emplace_back(td.at(0));
+                t_frame.emplace_back(td.at(1));
+                t_frame.emplace_back(td.at(2));
+                t_frame.emplace_back(td.at(3));
+            }
+        }
+            break;
+        case enum_byte_order_CD_AB:
+        {
+            if(td.size()==4)
+            {
+                t_frame.emplace_back(td.at(2));
+                t_frame.emplace_back(td.at(3));
+                t_frame.emplace_back(td.at(0));
+                t_frame.emplace_back(td.at(1));
+            }
+        }
+            break;
+        case enum_byte_order_BA_DC:
+        {
+            if(td.size()==4)
+            {
+                t_frame.emplace_back(td.at(1));
+                t_frame.emplace_back(td.at(0));
+                t_frame.emplace_back(td.at(3));
+                t_frame.emplace_back(td.at(2));
+            }
+        }
+            break;
+        case enum_byte_order_DC_BA:
+        {
+            if(td.size()==4)
+            {
+                t_frame.emplace_back(td.at(3));
+                t_frame.emplace_back(td.at(2));
+                t_frame.emplace_back(td.at(1));
+                t_frame.emplace_back(td.at(0));
+            }
+        }
+            break;
+    }
+}
+
+
 uint16_t usMBCRC16(const frame& frame, uint16_t len)
 {
 	u_char ucCRCHi = 0xFF;

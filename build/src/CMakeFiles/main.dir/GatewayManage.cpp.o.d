@@ -322,4 +322,9 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: \
  /usr/include/mosquitto-arm/mosquitto.h \
  /usr/include/mosquitto-arm/mosquittopp.h \
  /usr/include/mosquitto-arm/mosquitto.h \
- /home/brian/iot4/src/Observer/Observer.h
+ /home/brian/iot4/src/Observer/Observer.h \
+ /home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.h \
+ /home/brian/iot4/src/Control/Control.h \
+ /home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.h \
+ /home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.h \
+ /home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.h

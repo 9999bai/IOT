@@ -17,7 +17,7 @@ public:
     virtual bool HandleData(const frame& v_data, const nextFrame& nextframe);//modbus解析，其他协议重写此函数
 
     // opc
-    virtual UA_StatusCode OPCMultiRead(UA_Client *client, UA_ReadResponse& response, UA_ReadValueId* arrayItem, const int& arraySize, const nextFrame& sendFrame);
+    virtual UA_StatusCode OPCMultiRead(UA_Client *client, UA_ReadResponse& response, UA_ReadValueId* arrayItem, const int& arraySize, const structNextFrame& sendFrame);
 
     // IEC104
     u_int16_t getTX_SN() { return TX_SN_; }

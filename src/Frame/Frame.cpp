@@ -29,14 +29,15 @@ void Frame::addControlFrame(const nextFrame& controlFrame)
     }
 }
 
-bool Frame::getNextReadFrame(nextFrame& next_frame)
+bool Frame::getNextReadFrame(structNextFrame& strnextframe)
 {
     // 取 写队列
     if(!W_Queue.empty())
     {
         {
             std::unique_lock<std::mutex> lock(W_QueueMutex);
-            next_frame = W_Queue.front();
+            strnextframe.rw = enum_write;
+            strnextframe.nextframe = W_Queue.front();
             W_Queue.pop();
         }
         return true;
@@ -50,7 +51,8 @@ bool Frame::getNextReadFrame(nextFrame& next_frame)
     }
     try
     {
-        next_frame = R_Vector.at(index_);
+        strnextframe.rw = enum_read;
+        strnextframe.nextframe = R_Vector.at(index_);
         if(++index_ >= R_Vector.size())
         {
             index_ = 0;
@@ -59,7 +61,8 @@ bool Frame::getNextReadFrame(nextFrame& next_frame)
     catch(std::out_of_range)
     {
         LOG_ERROR("%s Frame::getNextReadFrame  out_of_range...", name_.c_str());
-        next_frame = R_Vector.at(index_);
+        strnextframe.rw = enum_read;
+        strnextframe.nextframe = R_Vector.at(index_);
         index_ = 0;
     }
     return true;

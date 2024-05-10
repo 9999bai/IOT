@@ -26,6 +26,7 @@ class UdpClient;
 class NetSerial;
 class Mediator;
 class Observer;
+class Control;
 
 using SerialPortPtr = std::shared_ptr<SerialPort>;
 using TcpClientPtr = std::shared_ptr<TcpClient>;
@@ -39,6 +40,7 @@ using NetSerialPtr = std::shared_ptr<NetSerial>;
 using MediatorPtr = std::shared_ptr<Mediator>;
 using ObserverPtr = std::shared_ptr<Observer>;
 
+using ControlPtr = std::shared_ptr<Control>;
 
 using frame = std::vector<char>;
 using vector_frame = std::vector<frame>;
@@ -504,6 +506,8 @@ typedef struct{
 void ObjectIdentifier(const iot_template &templat, frame &data);
 BacnetIP_ObjectIdentifity strToObject(const std::string &strObject);
 
+void WriteBytetypeData(enum_byte_order byteorder, const frame &td, frame &t_frame);
+
 void printNodeId(UA_NodeId *pId);
 
 // using AnalyseFinishCallback = std::function<void(const std::vector<iot_data_item>&)>;
@@ -512,11 +516,18 @@ using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, i
 using NextFrameCallback = std::function<void()>;
 using NewConnectionCallback = std::function<void()>;
 
+
+using controlmediator = std::pair<int, MediatorPtr>;
 using pair_frame = std::pair<iot_device, std::vector<iot_template>>;
 using map_frame = std::unordered_map<int, pair_frame>;
 
 using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
-// using opcnextFrame = std::pair<std::vector<UA_ReadValueId>, pair_frame>; // opc 下一帧数据
+
+// 下一帧数据
+typedef struct{
+    enum_RW rw;
+    nextFrame nextframe;
+} structNextFrame;
 
 /* 时间间隔以50毫秒为单位 */
 #define Project_ID 2                        // 项目id

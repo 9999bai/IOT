@@ -35,13 +35,13 @@ void ModbusTcpMediator::addControlFrame(const nextFrame& controlFrame)
 
 void ModbusTcpMediator::onNextFrame()
 {
-    nextFrame next;
+    structNextFrame next;
     if(modbustcpFramePtr_->getNextReadFrame(next))
     {
         sendFrame_ = next;
-        std::string buf(next.first.begin(), next.first.end());
+        std::string buf(next.nextframe.first.begin(), next.nextframe.first.end());
         tcpclientPtr_->SendData(buf);
-        printFrame("TX", frame(next.first.begin(), next.first.end()));
+        printFrame("TX", frame(next.nextframe.first.begin(), next.nextframe.first.end()));
     }
     else
     {
@@ -53,7 +53,7 @@ void ModbusTcpMediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timest
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, modbustcpAnalysePtr_, msg, sendFrame_, nullptr));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, modbustcpAnalysePtr_, msg, sendFrame_.nextframe, nullptr));
 }
 
 void ModbusTcpMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)

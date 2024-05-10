@@ -21,10 +21,12 @@ public:
 
 private:
     void onNextFrame(UA_Client *client);
-    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type);
+    void HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result = ENUM_Normal, int count=0, IEC104FrameType type=ENUM_Normal_Frame);
 
     // UA_StatusCode MultiRead(UA_Client *client, UA_ReadValueId *arrayItem, size_t arraySize);
     void AnalyseFunc(const int& index, const nextFrame &nextframe, const UA_Variant& out);
+
+    bool OPCWriteValue(const iot_device& device, const iot_template &templat, const std::string &value);
 
     UA_Client *client;
     FramePtr opcuaFramePtr_;

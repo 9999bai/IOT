@@ -15,7 +15,7 @@ OpcUAMeiator::~OpcUAMeiator()
 
 void OpcUAMeiator::addControlFrame(const nextFrame& controlFrame)
 {
-
+    opcuaFramePtr_->addControlFrame(controlFrame);
 }
 
 void OpcUAMeiator::readValueArrayInit(UA_ReadValueId *src, int size)
@@ -51,35 +51,47 @@ void OpcUAMeiator::start()
 
 void OpcUAMeiator::onNextFrame(UA_Client *client)
 {
-    nextFrame next;
-    if(opcuaFramePtr_->getNextReadFrame(next))
+    structNextFrame next;
+    if (opcuaFramePtr_->getNextReadFrame(next))
     {
         sendFrame_ = next;
-        iot_device device = next.second.first;
-        std::vector<iot_template> v_templat = next.second.second;
+        iot_device device = next.nextframe.second.first;
+        std::vector<iot_template> v_templat = next.nextframe.second.second;
 
-        int arraySize = v_templat.size();
-        UA_ReadValueId itemArray[arraySize];
-        for (int i = 0; i < arraySize; ++i)
+        if(next.rw == enum_read) // 读
         {
-            UA_ReadValueId_init(&itemArray[i]);
-            itemArray[i].attributeId = UA_ATTRIBUTEID_VALUE;
+            int arraySize = v_templat.size();
+            UA_ReadValueId itemArray[arraySize];
+            for (int i = 0; i < arraySize; ++i)
+            {
+                UA_ReadValueId_init(&itemArray[i]);
+                itemArray[i].attributeId = UA_ATTRIBUTEID_VALUE;
 
-            std::string str(v_templat.at(i).register_addr);
-            itemArray[i].nodeId = UA_NODEID_STRING(std::atoi(device.device_addr.c_str()), const_cast<char *>(str.c_str()));
+                std::string str(v_templat.at(i).register_addr);
+                itemArray[i].nodeId = UA_NODEID_STRING(std::atoi(device.device_addr.c_str()), const_cast<char *>(str.c_str()));
+                // printNodeId(&itemArray[i].nodeId);
+            }
 
-            // printNodeId(&itemArray[i].nodeId);
+            UA_ReadRequest request;
+            UA_ReadRequest_init(&request);
+            request.nodesToRead = &itemArray[0];
+            request.nodesToReadSize = arraySize;
+            UA_ReadResponse response = UA_Client_Service_read(client, request);
+            
+            poolPtr_->run(std::bind(&Analyse::OPCMultiRead, opcuaAnalysePtr_, client, response, &itemArray[0], arraySize, sendFrame_));
         }
-
-        UA_ReadRequest request;
-        UA_ReadRequest_init(&request);
-        request.nodesToRead = &itemArray[0];
-        request.nodesToReadSize = arraySize;
-        UA_ReadResponse response = UA_Client_Service_read(client, request);
-        
-        poolPtr_->run(std::bind(&Analyse::OPCMultiRead, opcuaAnalysePtr_, client, response, &itemArray[0], arraySize, sendFrame_));
-        // poolPtr_->run(std::bind(&Analyse::OPCMultiRead, opcuaAnalysePtr_, client, itemArray, arraySize, sendFrame_));
-        // MultiRead(client, itemArray, arraySize);
+        else if(next.rw == enum_write) // 写
+        {
+            // LOG_INFO("OpcUAMeiator::onNextFrame %d", (int)v_templat.size());
+            if (v_templat.size() > 0)
+            {
+                iot_template templat = v_templat.at(0);
+                std::string tmp(next.nextframe.first.begin(), next.nextframe.first.end());
+                // 写
+                bool res = OPCWriteValue(device, templat, tmp);
+                HandleAnalyseFinishCallback(res, enum_write);
+            }
+        }
     }
     else
     {
@@ -87,57 +99,121 @@ void OpcUAMeiator::onNextFrame(UA_Client *client)
     }
 }
 
-// UA_StatusCode OpcUAMeiator::MultiRead(UA_Client* client, UA_ReadValueId* arrayItem, size_t arraySize)
-// {
-//     // LOG_INFO("MultiRead...");
-//     UA_ReadRequest request;
-//     UA_ReadRequest_init(&request);
-// 	request.nodesToRead = &arrayItem[0];
-// 	request.nodesToReadSize = arraySize;
+bool OpcUAMeiator::OPCWriteValue(const iot_device& device, const iot_template& templat, const std::string& value)
+{
+    UA_StatusCode res;
+    UA_Variant myVariant;
+    UA_Variant_init(&myVariant);
 
-// 	UA_ReadResponse response = UA_Client_Service_read(client, request);
-// 	UA_StatusCode retval = response.responseHeader.serviceResult;
-// 	if (retval == UA_STATUSCODE_GOOD)
-// 	{
-// 		if (response.resultsSize == arraySize)
-// 		{
-// 			for (int i = 0; i < arraySize; ++i)
-// 			{
-//                 if(response.results[i].status == UA_STATUSCODE_GOOD)
-//                 {
-//                     if(response.results[i].hasValue)
-//                     {
-//                         // LOG_INFO("opc...%d", i);
-//                         std::string strtmp(std::to_string(i));
+    switch(templat.data_type)
+    {
+        case enum_data_type_OPC_bool:
+        {
+            UA_Boolean boolvalue = (value == "true" || value == "1") ? true : false;
+            UA_Variant_setScalarCopy(&myVariant, &boolvalue, &UA_TYPES[UA_TYPES_BOOLEAN]);
+            break;
+        }
+        case enum_data_type_OPC_sbyte:
+        {
+            UA_SByte sbytevalue = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &sbytevalue, &UA_TYPES[UA_TYPES_SBYTE]);
+            break;
+        }
+        case enum_data_type_OPC_byte:
+        {
+            UA_Byte bytevalue = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &bytevalue, &UA_TYPES[UA_TYPES_BYTE]);
+            break;
+        }
+        case enum_data_type_OPC_int16:
+        {
+            UA_Int16 int16value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &int16value, &UA_TYPES[UA_TYPES_INT16]);
+            break;
+        }
+        case enum_data_type_OPC_uint16:
+        {
+            UA_UInt16 uint16value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &uint16value, &UA_TYPES[UA_TYPES_UINT16]);
+            break;
+        }
+        case enum_data_type_OPC_int32:
+        {
+            UA_Int32 int32value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &int32value, &UA_TYPES[UA_TYPES_INT32]);
+            break;
+        }
+        case enum_data_type_OPC_uint32:
+        {
+            UA_UInt32 uint32value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &uint32value, &UA_TYPES[UA_TYPES_UINT32]);
+            break;
+        }
+        case enum_data_type_OPC_int64:
+        {
+            UA_Int64 int64value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &int64value, &UA_TYPES[UA_TYPES_INT64]);
+            break;
+        }
+        case enum_data_type_OPC_uint64:
+        {
+            UA_UInt64 uint64value = std::atoi(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &uint64value, &UA_TYPES[UA_TYPES_UINT64]);
+            break;
+        }
+        case enum_data_type_OPC_float:
+        {
+            UA_Float floatvalue = std::atof(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &floatvalue, &UA_TYPES[UA_TYPES_FLOAT]);
+            break;
+        }
+        case enum_data_type_OPC_double:
+        {
+            UA_Double doublevalue = std::atof(value.c_str());
+            UA_Variant_setScalarCopy(&myVariant, &doublevalue, &UA_TYPES[UA_TYPES_DOUBLE]);
+            break;
+        }
+        case enum_data_type_OPC_string:
+        {
+            UA_String stringvalue = UA_STRING(const_cast<char*>(value.c_str()));
+            UA_Variant_setScalarCopy(&myVariant, &stringvalue, &UA_TYPES[UA_TYPES_STRING]);
+            break;
+        }
+        // case enum_data_type_OPC_datetime:
+        // case enum_data_type_OPC_guid:
+        case enum_data_type_OPC_bytestring:
+        {
+            UA_ByteString bytestringvalue = UA_STRING(const_cast<char*>(value.c_str()));
+            UA_Variant_setScalarCopy(&myVariant, &bytestringvalue, &UA_TYPES[UA_TYPES_BYTESTRING]);
+            break;
+        }
+        case enum_data_type_OPC_localizedtext:
+        {
+            UA_LocalizedText textvalue = UA_LOCALIZEDTEXT("en-US", const_cast<char*>(value.c_str()));
+            UA_Variant_setScalarCopy(&myVariant, &textvalue, &UA_TYPES[UA_TYPES_LOCALIZEDTEXT]);
+            break;
+        }
+        default:{
+            LOG_ERROR("OpcUAAnalyse::AnalyseFunc default...%d", (int)templat.data_type);
+            // boolresult = false;
+            // resOK = false;
+            break;
+        }
+        // case enum_data_type_OPC_xmlelement:
+        // case enum_data_type_OPC_nodeid:
+        // case enum_data_type_OPC_expandednodeid:
+        // case enum_data_type_OPC_statuscode:
+        // case enum_data_type_OPC_qualifiedname:
+        // case enum_data_type_OPC_extensionobject:
+        // case enum_data_type_OPC_datavalue:
+        // case enum_data_type_OPC_variant:
+        // case enum_data_type_OPC_diagnosticinfo:
+    }
+    res = UA_Client_writeValueAttribute(client, UA_NODEID_STRING(std::atoi(device.device_addr.c_str()),\
+     const_cast<char*>(templat.register_addr.c_str())), &myVariant);
 
-//                         UA_Variant out;
-//                         memcpy(&out, &response.results[i].value, sizeof(UA_Variant));
-//                         UA_Variant_init(&response.results[i].value);
-//                         AnalyseFunc(i, sendFrame_, out);
-//                         // poolPtr_->run(std::bind(&Analyse::AnalyseFunc, opcuaAnalysePtr_, strtmp, sendFrame_, (void *)&out));
-//                     }else
-//                     {
-//                         LOG_ERROR("response.results[i].hasValue errorr...");
-//                     }
-//                 }
-//                 else
-//                 {
-//                     LOG_ERROR("retStatusArray errorr=%d",(int)response.results[i].status);
-//                 }
-//             }
-//         }
-// 		else
-// 		{
-// 			UA_ReadResponse_clear(&response);
-//             LOG_ERROR("opc analyse response.resultsSize != arraySize...%d=%d",(int)response.resultsSize, (int)arraySize);
-//             return UA_STATUSCODE_BADUNEXPECTEDERROR;
-//         }
-// 	}else{
-//         printf("UA_Client_Service_read response errorcode = %X\n", (int)retval);
-//     }
-// 	UA_ReadResponse_clear(&response);
-// 	return UA_STATUSCODE_GOOD;
-// }
+    return res == UA_STATUSCODE_GOOD;
+}
 
 void OpcUAMeiator::secTimer()
 {

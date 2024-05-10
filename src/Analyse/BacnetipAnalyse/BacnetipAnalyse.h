@@ -9,6 +9,26 @@
  **/
 
 
+
+/*四、写属性
+    810A
+    0018    --长度
+    01      --版本号
+    04      --控制字
+    00		--PDUtype
+    03		--480字节
+    06		--Invoke ID
+    0F		--写服务
+    0C00000000  0C=1100 -->100=4个长度  00000000 == AI instance=0
+    19		--11001
+    55		--present-value=85
+    3E		--opening
+    443F8E147B  --44-->应用标记  后跟4个长度的是数据  3F8E147B=1.1
+    3F		--closing
+    49		--应用标记
+    0A		--优先级
+*/
+
 class BacnetipAnalyse : public Analyse
 {
 public:

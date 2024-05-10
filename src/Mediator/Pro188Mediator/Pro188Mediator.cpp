@@ -37,18 +37,18 @@ void Pro188Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, pro188AnalysePtr_, msg, sendFrame_, nullptr));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, pro188AnalysePtr_, msg, sendFrame_.nextframe, nullptr));
 }
 
 void Pro188Mediator::onNextFrame()
 {
-    nextFrame next;
+    structNextFrame next;
     if(pro188FramePtr_->getNextReadFrame(next))
     {
         sendFrame_ = next;
-        std::string buf(next.first.begin(), next.first.end());
+        std::string buf(next.nextframe.first.begin(), next.nextframe.first.end());
         serialPortPtr_->SendData(buf);
-        printFrame("TX", frame(next.first.begin(), next.first.end()));
+        printFrame("TX", frame(next.nextframe.first.begin(), next.nextframe.first.end()));
     }
     else
     {

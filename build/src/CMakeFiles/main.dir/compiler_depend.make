@@ -336,7 +336,12 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: /home/brian/iot4/src/GatewayManage.
   /usr/include/mosquitto-arm/mosquitto.h \
   /usr/include/mosquitto-arm/mosquittopp.h \
   /usr/include/mosquitto-arm/mosquitto.h \
-  /home/brian/iot4/src/Observer/Observer.h
+  /home/brian/iot4/src/Observer/Observer.h \
+  /home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.h \
+  /home/brian/iot4/src/Control/Control.h \
+  /home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.h \
+  /home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.h \
+  /home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.h
 
 src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/stdc-predef.h \
@@ -674,6 +679,11 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
   /usr/include/mosquitto-arm/mosquittopp.h \
   /usr/include/mosquitto-arm/mosquitto.h \
   /home/brian/iot4/src/Observer/Observer.h \
+  /home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.h \
+  /home/brian/iot4/src/Control/Control.h \
+  /home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.h \
+  /home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.h \
+  /home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.h \
   /home/brian/iot4/src/Database/MysqlDatabase/MysqlDatabase.h \
   /home/brian/iot4/src/Database/Database.h \
   /usr/include/mysql-arm/mysql.h \
@@ -696,6 +706,12 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /home/brian/iot4/src/Database/Database.h:
 
 /home/brian/iot4/src/Database/MysqlDatabase/MysqlDatabase.h:
+
+/home/brian/iot4/src/Control/BacnetipControl/BacnetipControl.h:
+
+/home/brian/iot4/src/Control/Control.h:
+
+/home/brian/iot4/src/Control/ModbusRtuControl/ModbusRtuControl.h:
 
 /home/brian/iot4/src/Observer/MqttClient/MqttClient.h:
 
@@ -812,6 +828,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ratio:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/errno.h:
+
+/home/brian/iot4/src/Control/ModbusTcpControl/ModbusTcpControl.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/errno.h:
 
@@ -1288,6 +1306,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/include/mymuduo/InetAddress.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/arpa/inet.h:
+
+/home/brian/iot4/src/Control/OpcuaControl/OpcuaControl.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/typesizes.h:
 

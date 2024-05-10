@@ -35,13 +35,13 @@ void Dlt645Mediator::addControlFrame(const nextFrame& controlFrame)
 
 void Dlt645Mediator::onNextFrame()
 {
-    nextFrame next;
+    structNextFrame next;
     if(dlt645FramePtr_->getNextReadFrame(next))
     {
         sendFrame_ = next;
-        std::string buf(next.first.begin(), next.first.end());
+        std::string buf(next.nextframe.first.begin(), next.nextframe.first.end());
         serialPortPtr_->SendData(buf);
-        printFrame("TX", frame(next.first.begin(), next.first.end()));
+        printFrame("TX", frame(next.nextframe.first.begin(), next.nextframe.first.end()));
     }
     else
     {
@@ -54,7 +54,7 @@ void Dlt645Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, dlt645AnalysePtr_, msg, sendFrame_, nullptr));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, dlt645AnalysePtr_, msg, sendFrame_.nextframe, nullptr));
 }
 
 void Dlt645Mediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult result, int count, IEC104FrameType type)

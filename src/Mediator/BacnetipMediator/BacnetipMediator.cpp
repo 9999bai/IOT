@@ -38,13 +38,13 @@ void BacnetipMediator::HandleAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseR
 
 void BacnetipMediator::onNextFrame()
 {
-    nextFrame next;
+    structNextFrame next;
     if(bacnetipFramePtr_->getNextReadFrame(next))
     {
         sendFrame_ = next;
-        std::string buf(next.first.begin(), next.first.end());
+        std::string buf(next.nextframe.first.begin(), next.nextframe.first.end());
         udpClientPtr_->SendData(buf);
-        printFrame("TX", frame(next.first.begin(), next.first.end()));
+        printFrame("TX", frame(next.nextframe.first.begin(), next.nextframe.first.end()));
     }
     else
     {
@@ -56,5 +56,5 @@ void BacnetipMediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timesta
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, bacnetipAnalysePtr_, msg, sendFrame_, nullptr));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, bacnetipAnalysePtr_, msg, sendFrame_.nextframe, nullptr));
 }
