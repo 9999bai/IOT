@@ -22,7 +22,7 @@ public:
     void prientErrorClass(int &errorClass);
     void prientErrorCode(int& errorCode);
 
-    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
+    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending);
     void AnalyseNPDU_Control(const frame& data, int& index);
     void AnalyseAPDU(const frame& data, int& index, u_int16_t len, const iot_device& device, const std::vector<iot_template>& v_templat);
 

@@ -82,3 +82,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/brian/iot4/build/src/Factory/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/brian/iot4/build/src/open62541/cmake_install.cmake")
+endif()
+

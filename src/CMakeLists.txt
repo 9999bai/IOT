@@ -8,6 +8,8 @@ add_subdirectory(Mediator)
 add_subdirectory(NetSerial)
 add_subdirectory(Observer)
 add_subdirectory(Factory)
+add_subdirectory(open62541)
+
 
 target_link_libraries(main 
 PRIVATE
@@ -19,6 +21,7 @@ PRIVATE
     NetSerial
     Observer
     Factory
+    open62541
     mymuduo
     jsoncpp
     mysqlclient

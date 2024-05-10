@@ -1,8 +1,13 @@
 #include "MqttClient.h"
+#include "/usr/include/mymuduo/EventLoop.h"
 
-MqttClient::MqttClient(const mqtt_info& mqttconf) 
-            : Observer(mqttconf)
+const int MqttClient::kMaxRetryDelayMs;
+const int MqttClient::kInitRetryDelayMs;
+
+MqttClient::MqttClient(EventLoop *loop, const mqtt_info& mqttconf) 
+            : Observer(loop, mqttconf)
             , status_(false)
+            , retryDelayMs_(kInitRetryDelayMs)
 {
 
 }
@@ -17,7 +22,10 @@ void MqttClient::start()
 {
     if(!status_)
     {
+        LOG_INFO(" MQTT [%s] start...", mqttconf_.hostname.c_str());
         connect();
+    }else {
+        LOG_INFO(" MqttClient::start  error (status_ = true) ");
     }
 }
 
@@ -52,13 +60,22 @@ void MqttClient::connect()
         else
         {
             LOG_ERROR("MQTT [%s] connected failed  errno=%d... ", mqttconf_.hostname.c_str(), ret);
-            mosqpp::lib_cleanup();
+            // retry();
         }
     }
     else{
         LOG_ERROR("MQTT [%s] username_pw_set errno=%d... ",mqttconf_.hostname.c_str(), res);
     }
 }
+
+// void MqttClient::retry()
+// {
+//     LOG_INFO(" MQTT [%s] retry ... ", mqttconf_.hostname.c_str());
+//     mosqpp::lib_cleanup();
+//     loop_->runAfter(retryDelayMs_ / 1000.0, std::bind(&MqttClient::start, this));
+//     retryDelayMs_ = std::min(retryDelayMs_*2, kMaxRetryDelayMs);
+//     // LOG_INFO("MQTT [%s] retry 2... ", mqttconf_.hostname.c_str());
+// }
 
 void MqttClient::subscribeTopic()
 {
@@ -74,10 +91,13 @@ void MqttClient::subscribeTopic()
 void MqttClient::publicTopic(const std::string& msg)
 {
     // LOG_INFO("public msg = %s,  msg.size = %d", msg.c_str(), msg.size());
-    int ret = publish(NULL, mqttconf_.publishTopic.c_str(), msg.size(), (const void *)msg.c_str());
-    if (ret != MOSQ_ERR_SUCCESS)
+    if(status_)
     {
-        LOG_ERROR("MQTT publish errno=%d", ret);
+        int ret = publish(NULL, mqttconf_.publishTopic.c_str(), msg.size(), (const void *)msg.c_str());
+        if (ret != MOSQ_ERR_SUCCESS)
+        {
+            LOG_ERROR("MQTT publish errno=%d", ret);
+        }
     }
 }
 
@@ -121,7 +141,10 @@ void MqttClient::on_message(const struct mosquitto_message *message)
         // std::cout << "mqtt recv thread id = " << this_thread::get_id() << endl;
         // cout << "来自<" << message->topic << ">的消息：" << strRcv << std::endl;
 
-        observerRecvCallabck_(topic, strMsg);
+        if(observerRecvCallabck_)
+        {
+            observerRecvCallabck_(topic, strMsg);
+        }
     }
     else
     {

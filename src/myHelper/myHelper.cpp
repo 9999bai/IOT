@@ -343,7 +343,7 @@ void addIotDataTD(const iot_data_item& item)
 		std::unique_lock<std::mutex> lock(TD_mutex_);
 		list_iotdataTD_.emplace_back(item);
 	}
-	LOG_INFO("list_iotdataTD_++++++++");
+	// LOG_INFO("list_iotdataTD_++++++++");
 }
 
 void QueueData(int send_type, const iot_data_item& item)
@@ -353,7 +353,7 @@ void QueueData(int send_type, const iot_data_item& item)
 	{
         std::unique_lock<std::mutex> lock(RD_mutex_);
         queue_iotdataRD_.push(item);
-		LOG_INFO("实时表 +++++++++++++++");
+		// LOG_INFO("实时表 +++++++++++++++");
 	}
 	else
     {
@@ -446,4 +446,11 @@ BacnetIP_ObjectIdentifity strToObject(const std::string& strObject)
     return object;
 }
 
-
+void printNodeId(UA_NodeId *pId)
+{
+    UA_String strId;
+    UA_String_init(&strId);
+    UA_NodeId_print(pId, &strId);
+    printf("NodeID: %.*s\n", (UA_Int32) strId.length, strId.data);
+    UA_String_clear(&strId);
+}

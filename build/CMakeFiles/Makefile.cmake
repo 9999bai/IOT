@@ -20,6 +20,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/brian/iot4/src/NetSerial/CMakeLists.txt"
   "/home/brian/iot4/src/Observer/CMakeLists.txt"
   "/home/brian/iot4/src/myHelper/CMakeLists.txt"
+  "/home/brian/iot4/src/open62541/CMakeLists.txt"
   "/home/brian/toolchain.cmake"
   "/usr/local/share/cmake-3.24/Modules/CMakeCInformation.cmake"
   "/usr/local/share/cmake-3.24/Modules/CMakeCXXInformation.cmake"
@@ -58,6 +59,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "src/NetSerial/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/Observer/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/Factory/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/open62541/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -71,4 +73,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/NetSerial/CMakeFiles/NetSerial.dir/DependInfo.cmake"
   "src/Observer/CMakeFiles/Observer.dir/DependInfo.cmake"
   "src/Factory/CMakeFiles/Factory.dir/DependInfo.cmake"
+  "src/open62541/CMakeFiles/open62541.dir/DependInfo.cmake"
   )

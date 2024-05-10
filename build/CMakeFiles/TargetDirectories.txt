@@ -47,3 +47,8 @@
 /home/brian/iot4/build/src/Factory/CMakeFiles/package_source.dir
 /home/brian/iot4/build/src/Factory/CMakeFiles/edit_cache.dir
 /home/brian/iot4/build/src/Factory/CMakeFiles/rebuild_cache.dir
+/home/brian/iot4/build/src/open62541/CMakeFiles/open62541.dir
+/home/brian/iot4/build/src/open62541/CMakeFiles/package.dir
+/home/brian/iot4/build/src/open62541/CMakeFiles/package_source.dir
+/home/brian/iot4/build/src/open62541/CMakeFiles/edit_cache.dir
+/home/brian/iot4/build/src/open62541/CMakeFiles/rebuild_cache.dir

@@ -5,12 +5,13 @@ Dlt645Analyse::Dlt645Analyse()
 {
 
 }
+
 Dlt645Analyse::~Dlt645Analyse()
 {
 
 }
 
-void Dlt645Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe)
+void Dlt645Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending)
 {
     v_data.insert(v_data.end(), msg.begin(), msg.end());
     if (DLT645AnalyseFrame_Minsize > v_data.size())

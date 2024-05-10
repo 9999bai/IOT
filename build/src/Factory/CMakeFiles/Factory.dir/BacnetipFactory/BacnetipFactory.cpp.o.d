@@ -217,6 +217,48 @@ src/Factory/CMakeFiles/Factory.dir/BacnetipFactory/BacnetipFactory.cpp.o: \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/stack \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_stack.h \
  /usr/include/json-arm/writer.h \
+ /home/brian/iot4/src/open62541/open62541_gm.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netdb.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/rpc/netdb.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/netdb.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctls.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/ioctl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctl-types.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/net/if.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/fcntl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl-linux.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stat.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/param.h \
+ /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/limits.h \
+ /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/syslimits.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/limits.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix1_lim.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/local_lim.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/limits.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix2_lim.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/xopen_lim.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/signal.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/signum.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ucontext.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/param.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/param.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/param.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/param.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netinet/tcp.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/inttypes.h \
+ /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/assert.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/queue \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_heap.h \
  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h \

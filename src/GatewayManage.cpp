@@ -10,7 +10,7 @@ GatewayManage::GatewayManage(EventLoop* loop, const std::vector<iot_gateway>& v_
     ThreadPoolInit((v_gateway.size()*2) > THREADPOOL_MIN_THREAD_SIZE ? (v_gateway.size()*2) : THREADPOOL_MIN_THREAD_SIZE);
 
     // MQTT
-    observerPtr_ = std::make_shared<MqttClient>(mqttconf);
+    observerPtr_ = std::make_shared<MqttClient>(loop, mqttconf);
     // 解析控制帧
     observerPtr_->setObserverRecvCallback(std::bind(&GatewayManage::onObserverRecv, this, std::placeholders::_1, std::placeholders::_2));
     observerPtr_->start();
@@ -657,7 +657,14 @@ void GatewayManage::CreateBAcnetIPFactory(const iot_gateway& gateway)
 
 void GatewayManage::CreateOPCUAFactory(const iot_gateway& gateway)
 {
+    LOG_INFO("CreateOPCUAFactory...");
+    FactoryPtr opcuaFactory = std::make_shared<OpcUAFactory>(loop_);
+    MediatorPtr mediatorPtr = std::make_shared<OpcUAMeiator>(loop_, gateway, poolPtr_, opcuaFactory);
+    mediatorPtr->setAnalyseNotifyCallback(std::bind(&GatewayManage::onAnalyseFinishCallback, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5)); // 解析完成回调
 
+    controlmediator tmp(gateway.gateway_id, mediatorPtr);
+    v_controlmediator_.emplace_back(tmp);
+    mediatorPtr->start();
 }
 
 void GatewayManage::start()
@@ -919,14 +926,14 @@ void GatewayManage::onAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult r
         if(ok)
         {
             // 写 成功
-            LOG_INFO("ModbusRtuMediator 写成功...");
-            observerPtr_->publicTopic("21");
+            LOG_INFO(" 写成功...");
+            // observerPtr_->publicTopic("21");
         }
         else
         {
             // 写 失败
-            LOG_INFO("ModbusRtuMediator 写失败...");
-            observerPtr_->publicTopic("20");
+            LOG_INFO(" 写失败...");
+            // observerPtr_->publicTopic("20");
         }
     }
     else if(rw == enum_read)
@@ -934,14 +941,14 @@ void GatewayManage::onAnalyseFinishCallback(bool ok, enum_RW rw, AnalyseResult r
         if(ok)
         {
             // 读 成功
-            LOG_INFO("ModbusRtuMediator 读成功...");
-            observerPtr_->publicTopic("11");
+            // LOG_INFO(" 读成功...");
+            // observerPtr_->publicTopic("11");
         }
         else
         {
             // 读 失败
-            LOG_INFO("ModbusRtuMediator 读失败...");
-            observerPtr_->publicTopic("10");
+            LOG_INFO(" 读失败...");
+            // observerPtr_->publicTopic("10");
         }
     }
 }

@@ -4,7 +4,7 @@
 # compile CXX with /usr/local/HTZX-arm-4.8.3/bin/arm-linux-g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory
+CXX_INCLUDES = -I/usr/include/mymuduo -I/usr/include/json-arm -I/usr/include/openssl-arm -I/usr/include/iec61850 -I/home/brian/iot4/src -I/home/brian/iot4/src/myHelper -I/home/brian/iot4/src/Database -I/home/brian/iot4/src/Analyse -I/home/brian/iot4/src/Frame -I/home/brian/iot4/src/Mediator -I/home/brian/iot4/src/NetSerial -I/home/brian/iot4/src/Observer -I/home/brian/iot4/src/Factory -I/home/brian/iot4/src/open62541
 
 CXX_FLAGS =   -std=c++11 -pthread -fPIC -g
 

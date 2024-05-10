@@ -14,7 +14,7 @@ public:
 
     // friend class ModbusTcpAnalyse;
 
-    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
+    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending);
 
 private:
     // bool CompairData(const frame& src1, const frame& src2);

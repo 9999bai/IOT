@@ -29,7 +29,8 @@
 						6,
 						7,
 						8,
-						9
+						9,
+						10
 					],
 					"jsonFile" : "directory-src-Debug-b6cf2213fc5053b67c22.json",
 					"minimumCMakeVersion" : 
@@ -163,6 +164,21 @@
 					[
 						2
 					]
+				},
+				{
+					"build" : "src/open62541",
+					"jsonFile" : "directory-src.open62541-Debug-aee3c7726abdc52d6136.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/open62541",
+					"targetIndexes" : 
+					[
+						9
+					]
 				}
 			],
 			"name" : "Debug",
@@ -180,7 +196,8 @@
 						6,
 						7,
 						8,
-						9
+						9,
+						10
 					],
 					"name" : "iot_gateway",
 					"targetIndexes" : 
@@ -193,7 +210,8 @@
 						5,
 						6,
 						7,
-						8
+						8,
+						9
 					]
 				}
 			],
@@ -202,64 +220,71 @@
 				{
 					"directoryIndex" : 4,
 					"id" : "Analyse::@caeb3e34792b2e589e8c",
-					"jsonFile" : "target-Analyse-Debug-453232d7006cd510981b.json",
+					"jsonFile" : "target-Analyse-Debug-058567f57105725af7d6.json",
 					"name" : "Analyse",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 3,
 					"id" : "Database::@5eb6e4339f171c30ab95",
-					"jsonFile" : "target-Database-Debug-400f0e5985e00b37b7b4.json",
+					"jsonFile" : "target-Database-Debug-41b7c89a999c44896efd.json",
 					"name" : "Database",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 9,
 					"id" : "Factory::@4a68c72ba6922cc4b164",
-					"jsonFile" : "target-Factory-Debug-41654fd8fc429bbf39a4.json",
+					"jsonFile" : "target-Factory-Debug-c7f3e93333c8112ef51d.json",
 					"name" : "Factory",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 5,
 					"id" : "Frame::@42d89143f2870ea67c12",
-					"jsonFile" : "target-Frame-Debug-0f9465445a7cf78fdd77.json",
+					"jsonFile" : "target-Frame-Debug-200486b881e6d1fd8b37.json",
 					"name" : "Frame",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 6,
 					"id" : "Mediator::@9666e8d13ca5965c375d",
-					"jsonFile" : "target-Mediator-Debug-c7d54542f024c67ad7b1.json",
+					"jsonFile" : "target-Mediator-Debug-79537e6f2bd537848ad9.json",
 					"name" : "Mediator",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 7,
 					"id" : "NetSerial::@7c1e9210808bd4244572",
-					"jsonFile" : "target-NetSerial-Debug-c0a27d819c2dd647a4f9.json",
+					"jsonFile" : "target-NetSerial-Debug-8b4655eb9f99f4edcb54.json",
 					"name" : "NetSerial",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 8,
 					"id" : "Observer::@fc011238b54f2d4d129a",
-					"jsonFile" : "target-Observer-Debug-0d6b98aa7dc1a41b398f.json",
+					"jsonFile" : "target-Observer-Debug-07911ea5d309faba4477.json",
 					"name" : "Observer",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "main::@145eef247bfb46b6828c",
-					"jsonFile" : "target-main-Debug-1536369cf7b95cb1080b.json",
+					"jsonFile" : "target-main-Debug-3c80b75bfd7edacc1531.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "myHelper::@f337bba3e11ccd596114",
-					"jsonFile" : "target-myHelper-Debug-5d034e3e294f6bfceb62.json",
+					"jsonFile" : "target-myHelper-Debug-5bb1614efd5ee15aa085.json",
 					"name" : "myHelper",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "open62541::@0661e22d5f09fde8c118",
+					"jsonFile" : "target-open62541-Debug-b4a8878fc5c64bb36399.json",
+					"name" : "open62541",
 					"projectIndex" : 0
 				}
 			]

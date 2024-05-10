@@ -12,10 +12,12 @@ public:
     void setAnalyseFinishCallback(AnalyseFinishCallback cb) { analyseFinishCallback_ = cb; }
 
     // virtual void setFrameConf(const nextFrame& frameConfig) = 0;
-    virtual void AnalyseFunc(const std::string& msg, const nextFrame& nextframe) = 0;
+    virtual void AnalyseFunc(const std::string& msg, const nextFrame& nextframe, void* pending) = 0;
     // void ObserverRecvAnalyse(const std::string& topic,const std::string& msg);
     virtual bool HandleData(const frame& v_data, const nextFrame& nextframe);//modbus解析，其他协议重写此函数
 
+    // opc
+    virtual UA_StatusCode OPCMultiRead(UA_Client *client, UA_ReadResponse& response, UA_ReadValueId* arrayItem, const int& arraySize, const nextFrame& sendFrame);
 
     // IEC104
     u_int16_t getTX_SN() { return TX_SN_; }
@@ -48,6 +50,9 @@ protected:
     std::mutex RX_Mutex_;
     u_int16_t RX_SN_; // 接收序号
     
+    // OPC
+    void OPCAnalyse(const int& index, const nextFrame& sendFrame, const UA_Variant& out);
+
     // Modbus
     void HandleByte_order(const frame &v_data, frame& dest, const enum_byte_order &type);
     std::string HandleData_type(const frame &v_data, const enum_data_type& data_type, const std::string& correct_mode);

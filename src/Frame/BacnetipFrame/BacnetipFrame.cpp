@@ -48,7 +48,7 @@ void BacnetipFrame::start()
             templat.rw = enum_read;
             v_templat.emplace_back(templat);
 
-            if (++count >= 50)
+            if (++count >= BACNETIPREADSIZE)
             {
                 updateLength(tmp);
                 nextFrame nextf(tmp, pair_frame(device, v_templat));

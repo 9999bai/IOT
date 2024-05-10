@@ -1,0 +1,1 @@
+/usr/local/HTZX-arm-4.8.3/bin/arm-linux-gcc -fPIC -g -shared -Wl,-soname,libopen62541.so -o /home/brian/iot4/bin/libopen62541.so CMakeFiles/open62541.dir/open62541_gm.c.o   -L/usr/lib/mymuduo  -L/usr/lib/mysql-arm  -L/usr/lib/json-arm  -L/usr/lib/openssl-arm  -L/usr/lib/mosquitto-arm  -L/usr/lib/iec61850 

@@ -253,6 +253,19 @@ Factory/fast:
 	$(MAKE) $(MAKESILENT) -f src/Factory/CMakeFiles/Factory.dir/build.make src/Factory/CMakeFiles/Factory.dir/build
 .PHONY : Factory/fast
 
+#=============================================================================
+# Target rules for targets named open62541
+
+# Build rule for target.
+open62541: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 open62541
+.PHONY : open62541
+
+# fast build rule for target.
+open62541/fast:
+	$(MAKE) $(MAKESILENT) -f src/open62541/CMakeFiles/open62541.dir/build.make src/open62541/CMakeFiles/open62541.dir/build
+.PHONY : open62541/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -272,6 +285,7 @@ help:
 	@echo "... Observer"
 	@echo "... main"
 	@echo "... myHelper"
+	@echo "... open62541"
 .PHONY : help
 
 

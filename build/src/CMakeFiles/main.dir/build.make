@@ -116,6 +116,7 @@ main_EXTERNAL_OBJECTS =
 /home/brian/iot4/bin/main: /home/brian/iot4/bin/libNetSerial.so
 /home/brian/iot4/bin/main: /home/brian/iot4/bin/libObserver.so
 /home/brian/iot4/bin/main: /home/brian/iot4/bin/libFactory.so
+/home/brian/iot4/bin/main: /home/brian/iot4/bin/libopen62541.so
 /home/brian/iot4/bin/main: src/CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/brian/iot4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable /home/brian/iot4/bin/main"
 	cd /home/brian/iot4/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)

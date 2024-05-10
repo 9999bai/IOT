@@ -87,6 +87,7 @@ src/all: src/Mediator/all
 src/all: src/NetSerial/all
 src/all: src/Observer/all
 src/all: src/Factory/all
+src/all: src/open62541/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
@@ -98,6 +99,7 @@ src/preinstall: src/Mediator/preinstall
 src/preinstall: src/NetSerial/preinstall
 src/preinstall: src/Observer/preinstall
 src/preinstall: src/Factory/preinstall
+src/preinstall: src/open62541/preinstall
 .PHONY : src/preinstall
 
 # Recursive "clean" directory target.
@@ -110,6 +112,7 @@ src/clean: src/Mediator/clean
 src/clean: src/NetSerial/clean
 src/clean: src/Observer/clean
 src/clean: src/Factory/clean
+src/clean: src/open62541/clean
 .PHONY : src/clean
 
 #=============================================================================
@@ -233,6 +236,21 @@ src/myHelper/clean: src/myHelper/CMakeFiles/myHelper.dir/clean
 .PHONY : src/myHelper/clean
 
 #=============================================================================
+# Directory level rules for directory src/open62541
+
+# Recursive "all" directory target.
+src/open62541/all: src/open62541/CMakeFiles/open62541.dir/all
+.PHONY : src/open62541/all
+
+# Recursive "preinstall" directory target.
+src/open62541/preinstall:
+.PHONY : src/open62541/preinstall
+
+# Recursive "clean" directory target.
+src/open62541/clean: src/open62541/CMakeFiles/open62541.dir/clean
+.PHONY : src/open62541/clean
+
+#=============================================================================
 # Target rules for target src/CMakeFiles/main.dir
 
 # All Build rule for target.
@@ -244,6 +262,7 @@ src/CMakeFiles/main.dir/all: src/Mediator/CMakeFiles/Mediator.dir/all
 src/CMakeFiles/main.dir/all: src/NetSerial/CMakeFiles/NetSerial.dir/all
 src/CMakeFiles/main.dir/all: src/Observer/CMakeFiles/Observer.dir/all
 src/CMakeFiles/main.dir/all: src/Factory/CMakeFiles/Factory.dir/all
+src/CMakeFiles/main.dir/all: src/open62541/CMakeFiles/open62541.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/main.dir/build.make src/CMakeFiles/main.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/brian/iot4/build/CMakeFiles --progress-num=50,51,52 "Built target main"
@@ -251,7 +270,7 @@ src/CMakeFiles/main.dir/all: src/Factory/CMakeFiles/Factory.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/brian/iot4/build/CMakeFiles 54
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/brian/iot4/build/CMakeFiles 56
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/brian/iot4/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/main.dir/rule
@@ -472,6 +491,32 @@ Factory: src/Factory/CMakeFiles/Factory.dir/rule
 src/Factory/CMakeFiles/Factory.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/Factory/CMakeFiles/Factory.dir/build.make src/Factory/CMakeFiles/Factory.dir/clean
 .PHONY : src/Factory/CMakeFiles/Factory.dir/clean
+
+#=============================================================================
+# Target rules for target src/open62541/CMakeFiles/open62541.dir
+
+# All Build rule for target.
+src/open62541/CMakeFiles/open62541.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/open62541/CMakeFiles/open62541.dir/build.make src/open62541/CMakeFiles/open62541.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/open62541/CMakeFiles/open62541.dir/build.make src/open62541/CMakeFiles/open62541.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/brian/iot4/build/CMakeFiles --progress-num=55,56 "Built target open62541"
+.PHONY : src/open62541/CMakeFiles/open62541.dir/all
+
+# Build rule for subdir invocation for target.
+src/open62541/CMakeFiles/open62541.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/brian/iot4/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/open62541/CMakeFiles/open62541.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/brian/iot4/build/CMakeFiles 0
+.PHONY : src/open62541/CMakeFiles/open62541.dir/rule
+
+# Convenience name for target.
+open62541: src/open62541/CMakeFiles/open62541.dir/rule
+.PHONY : open62541
+
+# clean rule for target.
+src/open62541/CMakeFiles/open62541.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/open62541/CMakeFiles/open62541.dir/build.make src/open62541/CMakeFiles/open62541.dir/clean
+.PHONY : src/open62541/CMakeFiles/open62541.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

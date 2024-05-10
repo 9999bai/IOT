@@ -9,7 +9,7 @@ public:
     IEC104Analyse();
     ~IEC104Analyse();
 
-    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
+    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending);
 
     bool FrameListCount(frame &data, std::vector<frame> &framelist);
     IEC104FrameType FrameType(const char type);

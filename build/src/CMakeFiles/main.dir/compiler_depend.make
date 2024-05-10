@@ -238,6 +238,47 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: /home/brian/iot4/src/GatewayManage.
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/stack \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_stack.h \
   /usr/include/json-arm/writer.h \
+  /home/brian/iot4/src/open62541/open62541_gm.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/rpc/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctl-types.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/net/if.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/fcntl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl-linux.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stat.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/param.h \
+  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/limits.h \
+  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/syslimits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/limits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix1_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/local_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/limits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix2_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/xopen_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/signal.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/signum.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ucontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netinet/tcp.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/inttypes.h \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/queue \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_heap.h \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h \
@@ -287,6 +328,10 @@ src/CMakeFiles/main.dir/GatewayManage.cpp.o: /home/brian/iot4/src/GatewayManage.
   /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h \
   /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \
   /home/brian/iot4/src/Analyse/Pro188Analyse/Pro188Analyse.h \
+  /home/brian/iot4/src/Mediator/OpcuaMediator/OpcuaMediator.h \
+  /home/brian/iot4/src/Factory/OpcuaFactory/OpcuaFactory.h \
+  /home/brian/iot4/src/Frame/OpcuaFrame/OpcuaFrame.h \
+  /home/brian/iot4/src/Analyse/OpcuaAnalyse/OpcuaAnalyse.h \
   /home/brian/iot4/src/Observer/MqttClient/MqttClient.h \
   /usr/include/mosquitto-arm/mosquitto.h \
   /usr/include/mosquitto-arm/mosquittopp.h \
@@ -530,6 +575,47 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/stack \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_stack.h \
   /usr/include/json-arm/writer.h \
+  /home/brian/iot4/src/open62541/open62541_gm.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/rpc/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/netdb.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctls.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctl-types.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/net/if.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/fcntl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl-linux.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stat.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/param.h \
+  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/limits.h \
+  /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/syslimits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/limits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix1_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/local_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/limits.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix2_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/xopen_lim.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/signal.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/signum.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ucontext.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/param.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netinet/tcp.h \
+  /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/inttypes.h \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/queue \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_heap.h \
   /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h \
@@ -579,6 +665,10 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
   /home/brian/iot4/src/Factory/Pro188Factory/Pro188Factory.h \
   /home/brian/iot4/src/Frame/Pro188Frame/Pro188Frame.h \
   /home/brian/iot4/src/Analyse/Pro188Analyse/Pro188Analyse.h \
+  /home/brian/iot4/src/Mediator/OpcuaMediator/OpcuaMediator.h \
+  /home/brian/iot4/src/Factory/OpcuaFactory/OpcuaFactory.h \
+  /home/brian/iot4/src/Frame/OpcuaFrame/OpcuaFrame.h \
+  /home/brian/iot4/src/Analyse/OpcuaAnalyse/OpcuaAnalyse.h \
   /home/brian/iot4/src/Observer/MqttClient/MqttClient.h \
   /usr/include/mosquitto-arm/mosquitto.h \
   /usr/include/mosquitto-arm/mosquittopp.h \
@@ -601,8 +691,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/include/mysql-arm/mysql_time.h:
 
-/usr/include/mysql-arm/mysql_com.h:
-
 /usr/include/mysql-arm/mysql.h:
 
 /home/brian/iot4/src/Database/Database.h:
@@ -610,6 +698,10 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /home/brian/iot4/src/Database/MysqlDatabase/MysqlDatabase.h:
 
 /home/brian/iot4/src/Observer/MqttClient/MqttClient.h:
+
+/home/brian/iot4/src/Analyse/OpcuaAnalyse/OpcuaAnalyse.h:
+
+/home/brian/iot4/src/Frame/OpcuaFrame/OpcuaFrame.h:
 
 /home/brian/iot4/src/Analyse/Pro188Analyse/Pro188Analyse.h:
 
@@ -639,15 +731,77 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /home/brian/iot4/src/Frame/ModbusTcpFrame/ModbusTcpFrame.h:
 
-/home/brian/iot4/src/Mediator/ModbusTcpMediator/ModbusTcpMediator.h:
-
 /usr/include/mymuduo/UdpConnection.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/mathcalls.h:
 
+/usr/include/mysql-arm/mysql_version.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_vall.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_valf.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_val.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/strings.h:
+
+/home/brian/iot4/src/Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h:
+
+/home/brian/iot4/src/Frame/ModbusRtuFrame/ModbusRtuFrame.h:
+
+/home/brian/iot4/src/Mediator/Dlt645Mediator/Dlt645Mediator.h:
+
+/usr/include/mymuduo/SerialPort.h:
+
+/usr/include/mysql-arm/my_alloc.h:
+
+/home/brian/iot4/src/Frame/Frame.h:
+
+/home/brian/iot4/src/Analyse/Analyse.h:
+
+/home/brian/iot4/src/NetSerial/NetSerial.h:
+
+/home/brian/iot4/src/Factory/ModbusRtuFactory/ModbusRtuFactory.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/list:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/queue:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/param.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/param.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/param.h:
+
+/usr/include/mysql-arm/mysql_com.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigthread.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ucontext.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/sigcontext.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigcontext.h:
+
 /home/brian/iot4/src/Analyse/ModbusTcpAnalyse/ModbusTcpAnalyse.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/inf.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/signum.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/signal.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/limits.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/local_lim.h:
+
+/home/brian/iot4/src/Mediator/ModbusTcpMediator/ModbusTcpMediator.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix1_lim.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/limits.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/alloc_traits.h:
 
@@ -657,13 +811,11 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ratio:
 
-/home/brian/iot4/src/Factory/ModbusRtuFactory/ModbusRtuFactory.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/errno.h:
-
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/errno.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/errno.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netdb.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ctime:
 
@@ -674,8 +826,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stdlib-float.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/thread:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/locale_facets.tcc:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/basic_string.tcc:
 
@@ -701,19 +851,21 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/vector:
 
+/home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/gthr-default.h:
+
 /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stddef.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/endian.h:
-
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/endian.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/math.h:
+
+/usr/include/mymuduo/Timestamp.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/types.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/ctype.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/uses_allocator.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/timex.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/gthr.h:
 
@@ -721,7 +873,13 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/time.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigstack.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/xopen_lim.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/clocale:
+
+/home/brian/iot4/src/Factory/OpcuaFactory/OpcuaFactory.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cwctype:
 
@@ -730,8 +888,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cstdint:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/waitflags.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/basic_string.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/localefwd.h:
 
@@ -751,6 +907,10 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/wchar.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/param.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ioctl.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/c++locale.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/limits:
@@ -769,9 +929,15 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/stdexcept:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctls.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sigaction.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/gnu/stubs-soft.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/pthread.h:
+
+/home/brian/iot4/src/Mediator/OpcuaMediator/OpcuaMediator.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/backward/binders.h:
 
@@ -780,6 +946,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ext/atomicity.h:
 
 /usr/include/json-arm/config.h:
+
+/usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/syslimits.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/cwchar:
 
@@ -805,9 +973,15 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/streambuf:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_list.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/netdb.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ext/type_traits.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/functional_hash.h:
+
+/home/brian/iot4/src/open62541/open62541_gm.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/predefs.h:
 
@@ -819,8 +993,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/wordsize.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/list:
-
 /home/brian/iot4/src/Observer/Observer.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/range_access.h:
@@ -828,8 +1000,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include/stdint.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/errno.h:
-
-/home/brian/iot4/src/Analyse/Analyse.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/sstream:
 
@@ -853,7 +1023,11 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/basic_ios.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix_opt.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/posix2_lim.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/byteswap-16.h:
 
@@ -875,9 +1049,15 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/string:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctls.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stringfwd.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_relops.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/basic_string.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/siginfo.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/select.h:
 
@@ -901,10 +1081,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/c++config.h:
 
-/home/brian/iot4/src/Frame/ModbusRtuFrame/ModbusRtuFrame.h:
-
-/home/brian/iot4/src/Analyse/ModbusRtuAnalyse/ModbusRtuAnalyse.h:
-
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_algobase.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ext/numeric_traits.h:
@@ -915,9 +1091,19 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/environments.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_vector.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/cpp_type_traits.h:
 
 /usr/include/json-arm/reader.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/fcntl.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/locale_facets.tcc:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/param.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/debug/debug.h:
 
@@ -938,6 +1124,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/_G_config.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_iterator.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/inttypes.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/os_defines.h:
 
@@ -960,10 +1148,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_raw_storage_iter.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/ext/concurrence.h:
-
-/usr/include/mysql-arm/my_alloc.h:
-
-/home/brian/iot4/src/Frame/Frame.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/type_traits:
 
@@ -1015,8 +1199,6 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/error_constants.h:
 
-/home/brian/iot4/src/NetSerial/NetSerial.h:
-
 /home/brian/iot4/src/Mediator/BacnetipMediator/BacnetipMediator.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_bvector.h:
@@ -1047,6 +1229,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/locale_classes.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctls.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/errno.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/streambuf.tcc:
@@ -1063,6 +1247,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_stack.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm/ioctl.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/confname.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/streambuf_iterator.h:
@@ -1073,9 +1259,13 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/unordered_map:
 
-/home/brian/iot4/src/Mediator/Dlt645Mediator/Dlt645Mediator.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_heap.h:
 
-/usr/include/mymuduo/SerialPort.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/select.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/locale_classes.tcc:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/hashtable.h:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/sched.h:
 
@@ -1101,6 +1291,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/typesizes.h:
 
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/ioctl-types.h:
+
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/deque.tcc:
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/uio.h:
@@ -1122,6 +1314,8 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/sys/ttydefaults.h:
 
 /usr/include/mymuduo/Socket.h:
+
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/netinet/tcp.h:
 
 /usr/include/mymuduo/Channel.h:
 
@@ -1157,40 +1351,26 @@ src/CMakeFiles/main.dir/main.cpp.o: /home/brian/iot4/src/main.cpp \
 
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_tree.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/list.tcc:
-
 /usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_map.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/queue:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/uses_allocator.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/select.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/timex.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/locale_classes.tcc:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/rpc/netdb.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/hashtable.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/errno.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_heap.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/linux/ioctl.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_vector.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/asm-generic/ioctl.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_queue.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/endian.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/bits/stl_list.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/net/if.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi/bits/gthr-default.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/fcntl-linux.h:
 
-/home/brian/iot4/src/NetSerial/mySerialPort/mySerialPort.h:
+/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/stat.h:
 
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/strings.h:
-
-/usr/include/mymuduo/Timestamp.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/math.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_val.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_valf.h:
-
-/usr/include/mysql-arm/mysql_version.h:
-
-/usr/local/HTZX-arm-4.8.3/arm-none-linux-gnueabi/libc/usr/include/bits/huge_vall.h:
+/usr/local/HTZX-arm-4.8.3/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed/limits.h:

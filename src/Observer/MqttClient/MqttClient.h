@@ -11,7 +11,7 @@
 class MqttClient : mosqpp::mosquittopp , public Observer
 {
 public:
-    MqttClient(const mqtt_info &mqttconf);
+    MqttClient(EventLoop *loop, const mqtt_info &mqttconf);
     ~MqttClient();
 
     // void restart();
@@ -29,7 +29,12 @@ public:
 private:
     void connect();
     void subscribeTopic();
+    // void retry();
 
     bool status_;
+
+    int retryDelayMs_;
+    static const int kMaxRetryDelayMs = 30 * 1000; // 30s
+    static const int kInitRetryDelayMs = 3 * 1000; // 3s
     // mqtt_info mqttconf_;
 };

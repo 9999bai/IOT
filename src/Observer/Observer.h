@@ -5,7 +5,7 @@
 class Observer
 {
 public:
-    Observer(const mqtt_info& mqttconf);
+    Observer(EventLoop *loop, const mqtt_info& mqttconf);
     virtual ~Observer();
 
     void setObserverRecvCallback(ObserverRecvCallabck cb) { observerRecvCallabck_ = cb; }
@@ -16,4 +16,5 @@ public:
 protected:
     ObserverRecvCallabck observerRecvCallabck_;
     mqtt_info mqttconf_;
+    EventLoop *loop_;
 };

@@ -7,7 +7,7 @@ public:
     Dlt645Analyse();
     ~Dlt645Analyse();
 
-    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
+    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending);
 
 
 private:

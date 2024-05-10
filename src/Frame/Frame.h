@@ -21,6 +21,8 @@ public:
     bool getNextReadFrame(nextFrame &next_frame);           // 下一帧数据
     void addControlFrame(const nextFrame &controlFrame);    // 添加控制数据帧
 
+    // bool getOPCNextReadFrame(opcnextFrame &opcnextframe);
+
     // int getMark() { return mark_; }
 
 protected:
@@ -28,11 +30,13 @@ protected:
     iot_gateway gatewayConf_;
 
     int index_;
+    // int opcindex_;
     std::mutex W_QueueMutex;
     std::queue<nextFrame> W_Queue; // 控制数据帧集合
 
     std::mutex R_VectorMutex;
     std::vector<nextFrame> R_Vector;// 读数据帧集合
+    // std::vector<opcnextFrame> R_OPCVector; // opc
 
     // int mark_; // 0x00:normal  0x01:YC  0x02:YM  0x03:YC+YM
 };

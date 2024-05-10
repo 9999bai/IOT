@@ -10,7 +10,7 @@ IEC104Analyse::~IEC104Analyse()
 
 }
 
-void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe)
+void IEC104Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending)
 {
     v_data.insert(v_data.end(), msg.begin(), msg.end());
     if (IEC104AnalyseFrame_Minsize > v_data.size())

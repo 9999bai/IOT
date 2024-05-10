@@ -10,7 +10,7 @@ BacnetipAnalyse::~BacnetipAnalyse()
 
 }
 
-void BacnetipAnalyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe)
+void BacnetipAnalyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending)
 {
     LOG_INFO("BacnetipAnalyse::AnalyseFunc --start--");
     v_data.insert(v_data.end(), msg.begin(), msg.end());
@@ -826,7 +826,7 @@ std::string BacnetipAnalyse::AnalyseValue(const frame& data, int& index, BacnetI
 
 bool BacnetipAnalyse::findParam(const BacnetIP_ObjectIdentifity& object, const std::vector<iot_template>& v_templat, iot_template& res)
 {
-    char buf[10] = {0};
+    char buf[20] = {0};
     sprintf(buf, "%d-%d", object.objectType, object.InstanceNumber);
 
     for (iot_template templat : v_templat)

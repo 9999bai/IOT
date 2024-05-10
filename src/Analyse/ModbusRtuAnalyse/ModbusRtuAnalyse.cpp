@@ -14,7 +14,7 @@ ModbusRtuAnalyse::~ModbusRtuAnalyse()
 
 }
 
-void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextframe)
+void ModbusRtuAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextframe, void* pending)
 {
     // LOG_INFO("ModbusRtuAnalyse::AnalyseFunc v_data.capacity()=%d",v_data.capacity());
     v_data.insert(v_data.end(), msg.begin(), msg.end());

@@ -61,7 +61,7 @@ void IEC104Mediator::secTimer()
 
         std::vector<iot_template> v_templat;
         v_templat.emplace_back(templat);
-        sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
+        sendFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
 
         printFrame("TX", frame(buf.begin(), buf.end()));
         // LOG_INFO("IEC104Mediator::secTimer T2 currentThreadID = %d", (int)CurrentThread::tid());
@@ -84,7 +84,7 @@ void IEC104Mediator::secTimer()
 
         std::vector<iot_template> v_templat;
         v_templat.emplace_back(templat);
-        sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, v_templat));
+        sendFrame_ = nextFrame(u_testFrame_, pair_frame(device, v_templat));
 
         std::string buf(u_testFrame_.begin(), u_testFrame_.end());
         printFrame("TX", u_testFrame_);
@@ -141,7 +141,7 @@ void IEC104Mediator::onNextFrame()
     // nextFrame next;
     // if(iec104FramePtr_->getNextReadFrame(next))
     // {
-    //     sendedFrame_ = next;
+    //     sendFrame_ = next;
     //     std::string buf(next.first.begin(), next.first.end());
     //     tcpClientPtr_->SendData(buf);
     //     printFrame("TX", frame(next.first.begin(), next.first.end()));
@@ -156,7 +156,7 @@ void IEC104Mediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timestamp
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, iec104AnalysePtr_, msg, sendedFrame_));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, iec104AnalysePtr_, msg, sendFrame_, nullptr));
 }
 
 void IEC104Mediator::onConnection()
@@ -170,7 +170,7 @@ void IEC104Mediator::onConnection()
     
     std::vector<iot_template> v_templat;
     v_templat.emplace_back(templat);
-    sendedFrame_ = nextFrame(u_startFrame_, pair_frame(device, v_templat));
+    sendFrame_ = nextFrame(u_startFrame_, pair_frame(device, v_templat));
     
     printFrame("TX", u_startFrame_);
     tcpClientPtr_->SendData(std::string(u_startFrame_.begin(), u_startFrame_.end())); // 发送U帧启动帧
@@ -202,7 +202,7 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
         //     iot_device device;
         //     iot_template templat;
         //     templat.rw = enum_read;
-        //     sendedFrame_ = nextFrame(u_testFrame_, pair_frame(device, templat));
+        //     sendFrame_ = nextFrame(u_testFrame_, pair_frame(device, templat));
 
         //     printFrame("TX", u_testFrame_);
         //     tcpClientPtr_->SendData(buf);
@@ -218,7 +218,7 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
 
             std::vector<iot_template> v_templat;
             v_templat.emplace_back(templat);
-            sendedFrame_ = nextFrame(u_testRespFrame_, pair_frame(device, v_templat));
+            sendFrame_ = nextFrame(u_testRespFrame_, pair_frame(device, v_templat));
 
             printFrame("TX", u_testRespFrame_);
             tcpClientPtr_->SendData(buf);
@@ -229,7 +229,7 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
             nextFrame next;
             if(iec104FramePtr_->getNextReadFrame(next))
             {
-                sendedFrame_ = next;
+                sendFrame_ = next;
                 updateFrame(next.first, iec104AnalysePtr_->getTX_SN(), iec104AnalysePtr_->getRX_SN());
                 std::string buf(next.first.begin(), next.first.end());
 
@@ -258,7 +258,7 @@ void IEC104Mediator::HandleResult(AnalyseResult& result)
                 nextFrame next;
                 if(iec104FramePtr_->getNextReadFrame(next))
                 {
-                    sendedFrame_ = next;
+                    sendFrame_ = next;
                     updateFrame(next.first, iec104AnalysePtr_->getTX_SN(), iec104AnalysePtr_->getRX_SN());
                     std::string buf(next.first.begin(), next.first.end());
                     
@@ -320,7 +320,7 @@ void IEC104Mediator::HandleFrameType(int count, IEC104FrameType type)
 
                 std::vector<iot_template> v_templat;
                 v_templat.emplace_back(templat);
-                sendedFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
+                sendFrame_ = nextFrame(frame(buf.begin(), buf.end()), pair_frame(device, v_templat));
 
                 printFrame("TX", frame(buf.begin(), buf.end()));
                 tcpClientPtr_->SendData(buf);

@@ -49,7 +49,7 @@ void ModbusRtuMediator::onMessage(const ConnectionPtr &conn, Buffer *buf, Timest
 {
     std::string msg = buf->retrieveAllAsString();
     printFrame("RX", frame(msg.begin(), msg.end()));
-    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, modbusrtuAnalysePtr_, msg, sendedFrame_));
+    poolPtr_->run(std::bind(&Analyse::AnalyseFunc, modbusrtuAnalysePtr_, msg, sendFrame_, nullptr));
 }
 
 void ModbusRtuMediator::onNextFrame()
@@ -57,7 +57,7 @@ void ModbusRtuMediator::onNextFrame()
     nextFrame next;
     if(modbusrtuFramePtr_->getNextReadFrame(next))
     {
-        sendedFrame_ = next;
+        sendFrame_ = next;
         std::string buf(next.first.begin(), next.first.end());
         serialPortPtr_->SendData(buf);
         printFrame("TX", frame(next.first.begin(), next.first.end()));

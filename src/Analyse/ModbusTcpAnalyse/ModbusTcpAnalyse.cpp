@@ -10,7 +10,7 @@ ModbusTcpAnalyse::~ModbusTcpAnalyse()
     
 }
 
-void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextframe)
+void ModbusTcpAnalyse::AnalyseFunc(const std::string& msg, const nextFrame& nextframe, void* pending)
 {
     v_data.insert(v_data.end(), msg.begin(), msg.end());
     if(ModbusTcpAnalyseFrame_Minsize > v_data.size())

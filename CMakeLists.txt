@@ -19,6 +19,10 @@ link_directories("/usr/lib/openssl-arm")#openssl库文件
 include_directories("/usr/include/mosquitto-arm")#mqtt头文件
 link_directories("/usr/lib/mosquitto-arm")#mqtt库文件
 
+include_directories("/usr/include/iec61850")#libiec61850头文件
+link_directories("/usr/lib/iec61850")#libiec61850库文件
+
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 #静态库

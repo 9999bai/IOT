@@ -1,6 +1,8 @@
 #include "Observer.h"
 
-Observer::Observer(const mqtt_info& mqttconf) : mqttconf_(mqttconf)
+Observer::Observer(EventLoop *loop, const mqtt_info& mqttconf) 
+                    : loop_(loop)
+                    , mqttconf_(mqttconf)
 {
 
 }

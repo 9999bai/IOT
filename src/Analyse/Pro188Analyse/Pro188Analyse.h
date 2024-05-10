@@ -10,7 +10,7 @@ public:
     Pro188Analyse();
     ~Pro188Analyse();
     
-    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe);
+    void AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending);
 
 
 private:

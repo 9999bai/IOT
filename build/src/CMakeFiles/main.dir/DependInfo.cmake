@@ -22,6 +22,7 @@ set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/brian/iot4/build/src/NetSerial/CMakeFiles/NetSerial.dir/DependInfo.cmake"
   "/home/brian/iot4/build/src/Observer/CMakeFiles/Observer.dir/DependInfo.cmake"
   "/home/brian/iot4/build/src/Factory/CMakeFiles/Factory.dir/DependInfo.cmake"
+  "/home/brian/iot4/build/src/open62541/CMakeFiles/open62541.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

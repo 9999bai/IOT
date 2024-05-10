@@ -151,6 +151,9 @@
 		},
 		{
 			"path" : "src/Factory/CMakeLists.txt"
+		},
+		{
+			"path" : "src/open62541/CMakeLists.txt"
 		}
 	],
 	"kind" : "cmakeFiles",

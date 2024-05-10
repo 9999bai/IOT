@@ -13,7 +13,6 @@ Factory::~Factory()
     LOG_INFO("Factory::Factory dtor...................................");
 }
 
-
 NetSerialPtr Factory::createNetSerial(const enum_netserial_type& type, const iot_gateway& gateway)
 {
     switch(type)

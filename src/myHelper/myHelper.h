@@ -3,6 +3,7 @@
 #include "/usr/include/mymuduo/Helper.h"
 #include "/usr/include/mymuduo/Logger.h"
 #include "/usr/include/json-arm/json.h"
+#include "open62541/open62541_gm.h"
 
 #include <iostream>
 #include <vector>
@@ -236,8 +237,34 @@ typedef enum{
     enum_data_type_BA_enum,             // 枚举
     enum_data_type_BA_date,             // 日期
     enum_data_type_BA_time,             // 时间
-    enum_data_type_BA_ObjectIdentifity  // 对象标识符
-} enum_data_type;
+    enum_data_type_BA_ObjectIdentifity, // 对象标识符
+    enum_data_type_OPC_bool,
+    enum_data_type_OPC_sbyte,
+    enum_data_type_OPC_byte,
+    enum_data_type_OPC_int16,
+    enum_data_type_OPC_uint16,
+    enum_data_type_OPC_int32,
+    enum_data_type_OPC_uint32,
+    enum_data_type_OPC_int64,
+    enum_data_type_OPC_uint64,
+    enum_data_type_OPC_float,
+    enum_data_type_OPC_double,
+    enum_data_type_OPC_string,
+    enum_data_type_OPC_datetime,
+    enum_data_type_OPC_guid,
+    enum_data_type_OPC_bytestring,
+    enum_data_type_OPC_xmlelement,
+    enum_data_type_OPC_nodeid,
+    enum_data_type_OPC_expandednodeid,
+    enum_data_type_OPC_statuscode,
+    enum_data_type_OPC_qualifiedname,
+    enum_data_type_OPC_localizedtext,
+    enum_data_type_OPC_extensionobject,
+    enum_data_type_OPC_datavalue,
+    enum_data_type_OPC_variant,
+    enum_data_type_OPC_diagnosticinfo
+} 
+enum_data_type;
 
 typedef enum{
     enum_byte_order_normal = 0,
@@ -477,7 +504,7 @@ typedef struct{
 void ObjectIdentifier(const iot_template &templat, frame &data);
 BacnetIP_ObjectIdentifity strToObject(const std::string &strObject);
 
-
+void printNodeId(UA_NodeId *pId);
 
 // using AnalyseFinishCallback = std::function<void(const std::vector<iot_data_item>&)>;
 // using AnalyseFinishCallback = std::function<void(bool, enum_RW, AnalyseResult, std::pair<int, IEC104FrameType>)>;
@@ -489,8 +516,7 @@ using pair_frame = std::pair<iot_device, std::vector<iot_template>>;
 using map_frame = std::unordered_map<int, pair_frame>;
 
 using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
-
-
+// using opcnextFrame = std::pair<std::vector<UA_ReadValueId>, pair_frame>; // opc 下一帧数据
 
 /* 时间间隔以50毫秒为单位 */
 #define Project_ID 2                        // 项目id
@@ -538,11 +564,16 @@ using nextFrame = std::pair<frame, pair_frame>; //下一帧数据
 #define BACNETIP_RX_MAXLENGTH 1024
 #define BACNETIPAnalyeFrame_Minsize 0x09    // Bacnetip最小长度
 #define BACNETIP_Freq 200    // 20*50ms=1s
+#define BACNETIPREADSIZE 50  // 一次读取点位数量
+
+// opc
+#define OPCREADSIZE 5 // 每次读取节点数量
+
 
 #define SendPeriodTimer 40                  //定时发送数据  周期 单位：秒
 #define TD_Data_Title "TD"
 #define RD_Data_Title "RD"
-#define TD_DataSize  10     // 定时发送数据个数  个数/次
+#define TD_DataSize  10                     // 定时发送数据个数  个数/次
 
 extern std::string localip;
 

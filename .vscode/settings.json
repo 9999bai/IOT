@@ -52,7 +52,9 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "thread": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "open62541_gm.h": "c",
+        "cinttypes": "cpp"
     },
     "search.useGlobalIgnoreFiles": true
 }

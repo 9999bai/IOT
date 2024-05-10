@@ -10,6 +10,7 @@
 #include "Mediator/IEC104Mediator/IEC104Mediator.h"
 #include "Mediator/BacnetipMediator/BacnetipMediator.h"
 #include "Mediator/Pro188Mediator/Pro188Mediator.h"
+#include "Mediator/OpcuaMediator/OpcuaMediator.h"
 #include "Observer/MqttClient/MqttClient.h"
 #include "myHelper/myHelper.h"
 // // #include "Observer/RabbitMQ/RabbitMQClient.h"

@@ -10,7 +10,7 @@ Pro188Analyse::~Pro188Analyse()
 
 }
 
-void Pro188Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe)
+void Pro188Analyse::AnalyseFunc(const std::string &msg, const nextFrame &nextframe, void* pending)
 {
     v_data.insert(v_data.end(), msg.begin(), msg.end());
     if (CJT188AnalyseFrame_Minsize > v_data.size())
